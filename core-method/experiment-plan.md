@@ -142,6 +142,7 @@ Test whether the optimum council size changes with how complex the task is. For 
 
 - **Builder:** writes or changes the app
 - **Reviewers (the council):** each checks a focus area, such as bugs, security, risky changes or efficiency
+- **Trajectory reviewer:** one reviewer looks at the whole path of a session, not just the latest step. It flags drift with tripwires such as "below the OS" or "bypasses a security check". This comes from an earlier episode where step-by-step reviews missed a slow drift toward risky work.
 - **Judge:** runs the benchmarks and decides whether a generation really improved. It also signs off on the final result.
 - **Logger:** every generation writes a short log of what changed and why
 
@@ -215,7 +216,7 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
 - A public GitHub repo with the council calculator and a clear README.
 - A write-up or preprint explaining the results, and why each task template's optimum council size is set where it is.
 - Raw run logs in the repo, so anyone can check the results.
-- An animated explainer video built with Remotion, linked at the top of the README so visitors can see what the project is before reading further. The Remotion source code lives in the repo too. Before rendering, a small council of 2–3 fresh subagents reviews the video code independently (bugs, timing, overlapping text), which doubles as a mini pilot of the council method.
+- An animated explainer video built with Remotion, linked at the top of the README so visitors can see what the project is before reading further. The Remotion source code lives in a companion repo, [ablation-lab/council-video](https://github.com/ablation-lab/council-video). Before rendering, a small council of 2–3 fresh subagents reviews the video code independently (bugs, timing, overlapping text), which doubles as a mini pilot of the council method.
 
 ## Related research
 

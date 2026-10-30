@@ -8,6 +8,8 @@ When AI agents build software, a council of reviewer agents checks the work for 
 
 > **Teaser video:** coming soon.
 
+The explainer video's Remotion source, script and narration are in [ablation-lab/council-video](https://github.com/ablation-lab/council-video).
+
 ## Core method
 
 - [Experiment plan](core-method/experiment-plan.md): the full plan. It covers how "improved" is measured, evolution and stopping rules, keeping tests unbiased, cheating and collusion checks, failure modes, hard limits, the test plan and the final report.
@@ -21,7 +23,7 @@ When AI agents build software, a council of reviewer agents checks the work for 
 
 ## Supporting material
 
-- [Supporting material](supporting-material/): related research, citations and the explainer video source (to be added).
+- [Supporting material](supporting-material/): related research and citations. The explainer video source is in [ablation-lab/council-video](https://github.com/ablation-lab/council-video).
 
 ## Status
 
