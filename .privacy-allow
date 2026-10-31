@@ -1,0 +1,5 @@
+# Known-safe lines for scripts/privacy-check.sh. Each entry is the SHA-256 of "<path>:<exact line text>".
+# Get a line's hash with: bash scripts/privacy-check.sh --hash <path> <line number>
+# Any edit to an allowed line makes it a match again.
+ba8effe5431957bbcbcb47a22cc0431a834e658ab6f56a64f235341f44811301  core-method/winscope-pilot.md  verification round: Windows short-name placeholder path (USERNA~1), not a real user
+a8011366bc9d5dafa6d1a5dd7027916eea2a4359c707566ea34ca9195daf095f  core-method/winscope-pilot.md  "native code is unproven": the app's hardware counters, not George's hardware
