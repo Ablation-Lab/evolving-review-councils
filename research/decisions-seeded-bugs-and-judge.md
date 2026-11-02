@@ -1,6 +1,6 @@
 # Decisions: seeded bugs and the judge
 
-Oct 31, 2026. The nine open decisions from [seeded-bugs-and-judge.md](seeded-bugs-and-judge.md), ordered so the ones that block others come first.
+Oct 31, 2026. The nine open decisions from [seeded-bugs-and-judge.md](seeded-bugs-and-judge.md), ordered so the ones that block others come first. George's decisions recorded Nov 2, 2026.
 
 ## 1. Which model family stays off every council?
 
@@ -12,7 +12,7 @@ Oct 31, 2026. The nine open decisions from [seeded-bugs-and-judge.md](seeded-bug
 
 **Affects:** 2, 5, 8, 9.
 
-George's decision:
+George's decision: OpenAI stays off every council and acts as the judge. Councils use Claude, Google and DeepSeek.
 
 ## 2. Should the judge favour reproducibility or strength?
 
@@ -23,7 +23,7 @@ George's decision:
 
 **Affects:** 8, 9.
 
-George's decision:
+George's decision: GPT-6.1 Sol, pinned to a dated snapshot at high effort, with DeepSeek V4 Pro re-judging 10–20% of findings. Eventually every family takes a turn as judge.
 
 ## 3. Do reviewers see the whole codebase or a diff?
 
@@ -34,7 +34,7 @@ George's decision:
 
 **Affects:** 6, and token budgets.
 
-George's decision:
+George's decision: whole codebase by default, with diff as a comparison arm.
 
 ## 4. Are replays of the pilot's real bugs allowed as seeds?
 
@@ -45,7 +45,7 @@ George's decision:
 
 **Affects:** 6, and the sandbox rules.
 
-George's decision:
+George's decision: yes. Replay the pilot's real bugs as seeds, strictly sandboxed, with some kept only in the held-out set.
 
 ## 5. Who writes the LLM seeds, and how much do you check by hand?
 
@@ -57,18 +57,25 @@ George's decision:
 
 **Affects:** 6.
 
-George's decision:
+George's decision: Mistral writes the model-written seeds (it's on neither the councils nor the judge). Checking changes from the recommendation:
+- Stryker.NET mutants are checked automatically: they must compile, and at least one existing test must fail or the behaviour must visibly change.
+- George personally checks only the pilot-bug replays and the model-written seeds.
 
 ## 6. How many seeds, and in what severity mix?
 
 - **About 40 per app, 8–12 per variant, 10/20/40/30% critical/high/medium/low:** usable confidence intervals. Con: more seeding work.
 - **About 20 per app:** cheaper. Con: intervals about 40 points wide, too wide to compare councils.
 
-**Recommendation:** the first option, plus one clean variant per app to measure false alarms. Fewer seeds can't separate councils that differ by a few points.
+**Recommendation:** ~~the first option, plus one clean variant per app to measure false alarms. Fewer seeds can't separate councils that differ by a few points.~~ **Superseded** by [decision-6-seeds-and-stopping.md](decision-6-seeds-and-stopping.md), which found that 40 seeds can only detect differences of about 20 recall points.
 
 **Affects:** cost, and how the held-out set is built.
 
-George's decision:
+George's decision: option C from [decision-6-seeds-and-stopping.md](decision-6-seeds-and-stopping.md).
+- **Seeds:** 120 per app (80 search, 40 held out), keeping the 10/20/40/30% severity mix and one clean variant per app.
+- **Advance:** only if the 90% confidence interval for variant minus parent is above zero.
+- **Stop:** after two generations in a row with no advance, or at the caps.
+- **Calibration first:** it can adjust the seed count as the note describes.
+- **Scope:** start with one app (WinScope) to control cost, then extend to all three.
 
 ## 7. Which precision is the headline score?
 
@@ -79,7 +86,7 @@ George's decision:
 
 **Affects:** 8, and judge cost.
 
-George's decision:
+George's decision: count only planted bugs for the headline precision, and also report a second figure that credits real bugs nobody planted.
 
 ## 8. How do we check the judge before the first run?
 
@@ -90,7 +97,7 @@ George's decision:
 
 **Affects:** the start date.
 
-George's decision:
+George's decision: about 50 findings labelled by George before the first run, with at least 90% agreement with the judge required.
 
 ## 9. When do we lock in prices?
 
@@ -101,4 +108,4 @@ George's decision:
 
 **Affects:** nothing else.
 
-George's decision:
+George's decision: recheck prices the week before the first run, and record them in the run logs.
