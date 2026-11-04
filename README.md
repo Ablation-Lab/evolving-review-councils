@@ -2,7 +2,9 @@
 
 An experiment plan: AI reviewer councils that evolve over generations, to find how many reviewers each kind of task is worth.
 
-When AI agents build software, a council of reviewer agents checks the work for bugs, security holes and risky changes. Here the council evolves. Each generation tries to improve on the best version so far, and a change is kept only if it beats a fixed set of hard tests. Held-out tests the agents never see catch gaming. Repeating the runs at different council sizes and on tasks of different complexity shows where one more reviewer stops paying for itself.
+When an AI agent reviews code, it usually works alone. This project asks whether a council of reviewers catches more problems than one reviewer at the same cost, and whether councils can improve over generations. Here the council evolves. Each generation tries to improve on the best version so far, and a change is kept only if it beats a fixed set of hard tests. Held-out tests the agents never see catch gaming. Repeating the runs at different council sizes and on tasks of different complexity shows where one more reviewer stops paying for itself.
+
+It started when I asked Claude to spawn a council of separate reviewer agents instead of reviewing alone, which isn't something it does by default. Those councils kept catching problems the builder had missed, which raised the question: is a council actually worth it, or would one reviewer do as well for the same cost?
 
 <!-- Teaser video goes here. -->
 
