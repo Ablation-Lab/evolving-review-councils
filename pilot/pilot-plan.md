@@ -1,6 +1,6 @@
 # WinScope pilot: pre-registration
 
-**Status: DRAFT, not yet frozen.** Written Nov 3, 2026, before any pilot run. It is frozen (dated and committed) only after George approves the design. After that it doesn't change; any later deviation is reported as a deviation.
+**Status: DRAFT, not yet frozen.** Written Nov 3, 2026, before any pilot run. It is frozen (dated and committed) only after the researcher approves the design. After that it doesn't change; any later deviation is reported as a deviation.
 
 **This is a pilot.** With about 40 seeds it can only detect differences of about 20 recall points ([decision 6 note](../research/decision-6-seeds-and-stopping.md)). It doesn't replace the full experiment in the [experiment plan](../core-method/experiment-plan.md), and nothing here is a final result. Design details and costs are in [design-and-costs.md](design-and-costs.md).
 
@@ -14,7 +14,7 @@ On one real app (WinScope 1.1, about 17,600 lines of C# and XAML), does a three-
 - **Severity:** 4 critical, 8 high, 16 medium and 12 low (the plan's 10/20/40/30% mix).
 - **Variants:** four seeded variants of 10 seeds each, assigned at random within severity and source (the random seed is recorded). One clean variant with no seeds measures false alarms.
 - **Proof:** every seed has a triggering test that fails with it and passes without it. Reviewers never see the tests.
-- **Checking:** Stryker mutants are checked automatically (they must compile and fail at least one held-out test). George checks every replay and every Mistral seed by hand.
+- **Checking:** Stryker mutants are checked automatically (they must compile and fail at least one held-out test). The researcher checks every replay and every Mistral seed by hand.
 - **Hiding:** reviewers get a source tree with no git history and no tests, formatted the same way throughout. Comments that describe the exact behaviour a seed breaks are made neutral.
 
 ## Conditions
@@ -35,7 +35,7 @@ All Claude reviewers use Opus 5.5 at medium effort, through Claude Code on the M
 - **Merger:** every condition's output, including single reviewers', passes through the same merger (GPT-6.1 Sol). The merger doesn't see the answer key, and its output hides how many reviewers there were.
 - **Judge:** GPT-6.1 Sol, pinned to a dated snapshot, at high effort. It sees the merged findings, the answer key and the code, but not which condition produced them. A location pre-match (same file, within ±5 lines) narrows the candidates. The judge then rules each finding a match to seed X (same root cause), a real bug that wasn't planted, or a false alarm, and sets its severity.
 - **Second judge:** DeepSeek V4 Pro re-judges a random 15% of findings, drawn only from conditions with no DeepSeek reviewer. Agreement is reported as a percentage and as Cohen's kappa.
-- **Judge calibration:** before scoring, George labels about 50 findings from a separate calibration run (S1 on one variant, not counted in results). Scoring goes ahead only if the judge agrees with at least 90% of them.
+- **Judge calibration:** before scoring, the researcher labels about 50 findings from a separate calibration run (S1 on one variant, not counted in results). Scoring goes ahead only if the judge agrees with at least 90% of them.
 - **Metrics for each condition and run:**
   - recall on the 40 seeds, with a Wilson 95% interval
   - severity-weighted recall (×4 critical, ×2 high, ×1 medium, ×0.5 low)

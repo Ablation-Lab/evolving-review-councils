@@ -1,17 +1,17 @@
 # WinScope pilot: design and cost estimate
 
-Nov 3, 2026. For George to review before anything is spent. Nothing paid has run yet. The pre-registration is in [pilot-plan.md](pilot-plan.md).
+Nov 3, 2026. For the researcher to review before anything is spent. Nothing paid has run yet. The pre-registration is in [pilot-plan.md](pilot-plan.md).
 
 ## 1. What the checks found
 
 - **WinScope has no tests in its repo.** The pilot's 1,051 tests were never committed. The repo is a single `WinScope.csproj` (WPF, `net8.0-windows10.0.19041.0`, WinExe), with no test project anywhere in its history.
-- **The buggy pre-fix versions aren't in git.** 1.0 was committed as one squashed commit with the review fixes already in. So the pilot bugs can't be replayed from diffs. Each replay has to be rebuilt by hand from the pilot write-up, then checked by George.
+- **The buggy pre-fix versions aren't in git.** 1.0 was committed as one squashed commit with the review fixes already in. So the pilot bugs can't be replayed from diffs. Each replay has to be rebuilt by hand from the pilot write-up, then checked by the researcher.
 - **WinScope builds on this PC** (the .NET 8.0.427 SDK; the .NET 10 runtime is installed), with no warnings.
 - **The Stryker spike works.** I copied WinScope to a scratch folder, added an xUnit project with 16 tests for `WinPath.Normalize`, and ran Stryker.NET on `PathSafety.cs`.
   - The current Stryker, 5.0.0, won't install with the .NET 8 SDK. **4.16.0 does**, and it handles the WPF WinExe project without changes.
   - Stryker created 371 mutants in that file. Only 21 (6%) failed to compile. Stryker's safe mode handles these automatically.
   - Of the mutants it tested, 75 were killed by my 16 tests and 32 survived. The other mutants weren't covered by any test or were ignored.
-  - **So the mutant source works, provided I write held-out tests** to give George's automatic check ("compiles, and at least one test fails") something to fail. Those tests also serve as the seeds' triggering tests.
+  - **So the mutant source works, provided I write held-out tests** to give the researcher's automatic check ("compiles, and at least one test fails") something to fail. Those tests also serve as the seeds' triggering tests.
 - **Reviewer isolation works on the Max plan.** A smoke test ran Opus 5.5 with these flags:
 
   ```
@@ -35,9 +35,9 @@ Each variant is a copy of WinScope's `src` with no `.git` folder, no tests and n
 
 **Seed sources.**
 
-- **Replays (13):** rebuilt by me from the pilot write-up. See section 4 for the list for George to check.
+- **Replays (13):** rebuilt by me from the pilot write-up. See section 4 for the list for the researcher to check.
 - **Stryker mutants (14):** chosen by a script from killed mutants, spread across modules and operator types, using a fixed random seed. They're checked automatically.
-- **Mistral seeds (13):** Mistral Large 4 (`mistral-large-4-0`) gets one source file and a brief: category, severity, must compile, must look like real code, and no hinting comments. It returns a patch, a one-line root cause and a triggering test. About 20 candidates are generated, those that fail to compile or have no failing test are dropped, and George checks the rest. They're mostly security, privacy, deletion and WPF bugs, to fill the critical and high slots.
+- **Mistral seeds (13):** Mistral Large 4 (`mistral-large-4-0`) gets one source file and a brief: category, severity, must compile, must look like real code, and no hinting comments. It returns a patch, a one-line root cause and a triggering test. About 20 candidates are generated, those that fail to compile or have no failing test are dropped, and the researcher checks the rest. They're mostly security, privacy, deletion and WPF bugs, to fill the critical and high slots.
 
 **Seed severity by source:**
 
@@ -96,8 +96,8 @@ The 1.5M input per API review is the cumulative total over an agent's turns. If 
 
 **Budget controls**
 
-1. **A ledger in the harness.** Before every paid call, it estimates the cost and adds it to the spend so far. It refuses the call and stops the run if the projected total would pass **£160 (80% of £200)**, then writes a report for George. Each step also shows its estimate before it starts.
-2. **Caps with each provider, set by George.** The suggested caps add up to about $190 (£152), so they hold even if the ledger fails:
+1. **A ledger in the harness.** Before every paid call, it estimates the cost and adds it to the spend so far. It refuses the call and stops the run if the projected total would pass **£160 (80% of £200)**, then writes a report for the researcher. Each step also shows its estimate before it starts.
+2. **Caps with each provider, set by the researcher.** The suggested caps add up to about $190 (£152), so they hold even if the ledger fails:
    - OpenAI project budget: $50
    - DeepSeek prepaid top-up: $40
    - Mistral: $10
@@ -106,7 +106,7 @@ The 1.5M input per API review is the cumulative total over an agent's turns. If 
    Whether each provider can enforce a *hard* stop wasn't checked. Google budgets only send alerts, so the ledger is the real stop there.
 3. **API keys.** Keys go in environment variables (none are set yet). They're never written to files in either repo.
 
-## 4. Replays for George to check
+## 4. Replays for the researcher to check
 
 These are rebuilt from the [pilot write-up](../core-method/winscope-pilot.md). The comments that currently describe each fix are made neutral as part of the seed.
 
@@ -143,19 +143,19 @@ R10 and R11 are described only briefly in the write-up, so I'd have to reconstru
 - **C. Five variants, or fewer?** Five (four seeded plus one clean) keeps 10 seeds per variant, but needs 65 Claude sessions. Three variants (two seeded with 20 seeds each, plus one clean) cuts that to about 39, but puts twice as many bugs in each copy.
 - **D. Timing.** Run the Gemini reviews before Dec 1 to avoid the price rise. Recheck all prices the week before (decision 9).
 - **E. Publishing the seed key after the pilot.** **Recommendation:** publish it, so the pilot results can be checked in applications, and use fresh seeds for the full experiment. That needs 120 per app anyway.
-- **F. Provider caps.** George sets them and adds the API keys as environment variables. I can't do either.
+- **F. Provider caps.** The researcher sets them and adds the API keys as environment variables. I can't do either.
 
 ## 6. What I build after approval
 
 The harness goes in `pilot/harness/` in this repo (Python standard library only). Run order:
 
 1. **Free steps first:** the held-out test project and the replay seeds.
-2. **George checks the replays.**
+2. **The researcher checks the replays.**
 3. **Paid:** about 20 Mistral candidates, about $0.60.
-4. **George checks the Mistral seeds.**
+4. **The researcher checks the Mistral seeds.**
 5. **Free:** select Stryker mutants and build the variants.
 6. **Max plan:** the calibration run.
-7. **George labels the calibration findings.**
+7. **The researcher labels the calibration findings.**
 8. **Paid, about $5:** judge agreement check.
 9. **Freeze the pre-registration.**
 10. **Reviews:** Claude conditions on the Max plan, then MX (paid).
