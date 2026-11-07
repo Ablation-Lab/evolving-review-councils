@@ -327,6 +327,13 @@ A small app that estimates a council setup before any real usage is spent.
 - **Output:** a ready-to-paste prompt template that tells any AI how many reviewers to spawn, which models and effort levels to use, and what hard caps to apply.
 - **Learning:** every real run's logs feed back in, so the estimates get more accurate over time. The calculator is built only after the test runs are finished, so its templates and estimates use real results from the experiment instead of guesses.
 
+### Per-seat models, template tuning and dynamic councils (planned, not run)
+
+- **Per-seat models:** Council Dial 1.2.0 runs every seat on one model. I plan to choose a model per seat (for example Sonnet reviewers, an Opus judge and a Fable appealer), building on the "task templates" item in the Planned section of Council Dial's README.
+- **Tuning templates by app type:** across different kinds and sizes of application, I'll measure how often the appeal fires, how much the judge throws out (and how much of that was real), and how per-seat model choices change those numbers. The calculator's templates per task type are set from these logged results; Council Dial's own planned templates would start as best guesses until enough runs exist.
+- **Dynamic councils:** start with a lighter council; then, after the reviewers report, a fixed rule decides whether to add a judge, an appeal or both (for example, based on how many findings there are, how severe they are, or how much the reviewers disagree). The rule is fixed in advance and logged, and each run records both its planned and its final shape, so dynamic runs stay comparable with fixed types.
+- **Experiment:** dynamic vs fixed councils on the same material, comparing catches, false positives and cost.
+
 ## Order of work
 
 1. Session 1: Set up the harness, benchmarks and caps. Run small app #1 and check the usage it actually costs.
