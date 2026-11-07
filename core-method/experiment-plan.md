@@ -249,6 +249,12 @@ The full record of both runs is in Council Dial's [results file](https://github.
 - **Priority:** this is the next test round.
 - **Constraint:** Council Dial runs only Claude subagents, so non-Claude seats need a separate, optional add-on that calls other providers' APIs (being scoped separately). API keys go in environment variables only, never in files or commits.
 
+### Fable 5.1 as a judge or analyser (hypothesis, to test)
+
+- **Hypothesis:** Fable 5.1 may make a stronger judge or analyser, based on its two independent reviews of Council Dial, of 1.2.0 and 1.3.0 (see [who caught what](who-caught-what.md), entries 48, 50 and 51).
+- **Confounds:** each was a fresh session reviewing another model's work, there was no comparison reviewer, and Fable costs 2.5 times Opus 5.5 per token. Also, the S2 fix that fell short in 1.3.0 was the one Fable's own 1.2.0 review suggested (entry 50), so its suggestions also needed checking.
+- **Planned test:** the same diff reviewed independently by a fresh Opus session and a fresh Fable session at the same explicit effort, scored against known issues.
+
 ### Who owns severity (to test)
 
 - **Proposed split:** reviewers mainly find bugs and describe their impact; the judge sets severity.

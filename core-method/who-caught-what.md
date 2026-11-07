@@ -267,3 +267,15 @@ These entries come from the [voice-draft audit](voice-draft-audit.md) of every v
    - **Corrected:** a prompt meant for one session that was pasted into another
    - **What:** Claude Code in the receiving session refused to act on the prompt, said it had no pending commit, and flagged that the prompt's test-hygiene claim didn't match its own run, checking the settings file's timestamp as evidence. It also followed the scratch-folder-only hooks rule.
    - **Status:** reported, not checked.
+
+50. **Council Dial 1.3.0: no HIGH findings, but a token-count gap and a fix that fell short** (7 Nov)
+   - **Caught by:** Claude Fable 5.1, in an independent review of Council Dial 1.3.0 (`cef7463` to `74c5b70`)
+   - **Corrected:** Council Dial 1.3.0's token counting, and its S2 fix, which applied exactly the fix suggested by the 1.2.0 review (entry 48, also by Fable 5.1)
+   - **What:** no HIGH findings, and 20 of the 1.2.0 review's 28 findings fully fixed (4 partly, 4 not). N1: the tokens per run and the new token estimate count a run as complete when every *listed* agent has tokens, so a partly logged run can count as complete. N2: after the S2 fix, a planted model-id-shaped string in the log's main model still reached the type name and `setup`'s rerun command.
+   - **Status:** checked against the review report (`reviews/fable-review-1.3.0.md` in overnight-skills: the summary, the N1 and N2 sections and the status table in section 2). The findings weren't re-run against Council Dial's code for this log.
+
+51. **Claude Code's docs don't say a saved level for the chosen model is used** (7 Nov, voice-draft correction)
+   - **Caught by:** Claude Fable 5.1, in the same review (finding N5)
+   - **Corrected:** a claim in Council Dial 1.3.0's README (`README.md` and `plugin/README.md`, line 83) that came from a voice-drafted prompt
+   - **What:** the README said "Claude Code's documentation says that a saved level for the chosen model is used instead". The docs say that on another model the session's level doesn't apply, and to set `effort` in the subagent's definition; they don't say the saved level is used.
+   - **Status:** the README wording checked in council-dial at commit `74c5b70`. The docs' wording is as quoted in the review report, not re-checked. That the claim came from a voice-drafted prompt: reported, not checked.
