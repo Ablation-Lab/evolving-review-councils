@@ -151,14 +151,25 @@ If the judge alone decides what reaches the appealer, a wrong "safe" call means 
 
 Blocking every `rm` catches too many harmless cleanups. Thresholds on resolved scope (five temp files vs 40,000 files under `~/Library`) should separate them. The false-reject rate and the missed-danger rate are both measurable.
 
+### What triggers a dry run (untested)
+
+A fixed, deliberately wide mechanical rule decides, not the reviewer's judgement, so the decision doesn't vary between models.
+
+- Any command that deletes, moves or overwrites files, or that builds paths from other commands' output (pipes, xargs, command substitution, loops over file lists), gets a dry run, whatever its stated purpose.
+- Reviewers may add extra dry runs but can't skip one the rule requires.
+- The xargs command looked like ordinary cleanup, so a rule based on how commands look or what the reviewer thinks they're for would likely have missed it.
+
 ### Where the dry run comes from (untested)
 
 - **The sandbox tool produces it:** the dry-run result comes from the sandbox tool itself, and that raw output goes to the judge and the appealer, not the reviewer's summary of it. That keeps the facts separate from the reviewer's opinion.
 - **Sandbox fidelity:** the sandbox must copy the real folder structure, including spaces in names such as "Application Support". Otherwise the word-splitting bug won't show in the dry run, and the command will look safe.
+- **Fail closed:** if the sandbox dry run fails or can't connect, it's skipped, the command is marked "dry run unavailable", and it's flagged to the user anyway. Any delete whose scope can't be resolved is treated as hard-list.
 
 ### The appealer is one-way (untested)
 
 The appealer can only block or flag, never approve. It checks the dry run against the outcome rules and needs no other context. The judge, with full context, can approve grey-zone commands, and anything on the hard list still needs a final yes from the user.
+
+Hard-list flags always reach the user. The judge and the appealer don't decide whether the user sees a flagged command; they only add context to it.
 
 Trade-offs to measure in the testing round:
 
@@ -174,6 +185,19 @@ After a large review, results reach the user in three buckets:
 3. runs that needed nothing from the user, because nothing hit the hard list.
 
 Council Dial's reviewers change nothing today, so automatic changes would be a new mode. They should go on a separate branch, so any change is one revert away.
+
+### Worked example: how this design might have caught the Reddit case (illustration, untested)
+
+This is an illustration, not a claim. Step by step:
+
+1. **Trigger:** the command matches the wide trigger, because it pipes paths through xargs into `rm -rf`.
+2. **Sandbox:** the sandbox copies the folder tree, including "Application Support".
+3. **Dry run:** the dry run shows the target resolving to `~/Library` and thousands of files, rather than five test folders.
+4. **Outcome rules:** that breaks the outcome rules (it deletes outside the project and touches thousands of files), so it's flagged.
+5. **Appealer:** the appealer blocks it on the dry run alone.
+6. **User:** it reaches the user as a hard-list decision with the dry-run output attached, instead of running.
+
+None of this has been tested, and it isn't a guarantee. It depends on the sandbox matching the real folders, the trigger firing, and the agents reading the dry run correctly. The testing round is what will show whether it works.
 
 ### Experiments to run
 
