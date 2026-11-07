@@ -105,6 +105,69 @@ An informal pilot on a real app before the formal experiment. Full write-up: [Ho
 - Token budget per run. Stop cleanly when it's reached and still write the report.
 - No changes outside the sandbox or project folder, and nothing that touches the real system, drivers or boot settings.
 
+## Command gating: what reviewers may run (prompted by an agent rm -rf incident, Nov 2026)
+
+Everything in this section from "Proposed design" onwards is untested: none of it has been built or run.
+
+### The incident
+
+A user on r/ClaudeCode reported that Claude Code, running with `--dangerously-skip-permissions`, wiped `~/Library` on macOS. It ran `xargs -n1 dirname` on paths inside `~/Library/Application Support/`. xargs split each path at the space, so `dirname` returned `~/Library`, and that went to `rm -rf`. The command looked reasonable as written; the danger only showed in the resolved target.
+
+This is a self-reported anecdote, and the post isn't linked here yet. Only the xargs mechanism was reproduced independently (GNU xargs 4.10):
+
+```
+$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -n1 dirname
+Library
+Support/app/ch1
+$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -d '\n' -n1 dirname
+Library/Application Support/app/ch1
+```
+
+`-d` is a GNU option. The BSD xargs that ships with macOS doesn't have it, so the portable fix there is NUL-separated input with `-0` (for example `find ... -print0 | xargs -0 ...`).
+
+### Current state
+
+The rule is the same in Council Dial 1.1.0 (published on main) and 1.2.0 (in progress): "reviewers may not run code" is an instruction in the brief ("Don't run code from the material unless your brief says the user allowed it"), backed by the user's Claude Code permission settings. Reviewers are ordinary subagents that can use whatever tools the session allows. Council Dial itself enforces nothing.
+
+### Proposed design: two tiers (untested)
+
+- **Hard list:** commands reviewers never run, such as recursive deletes or anything outside the project folder. Enforced mechanically, not by the brief.
+- **Propose, don't execute:** any other risky command a reviewer wants run is sent to the judge instead of being run.
+
+**How the tiers fit together (untested):** the hard list is what a reviewer may never run itself; it can only propose those commands. Any proposal of a hard-list command skips the judge's "safe" call and goes straight to the appealer, and nothing on the hard list runs without a final yes from the user.
+
+### Who sees what (untested)
+
+- **Judge:** the full context, the reviewer's reasoning and the command.
+- **Independent appealer:** only the command plus a mechanical dry run of exactly what it would touch (resolved paths, file counts), with no reasoning attached. This differs from Council Dial's current appeal, which sees the judge's reasons for each finding it dismissed.
+- **Principle:** hide opinions from the appealer, not facts.
+- **Risk tags come from the dry run:** a tag such as "destructive / system-affecting" comes from the mechanical dry run, never from the proposing agent. The agent in the incident would honestly have tagged its command as harmless cleanup.
+
+### Single point of failure (untested)
+
+If the judge alone decides what reaches the appealer, a wrong "safe" call means nobody else sees the command. The fix: a mechanical rule forces escalation whatever the judge thinks. For example, any recursive delete or anything outside the project folder goes straight to the appealer. The judge then rules only on grey-zone commands.
+
+### Over-rejection (untested)
+
+Blocking every `rm` catches too many harmless cleanups. Thresholds on resolved scope (five temp files vs 40,000 files under `~/Library`) should separate them. The false-reject rate and the missed-danger rate are both measurable.
+
+### Experiments to run
+
+- **Command alone vs dry run:** give the appealer the command alone, or the command plus the dry-run expansion, and compare catch rates on destructive-command bugs.
+- **Escalation load:** in the WinScope pilot, log how often the mechanical escalation rule fires, to measure whether the appealer gets flooded.
+- **Council type under lopsided costs:** consensus-only submission is likely worst for safety gates, because a lone dissenter's catch is dropped. Single-veto or pooled is likely best.
+- **Finding appeal with vs without the judge's reasons:** run Council Dial's finding appeal with and without the judge's reasons, to test whether seeing them anchors it towards upholding dismissals. So far there is one data point: in run `20261107-2f23` the appeal upheld the one dismissal in 8.2 s. It was correct (the dismissed finding was a false positive), and one run can't show anchoring either way.
+- **Tool choice and fallback:** which tools each specialised council member chooses to use; how tool availability affects review quality; and when members fall back to other tools (for example the shell). Across models: whether reviewers get all tools, how often each model falls back and onto which tools versus carrying on, and whether that affects scores and fairness between models. [HalfLucid/FileInteractionMCP](https://github.com/HalfLucid/FileInteractionMCP) is a possible test subject. The blocked-`rm` question (does a model route around the block, for example by writing a script, ask, or stop?) is one case of this.
+- **Candidate seeded-bug class:** unquoted paths with spaces (shell word-splitting).
+
+### Design reference
+
+A community pattern: a hook that blocks all deletes and makes agents move files to a cleanup folder for a person to review.
+
+### Video note
+
+The incident is a candidate opener for a command-gating part of the main explainer video. The video has no such part yet.
+
 ## Test plan
 
 ### Small runs (three apps, kept cheap)
@@ -239,29 +302,4 @@ Earlier work shows that adding more agents doesn't automatically help, and that 
 
 *These section links are from general knowledge. Check them before citing them in an application or paper.*
 
-## Related incident: agent rm -rf via xargs word-splitting (Reddit, Nov 2026)
-
-**What was reported:** a user on r/ClaudeCode said Claude Code, running with `--dangerously-skip-permissions`, wiped `~/Library` on macOS. It ran `xargs -n1 dirname` on paths inside `~/Library/Application Support/`. xargs split each path at the space in "Application Support", so `dirname` was given `.../Library/Application` and returned `~/Library`, and that was passed to `rm -rf`.
-
-**What was checked:** this is a self-reported anecdote, and the post isn't linked here yet. The deletion itself wasn't checked. Only the xargs mechanism was reproduced independently (GNU xargs 4.10):
-
-```
-$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -n1 dirname
-Library
-Support/app/ch1
-$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -d '\n' -n1 dirname
-Library/Application Support/app/ch1
-```
-
-`-d` is a GNU option. The BSD xargs that ships with macOS doesn't have it, so the portable fix there is NUL-separated input with `-0` (for example `find ... -print0 | xargs -0 ...`).
-
-### Connections to this experiment
-
-1. **Gate before running, not review afterwards.** The councils in this plan review code after it's written. A council could also act as a gate on irreversible commands (deletes, overwrites, anything outside the project folder), approving or blocking each one before it runs. A deletion can't be fixed in a later round, so this is where the placement of a human in the loop matters most: before the command runs, not at the end-of-run report.
-2. **Experiment idea: raw command vs resolved targets.** Give reviewers either the raw command, or the command plus a dry-run expansion listing the paths it would actually touch (here, `~/Library`, not one app's folder). Hypothesis: the expansion greatly improves the catch rate on destructive-command bugs, because the bug is hidden in the command text and obvious in the target list.
-3. **Council type when costs are lopsided.** For a gate on irreversible actions, a miss costs far more than a false alarm. Consensus-only submission (keep only findings at least two reviewers agree on) is likely worst here, because a lone dissenter's catch is dropped. A judge risks dismissing a real catch, so an appeal step matters. Pooled findings or a single veto (any one reviewer can block) are likely best for irreversible actions.
-4. **Experiment idea: what a model does when blocked.** Commenters in the thread disagreed on whether a model routes around a blocked `rm`, for example by writing a script that deletes the files instead. The plan has no tool-fallback experiment yet, so this would start one: block a destructive command and measure, per model, whether it routes around the block, asks, or stops.
-5. **Candidate seeded-bug class: unquoted paths and word-splitting.** Paths with spaces and shell word-splitting (unquoted variables, `xargs` without `-0` or `-d '\n'`, `for f in $(ls)`) are common and easy to plant. The bug only shows when the data has a space in it, so the test app's fixtures need a path with a space.
-6. **Design reference: move, don't delete.** A hook that turns deletes into a move to a cleanup folder, which a person reviews and empties later, makes an irreversible action reversible and leaves the final call with a person. It's a reference design for where the human sits in the loop.
-
-**Open methods question:** the plan should state explicitly whether council members and judges are read-only, or at least barred from destructive commands. The hard limits bar changes outside the sandbox or project folder, but they don't say whether a reviewer running code against crafted inputs (one of the pilot's takeaways) may delete files inside it.
+**Related incident:** an agent `rm -rf` via xargs word-splitting (Reddit, Nov 2026). See [Command gating](#command-gating-what-reviewers-may-run-prompted-by-an-agent-rm--rf-incident-nov-2026).
