@@ -328,12 +328,20 @@ I measured how a subagent's effort level is set, on Claude Code 2.1.319, using t
 
 So comparing models without setting effort explicitly also changes effort. Every comparison run must set effort explicitly per seat and record it.
 
+A second round of tests (7 Nov, Claude Code 2.1.319) ran from a headless session in a scratch folder with project-level hooks, and each result was again confirmed by echo, hook and transcript.
+
+- With no effort set, a Fable 5.1 subagent ran at high and a Haiku 5.5 subagent at medium.
+- With effort set to high, Fable ran at high.
+- Only Opus had a saved level (high).
+
+Claude Code's docs give high as the default for every model except Opus 5.5, Sonnet 5.5 and Haiku 5.5 (medium) and Opus 4.7 (xhigh). They don't state outright that a subagent on another model uses that model's default; the tests show it does. So a council left on defaults can run different seats at different effort (for example, Sonnet reviewers at medium and a Fable appealer at high), and without a saved level Opus runs at medium while Fable runs at high. `CLAUDE_CODE_EFFORT_LEVEL` sets the level, while `CLAUDE_EFFORT` is set by Claude Code for reading it. The two names are easy to confuse; they are Claude Code's, not Council Dial's.
+
 - **The docs disagree:** Claude Code's docs give Sonnet 5.5's default as medium; the API docs say high. What I observed matched Claude Code's docs.
 - **Earlier runs:** Council Dial runs 20261107-f675 and 20261107-2f23 didn't record effort. The session's saved level was high, so they probably ran at high (inferred, not measured).
 - **What Council Dial can record:** only the effort it asked for. The level a seat actually ran at is visible in /tasks, hooks and OpenTelemetry, not in the completion notice Council Dial reads.
 - **Blinding:** judges and appealers never see which model or effort produced a finding. That information goes only in the log, for comparing runs afterwards.
 - **Planned test round:** the same planted-bug target at low, medium, high and xhigh, comparing bugs caught, false alarms and tokens. Thinking is billed as output, so effort may change cost more than the token total suggests.
-- **Planned Council Dial change:** an `--effort` option per seat, and a reminder, when a user picks a different model for a seat, that the model's own default effort will apply unless effort is set.
+- **Planned Council Dial change:** an `--effort` option per seat, and a reminder, when a user picks a different model for a seat, that the model's own default effort will apply unless effort is set. It should also warn when `CLAUDE_CODE_EFFORT_LEVEL` is set, because that overrides any per-seat effort choice.
 - **Test hygiene:** during these effort tests, the agent put its temporary logging hooks in my global user settings (`~/.claude/settings.json`), not a scratch folder. It backed the file up and restored it byte-identical, but every running session had the hooks in the meantime. Future tests must use project-level settings in a scratch folder only.
 - **Cross-family relay (plan only, nothing built):** planned as a separate repo, council-relay, with a re-judge mode that feeds the same saved reviewer reports to every judge. Phase 1 (Claude reviewers only) measures differences in judge leniency, not self-preference; separating out self-preference needs non-Claude reviewers (phase 2). Phase 1 is estimated at about $18, within the pilot's caps. Every judged seat gets an explicit, recorded effort setting, since effort levels aren't equivalent across providers.
 - **Model labels vs reality:** prompts I drafted in voice from 5 to 7 Nov 2026 were labelled Sonnet or Opus, but I ran nearly all of them on Opus 5.5 at high regardless. So a Sonnet label in these records isn't evidence of the model used. I dropped the labels from 7 Nov onwards.
