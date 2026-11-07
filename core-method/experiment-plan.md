@@ -127,7 +127,7 @@ Library/Application Support/app/ch1
 
 ### Current state
 
-The rule is the same in Council Dial 1.1.0 (published on main) and 1.2.0 (in progress): "reviewers may not run code" is an instruction in the brief ("Don't run code from the material unless your brief says the user allowed it"), backed by the user's Claude Code permission settings. Reviewers are ordinary subagents that can use whatever tools the session allows. Council Dial itself enforces nothing.
+The rule is the same in Council Dial 1.1.0 (published on main) and 1.2.0 (published on main, cef7463): "reviewers may not run code" is an instruction in the brief ("Don't run code from the material unless your brief says the user allowed it"), backed by the user's Claude Code permission settings. Reviewers are ordinary subagents that can use whatever tools the session allows. Council Dial itself enforces nothing.
 
 ### Proposed design: two tiers (untested)
 
@@ -219,6 +219,8 @@ None of this has been tested, and it isn't a guarantee. It depends on the sandbo
 - **Goal:** settle which role should make the call on destructive commands, what each needs to see, and how.
 - **Video note:** a planned segment for the main video, showing the command alone being waved through, then the dry run exposing `~/Library`.
 
+<!-- The appeal-related subsections from here to "Scoring lessons" may move to their own section when the paper version is made at submission. -->
+
 ### Testing the appeal step on the case it exists for (planned, not run)
 
 The full record of both runs is in Council Dial's [results file](https://github.com/Ablation-Lab/council-dial/blob/main/results/20261107-council-runs.md).
@@ -246,6 +248,38 @@ The full record of both runs is in Council Dial's [results file](https://github.
 - **Separating bias from skill:** plant the same bugs in every condition. A less biased appealer isn't automatically better; it may be weaker at spotting the bug. The same-model runs measure how big the bias is: if it's small, I'll choose appealers on skill and cost; if it's large, that's a headline finding.
 - **Priority:** this is the next test round.
 - **Constraint:** Council Dial runs only Claude subagents, so non-Claude seats need a separate, optional add-on that calls other providers' APIs (being scoped separately). API keys go in environment variables only, never in files or commits.
+
+### Who owns severity (to test)
+
+- **Proposed split:** reviewers mainly find bugs and describe their impact; the judge sets severity.
+- **Severity goes to appeal:** any severity downgrade, or any disagreement between a reviewer's severity and the judge's, goes to appeal, so the judge isn't a single point of failure on severity.
+- **Test:** briefs where reviewers rate severity vs judge-only severity, measuring who gets severity right against the answer key.
+
+### Two appealers (planned)
+
+- **Command appealer:** sees only the dry run and can only block or flag. It covers hard-list and destructive commands.
+- **Findings appealer:** checks the judge's dismissals and severity downgrades.
+- I'll stop adding layers there unless tests show a need.
+
+### What reaches the user (planned)
+
+- **Appealed decisions are never applied automatically.** They go to the user, summarised if there are many. A large number is a warning sign that the run itself needs reviewing again.
+- **Trust over time:** logged results let a user build trust in particular apps and review types and relax checks, except hard-list items, which always reach the user.
+- **Separate models per role:** if results support it, providers could offer separate models for the reviewer, judge and appeal roles, to keep them as independent as possible.
+
+### Default checklist in reviewer briefs (leaning, not decided)
+
+- **Proposal:** reviewer briefs include a specific checklist by default (for example, word-splitting in deletes), with an explainer of why and an off switch. It would come in as a new brief version and be tested against the current one.
+- **Related observation:** in my [voice-draft audit](voice-draft-audit.md), prompts that asked in their own words for claims to be checked got more corrections than prompts with only the generic "please verify" line: 50% of their checkable claims were corrected against 33%, and 9 of 12 prompts had at least one correction against 15 of 30. That's suggestive only, not controlled, and the audit notes the gaps aren't statistically clear.
+
+### Scoring lessons from an independent review (planned changes)
+
+An independent review of Council Dial 1.2.0 by Claude Fable 5.1 (7 Nov 2026, kept with the review log, outside this repo) raised these, as findings X1, R5, X2, X4 and D1:
+
+- **Use a "kept" share:** the "confirmed" share excludes OVERSTATED (real bugs given a lower severity), which inverted the two runs: run 2 kept 9 of 9 planted bugs and showed 54% confirmed, while run 1 kept 8 of 9 and showed 77%. I'll use a "kept" share (REAL plus OVERSTATED) and score severity calibration separately.
+- **Compare council types against the answer key:** council types can't be compared on shares of their own findings, because "findings combined" means different things for judged, pooled and consensus councils, and consensus filters before counting. I'll compare them on bugs caught and false positives against the answer key.
+- **A harder sample:** the sample is too easy. Three reviewers raised all 9 planted bugs in both runs, so it can't separate reviewer setups.
+- **Protecting the answer key:** reviewers can read any file in the project, so the answer key is protected only by copying the sample to an empty folder.
 
 ### Design reference
 
@@ -317,6 +351,14 @@ Test whether the optimum council size changes with how complex the task is. For 
 - The total is roughly 3–4 sessions, about 15–30% of a week.
 - Spread it over 2–3 fresh session windows, and start each run in a fresh window so a generation isn't cut off halfway.
 - Treat these as ballparks and recalibrate after the first small run.
+
+### API cost notes (rough, partly unmeasured)
+
+- **One Standard run:** at Anthropic's published API prices for Opus 5.5 ($4 per million input tokens and $20 per million output tokens, checked on the pricing page on 7 Nov 2026), a Standard run of about 240,000 tokens (run `20261107-2f23` used 239,891) costs roughly $1 if nearly all of it is input, and about $1.80 if about a fifth is output, before any caching discount. The input/output split wasn't recorded, so the actual cost isn't known.
+- **A checklist:** a checklist totalling about 5,000 tokens across a five-agent run (about 1,000 tokens per agent) adds about 2 cents per run.
+- **Fable 5.1:** 2.5 times Opus 5.5 per token ($10 input, $50 output).
+- **Subscriptions:** there's no per-token charge, only usage limits.
+- **Bigger apps cost more,** because every reviewer reads all the material. My guesses of about $5 for a medium app and $10 for a large one are unmeasured. The effect of effort level is still being checked; thinking is billed as output, which the pricing page itself doesn't state.
 
 ## Side experiments
 

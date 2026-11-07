@@ -255,3 +255,9 @@ These entries come from the [voice-draft audit](voice-draft-audit.md) of every v
    - **Caught by:** Claude Code
    - **Corrected:** the prompt's example of citing findings as "2f23/M12"
    - **What:** the four-character part of a run id is random per day and can repeat on another date, so findings are cited with the full run id.
+
+48. **An independent review found new problems in Council Dial** (7 Nov)
+   - **Caught by:** Claude Fable 5.1, in an independent review of Council Dial 1.2.0 (commit `cef7463`)
+   - **Corrected:** Council Dial's scoring, README and code
+   - **What:** among other findings, the "confirmed" share excludes OVERSTATED, which inverted the two runs (run 2 kept 9 of 9 planted bugs and showed 54%; run 1 kept 8 of 9 and showed 77%); the README's claim that a council pointed at `samples/` can't read the answer key is false, because subagents can read any file in the project; and the target description is stored at 600 characters but read back at 300, so `setup` and `list` truncate it.
+   - **Status:** checked against the review report (findings X1 and R5, D1 and C1), the README's wording at line 53, and `council.mjs` (`clean(target, 600)` when planning, `clean(r.target, 300)` when reading). 54% and 77% match 7 of 13 and 10 of 13 REAL in the results file. That the review ran in a fresh session and was told there were no known issues: reported, not checked.
