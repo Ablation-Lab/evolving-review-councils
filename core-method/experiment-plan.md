@@ -218,6 +218,19 @@ None of this has been tested, and it isn't a guarantee. It depends on the sandbo
 - **Goal:** settle which role should make the call on destructive commands, what each needs to see, and how.
 - **Video note:** a planned segment for the main video, showing the command alone being waved through, then the dry run exposing `~/Library`.
 
+### Testing the appeal step on the case it exists for (planned, not run)
+
+The full record of both runs is in Council Dial's [results file](https://github.com/Ablation-Lab/council-dial/blob/main/results/20261107-council-runs.md).
+
+- **Background:** runs `20261107-f675` (judged, no appeal) and `20261107-2f23` (judged plus appeal) both had reviewers raise all 9 planted bugs. In run 1 the judge dismissed planted bug #7 (an unchecked path from user input). After run 1, I deliberately edited the sample README to say the path comes from the blog name the user types at sign-up, because #7 wasn't clearly in scope before, so run 1's dismissal was partly defensible. Seven things changed between the runs (listed in the results file), including removing the "planted" wording and moving the judge brief to version 2. In run 2 the judge kept #7 and dismissed only an unplanted false positive, which the appeal upheld. So the appeal hasn't yet been tested on a wrongly dismissed real bug.
+- **Video note:** if the judge's dismissal is the cold open, I'll tell it honestly: the judge threw out a real bug partly because the docs didn't make its scope clear.
+- **Proposed test:** I won't use the old, ambiguous README. I'll run judged-with-appeal and judged-without-appeal several times each on the current neutral sample, with the same judge brief version and model, and count wrongful dismissals of planted bugs, how often the appeal flags them, and how often it flags correct dismissals. If judges rarely dismiss real bugs here, I'll build a harder sample where the evidence that a bug is in scope sits in a different file from the bug.
+- **Appeal gap:** the appeal sees only NOT REAL findings, so severity downgrades are never appealed; OVERSTATED rose from 2 to 5 between the runs. A possible variant is an appeal on downgrades.
+- **Cost:** in run 2 the appeal used 41,995 tokens, about 94% of the cheapest reviewer's tokens, and added about 21% to the run's tokens, despite checking one finding in 8.2 s. Inferred, not documented: most of each subagent's tokens look like a fixed cost of starting up and reading the material.
+- **Scoring:** run 2's judge merged two pairs of planted bugs (9 bugs became 7 findings), so I'll score on bugs covered, not findings. Real findings that weren't planted go in a separate, versioned "also real" list. REAL fell from 10 to 7 and OVERSTATED rose from 2 to 5, possibly because of the version 2 judge brief, but there are too few runs to say.
+- **Method:** Council Dial's log doesn't yet record which version of the material was reviewed, so I'll record the sample version by hand until it does. I'll also measure minutes the same way in every run before comparing runs (see entry 7 of the [who-caught-what log](who-caught-what.md)).
+- **Refuted claims:** two voice-drafted claims about these runs were checked and refuted. They're in the [who-caught-what log](who-caught-what.md) (entries 2 and 3), not repeated here.
+
 ### Design reference
 
 A community pattern: a hook that blocks all deletes and makes agents move files to a cleanup folder for a person to review.
