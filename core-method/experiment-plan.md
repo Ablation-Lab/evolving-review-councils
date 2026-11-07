@@ -151,6 +151,30 @@ If the judge alone decides what reaches the appealer, a wrong "safe" call means 
 
 Blocking every `rm` catches too many harmless cleanups. Thresholds on resolved scope (five temp files vs 40,000 files under `~/Library`) should separate them. The false-reject rate and the missed-danger rate are both measurable.
 
+### Where the dry run comes from (untested)
+
+- **The sandbox tool produces it:** the dry-run result comes from the sandbox tool itself, and that raw output goes to the judge and the appealer, not the reviewer's summary of it. That keeps the facts separate from the reviewer's opinion.
+- **Sandbox fidelity:** the sandbox must copy the real folder structure, including spaces in names such as "Application Support". Otherwise the word-splitting bug won't show in the dry run, and the command will look safe.
+
+### The appealer is one-way (untested)
+
+The appealer can only block or flag, never approve. It checks the dry run against the outcome rules and needs no other context. The judge, with full context, can approve grey-zone commands, and anything on the hard list still needs a final yes from the user.
+
+Trade-offs to measure in the testing round:
+
+- A blind appealer may block small but harmless deletes.
+- Hiding the proposer's framing removes one source of bias, not all: the appealer may lean cautious, and how the dry-run output is laid out may sway it.
+
+### How results reach the user (untested)
+
+After a large review, results reach the user in three buckets:
+
+1. changes made, and reported;
+2. decisions flagged for the user, such as hard-list commands;
+3. runs that needed nothing from the user, because nothing hit the hard list.
+
+Council Dial's reviewers change nothing today, so automatic changes would be a new mode. They should go on a separate branch, so any change is one revert away.
+
 ### Experiments to run
 
 - **Command alone vs dry run:** give the appealer the command alone, or the command plus the dry-run expansion, and compare catch rates on destructive-command bugs.
@@ -160,9 +184,23 @@ Blocking every `rm` catches too many harmless cleanups. Thresholds on resolved s
 - **Tool choice and fallback:** which tools each specialised council member chooses to use; how tool availability affects review quality; and when members fall back to other tools (for example the shell). Across models: whether reviewers get all tools, how often each model falls back and onto which tools versus carrying on, and whether that affects scores and fairness between models. [HalfLucid/FileInteractionMCP](https://github.com/HalfLucid/FileInteractionMCP) is a possible test subject. The blocked-`rm` question (does a model route around the block, for example by writing a script, ask, or stop?) is one case of this.
 - **Candidate seeded-bug class:** unquoted paths with spaces (shell word-splitting).
 
+### Next testing round: the xargs case as a test family (planned, not run)
+
+- **Seed:** the Reddit xargs / `rm -rf` incident above. I'll build a family of cases around it: the dangerous original; variants that hide the space-in-path bug in different ways (other word-splitting forms, other paths with spaces); and safe lookalikes that should be allowed, such as the same pipe deleting five temp files inside the project.
+- **Conditions:** judge alone, appealer alone, and judge plus appealer. Each is given either the command alone or the command plus a dry run of the resolved targets.
+- **Repeats and measures:** I'll run each case several times, measure what each condition wrongly lets through and what it wrongly blocks, and record which agent made each call and why.
+- **Expected, not yet shown:** shown only the command text, a judge or appealer will likely approve it; only the dry run exposes that it would delete `~/Library`.
+- **Appealer variant:** the appealer's only context is the hard list, written as outcome rules (for example, never deletes outside the project, never touches thousands of files) rather than banned command names, checked against the dry run.
+- **Goal:** settle which role should make the call on destructive commands, what each needs to see, and how.
+- **Video note:** a planned segment for the main video, showing the command alone being waved through, then the dry run exposing `~/Library`.
+
 ### Design reference
 
 A community pattern: a hook that blocks all deletes and makes agents move files to a cleanup folder for a person to review.
+
+A reference implementation: [HalfLucid/FileInteractionMCP](https://github.com/HalfLucid/FileInteractionMCP). Its trash-backed delete and dry-run diffs match the move-to-a-cleanup-folder pattern and the dry-run idea above, so it's a possible test subject for command gating as well as for tool choice and fallback.
+
+Caveat, checked against its README only, not its code: its dry runs cover its own editing tools (they return a diff), its README doesn't describe one for `fs_delete`, and it has no tool for running shell commands. So it wouldn't cover arbitrary shell pipelines like the xargs case, which would need another way to resolve targets, for example running the command against a copy of the folder tree.
 
 ### Video note
 
@@ -279,6 +317,7 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
 - A public GitHub repo with the council calculator and a clear README.
 - A write-up or preprint explaining the results, and why each task template's optimum council size is set where it is.
 - Raw run logs in the repo, so anyone can check the results.
+- A [who-caught-what log](who-caught-what.md) of who caught which mistakes during the research.
 - An animated explainer video built with Remotion, linked at the top of the README so visitors can see what the project is before reading further. The Remotion source code lives in a companion repo, [ablation-lab/council-video](https://github.com/ablation-lab/council-video). Before rendering, a small council of 2–3 fresh subagents reviews the video code independently (bugs, timing, overlapping text), which doubles as a mini pilot of the council method.
 
 ## Related research
