@@ -238,3 +238,30 @@ Earlier work shows that adding more agents doesn't automatically help, and that 
 - **Model comparison and the calculator** – [FrugalGPT (Chen et al., 2023)](https://arxiv.org/abs/2305.05176) and [RouteLLM (Ong et al., 2024)](https://arxiv.org/abs/2406.18665): sending each request to a cheaper or stronger model as needed can cut cost a lot without losing much quality. This is the same idea as Sonnet reviewers with an Opus judge.
 
 *These section links are from general knowledge. Check them before citing them in an application or paper.*
+
+## Related incident: agent rm -rf via xargs word-splitting (Reddit, Nov 2026)
+
+**What was reported:** a user on r/ClaudeCode said Claude Code, running with `--dangerously-skip-permissions`, wiped `~/Library` on macOS. It ran `xargs -n1 dirname` on paths inside `~/Library/Application Support/`. xargs split each path at the space in "Application Support", so `dirname` was given `.../Library/Application` and returned `~/Library`, and that was passed to `rm -rf`.
+
+**What was checked:** this is a self-reported anecdote, and the post isn't linked here yet. The deletion itself wasn't checked. Only the xargs mechanism was reproduced independently (GNU xargs 4.10):
+
+```
+$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -n1 dirname
+Library
+Support/app/ch1
+$ printf '%s\n' "Library/Application Support/app/ch1/file" | xargs -d '\n' -n1 dirname
+Library/Application Support/app/ch1
+```
+
+`-d` is a GNU option. The BSD xargs that ships with macOS doesn't have it, so the portable fix there is NUL-separated input with `-0` (for example `find ... -print0 | xargs -0 ...`).
+
+### Connections to this experiment
+
+1. **Gate before running, not review afterwards.** The councils in this plan review code after it's written. A council could also act as a gate on irreversible commands (deletes, overwrites, anything outside the project folder), approving or blocking each one before it runs. A deletion can't be fixed in a later round, so this is where the placement of a human in the loop matters most: before the command runs, not at the end-of-run report.
+2. **Experiment idea: raw command vs resolved targets.** Give reviewers either the raw command, or the command plus a dry-run expansion listing the paths it would actually touch (here, `~/Library`, not one app's folder). Hypothesis: the expansion greatly improves the catch rate on destructive-command bugs, because the bug is hidden in the command text and obvious in the target list.
+3. **Council type when costs are lopsided.** For a gate on irreversible actions, a miss costs far more than a false alarm. Consensus-only submission (keep only findings at least two reviewers agree on) is likely worst here, because a lone dissenter's catch is dropped. A judge risks dismissing a real catch, so an appeal step matters. Pooled findings or a single veto (any one reviewer can block) are likely best for irreversible actions.
+4. **Experiment idea: what a model does when blocked.** Commenters in the thread disagreed on whether a model routes around a blocked `rm`, for example by writing a script that deletes the files instead. The plan has no tool-fallback experiment yet, so this would start one: block a destructive command and measure, per model, whether it routes around the block, asks, or stops.
+5. **Candidate seeded-bug class: unquoted paths and word-splitting.** Paths with spaces and shell word-splitting (unquoted variables, `xargs` without `-0` or `-d '\n'`, `for f in $(ls)`) are common and easy to plant. The bug only shows when the data has a space in it, so the test app's fixtures need a path with a space.
+6. **Design reference: move, don't delete.** A hook that turns deletes into a move to a cleanup folder, which a person reviews and empties later, makes an irreversible action reversible and leaves the final call with a person. It's a reference design for where the human sits in the loop.
+
+**Open methods question:** the plan should state explicitly whether council members and judges are read-only, or at least barred from destructive commands. The hard limits bar changes outside the sandbox or project folder, but they don't say whether a reviewer running code against crafted inputs (one of the pilot's takeaways) may delete files inside it.
