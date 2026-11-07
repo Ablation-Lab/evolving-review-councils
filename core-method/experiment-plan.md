@@ -212,6 +212,7 @@ None of this has been tested, and it isn't a guarantee. It depends on the sandbo
 
 - **Seed:** the Reddit xargs / `rm -rf` incident above. I'll build a family of cases around it: the dangerous original; variants that hide the space-in-path bug in different ways (other word-splitting forms, other paths with spaces); and safe lookalikes that should be allowed, such as the same pipe deleting five temp files inside the project.
 - **Conditions:** judge alone, appealer alone, and judge plus appealer. Each is given either the command alone or the command plus a dry run of the resolved targets.
+- **Self-chosen dry runs (planned, untested):** each reviewer model decides for itself whether to request a dry run, compared with the mechanical trigger, to measure how often each model would have skipped the dry run that mattered.
 - **Repeats and measures:** I'll run each case several times, measure what each condition wrongly lets through and what it wrongly blocks, and record which agent made each call and why.
 - **Expected, not yet shown:** shown only the command text, a judge or appealer will likely approve it; only the dry run exposes that it would delete `~/Library`.
 - **Appealer variant:** the appealer's only context is the hard list, written as outcome rules (for example, never deletes outside the project, never touches thousands of files) rather than banned command names, checked against the dry run.
