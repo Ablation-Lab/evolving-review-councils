@@ -232,6 +232,21 @@ The full record of both runs is in Council Dial's [results file](https://github.
 - **Method:** Council Dial's log doesn't yet record which version of the material was reviewed, so I'll record the sample version by hand until it does. I'll also measure minutes the same way in every run before comparing runs (see entry 7 of the [who-caught-what log](who-caught-what.md)).
 - **Refuted claims:** two voice-drafted claims about these runs were checked and refuted. They're in the [who-caught-what log](who-caught-what.md) (entries 2 and 3), not repeated here.
 
+### Cross-family judges and appealers: measuring self-preference (next test round, planned)
+
+- **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
+- **The concern:** model judges may favour findings from their own model family (self-preference bias). The human analogue, in institutional failures such as the Post Office Horizon scandal, is people protecting their own. The AI analogue is shared blind spots: the same model, the same framing, and anchoring on the judge's reasons.
+- **Published work** (each abstract read on arXiv):
+  - [LLM Evaluators Recognize and Favor Their Own Generations](https://arxiv.org/abs/2404.13076) (Panickssery, Bowman & Feng, 2024): LLM evaluators score their own outputs higher than others' even when human annotators rate them as equal. GPT-4 and Llama 2 can tell their own text from other models' and from human text better than chance, and after fine-tuning, self-recognition and self-preference are linearly related.
+  - [Self-Preference Bias in LLM-as-a-Judge](https://arxiv.org/abs/2410.21819) (Wataoka, Takahashi & Ri, 2024): proposes a metric for the bias and finds a significant degree of it in GPT-4. LLM judges rate lower-perplexity (more familiar) text much higher than human evaluators do, whether or not they wrote it, which the authors take to mean familiarity drives the bias.
+  - [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) (Zheng et al., NeurIPS 2023 Datasets and Benchmarks): names self-enhancement bias alongside position and verbosity bias; the abstract doesn't quantify it.
+  - These papers test models judging their own outputs on general text, not a model family judging code-review findings, so they motivate this test rather than predict its result.
+- **Conditions:** the appealer is the same model as the judge; the same model as the reviewers; or from a third family different from both (for example Claude reviewers, an OpenAI judge, and a Gemini or DeepSeek appealer). I'll rotate families across seats rather than fixing one setup.
+- **Fairness levers beyond switching model:** rewrite findings into one neutral format, so a judge can't recognise its own family's style; and ask for evidence (a repro or quote) rather than opinion.
+- **Separating bias from skill:** plant the same bugs in every condition. A less biased appealer isn't automatically better; it may be weaker at spotting the bug. The same-model runs measure how big the bias is: if it's small, I'll choose appealers on skill and cost; if it's large, that's a headline finding.
+- **Priority:** this is the next test round.
+- **Constraint:** Council Dial runs only Claude subagents, so non-Claude seats need a separate, optional add-on that calls other providers' APIs (being scoped separately). API keys go in environment variables only, never in files or commits.
+
 ### Design reference
 
 A community pattern: a hook that blocks all deletes and makes agents move files to a cleanup folder for a person to review.
