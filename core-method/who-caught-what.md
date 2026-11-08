@@ -279,3 +279,19 @@ These entries come from the [voice-draft audit](voice-draft-audit.md) of every v
    - **Corrected:** a claim in Council Dial 1.3.0's README (`README.md` and `plugin/README.md`, line 83) that came from a voice-drafted prompt
    - **What:** the README said "Claude Code's documentation says that a saved level for the chosen model is used instead". The docs say that on another model the session's level doesn't apply, and to set `effort` in the subagent's definition; they don't say the saved level is used.
    - **Status:** the README wording checked in council-dial at commit `74c5b70`. The docs' wording is as quoted in the review report, not re-checked. That the claim came from a voice-drafted prompt: reported, not checked.
+
+## 8 Nov 2026
+
+52. **The appeal didn't always take about 20 seconds** (8 Nov, session f637b94a, tagged)
+   - **Caught by:** Claude Code
+   - **Corrected:** the voice draft's note that the appeal had agreed with every dismissal so far, "each time in about 20 seconds"
+   - **What:** the appeal times were 15.1, 20.7 and 18.6 s in Council Dial Lite, but 8.2 s in full run `20261107-2f23`, so the write-up says 8 to 21 seconds.
+   - **Status:** transcript.
+
+53. **Council Dial 1.3.8 can't put the judge alone on Sonnet** (8 Nov, session b006aa10, tagged)
+   - **Caught by:** Claude Code
+   - **Corrected:** the voice draft's request for a Sonnet 5.5 judge with every other seat on the session's model (the draft said to stop if that wasn't possible)
+   - **What:** Claude Code checked `council.mjs` and the skill before starting anything: the only model option applies to every seat, and the skill says to pass the chosen model on every agent call. It stopped and gave options; I chose Sonnet for every seat, which became run `20261108-75d7`.
+   - **Status:** transcript. The one-model-for-every-seat limit was also checked in Council Dial 1.3.8's README (the Model row).
+
+**Human-in-the-loop note:** both 8 Nov corrections came from voice-drafted prompts that ended with the line asking Claude Code to verify claims before acting.
