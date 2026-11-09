@@ -16,18 +16,26 @@ When Claude builds an app, a council of reviewer agents checks it for bugs, secu
 ## How "improved" is measured
 
 - Each test app gets a fixed test suite and a short checklist covering bugs, security and risky changes.
-- A generation only advances if it scores higher on that suite. A council saying it's better is not enough.
+- **Planted bugs:** known bugs are planted in each test app and kept secret from every agent. Each review is scored on what it catches, what it misses, what it falsely flags, and how serious its catches are.
+  - **How many (decided 2 Nov 2026):** 120 planted bugs ("seeds") per app: 80 for the evolution search and 40 held out, in a 10/20/40/30% critical/high/medium/low mix, plus one clean variant per app with none, to measure false alarms. A calibration run comes first and can adjust the count. I'll start with one app (WinScope) to control cost, then extend to all three. The reasoning is in [decision 6](../research/decision-6-seeds-and-stopping.md).
+- A generation only advances if a 90% confidence interval for its score minus its parent's, computed on the same seeds, lies above zero. A council saying it's better is not enough.
 - A locked set of held-out tests is never shown to the agents. It catches gaming, such as agents faking or weakening tests.
-- An efficiency score sits alongside quality: tokens used, number of agents and time taken.
+- Finding more isn't enough. False alarms (reported problems that aren't real) count against a council, since they waste time and tokens. The judge rules each finding real or false, and sets its severity, against the app's benchmark (its tests and a severity-weighted list of known issues), seeing the findings without knowing which council produced them. Models can recognise their own writing, so every finding is first rewritten into a fixed schema (file, lines, claim, evidence, proposed severity), dropping wording like "definitely".
+- Serious and critical findings are scored separately as well as in the overall score, so an average can't hide whether a council caught the one flaw that matters. There are few of them (about 12 critical seeds per app), so they're reported as counts ("caught 9 of 12"), not percentages.
+- An efficiency score sits alongside quality: tokens used, number of agents and time taken. Cost is measured in money as well as tokens, and setups are compared on whole cost-versus-quality curves, not single points.
+- **Same merger, outside judge:** every council's findings go through the same fixed, independent merger. The judge and the merger come from a model family that isn't on the council being judged, so no model marks its own family's work. That doesn't remove order or framing biases, so findings are also shown in random order, in the fixed format above. One model family is kept off every council and used only for the judge and the merger, so the same merger can serve every council, including cross-family ones.
+- **Repeats:** each setup runs several times, because results vary from run to run. Report the spread, not just the average.
+- **Published first:** this plan, the scoring rules and the stopping rules are published in the repo before the first run, so the goalposts can't move afterwards.
 
 ## How evolution and stopping work
 
 The councils don't decide when to stop. The stopping rules are fixed before the run, and the judge checks scores against them.
 
-- **Evolution:** each generation tries to improve the best version so far. Its changes are kept only if they beat that version's score. Otherwise they're thrown away, and the next generation starts again from the same best version.
+- **Evolution:** each generation tries a few variants of the best council so far, changing things like its size, roles, briefs or models. The best-scoring variant is kept only if it passes the advance rule above against that version. Otherwise they're thrown away, and the next generation starts again from the same best version.
 - **What's judged:** the output, not individual reviewers. Track which reviewers' suggestions end up in winning versions, to see which roles are worth keeping.
-- **Stop when any one of these happens:** the score plateaus (for example, two generations in a row improve by less than about 2%), the generation cap is hit, or the token budget runs out.
+- **Stop when any one of these happens:** two generations in a row where nothing advances, the generation cap is hit, or the token budget runs out.
 - **Winner:** the generation that scored best on the held-out tests, which isn't necessarily the last one.
+- **Control for evolution:** compare each evolving council against a non-evolving one that gets the same number of review rounds and the same spend. Otherwise "it got better" might just mean "it spent more".
 - **Optimum council size:** the point where one more reviewer costs more tokens than the quality it adds.
 - **External benchmarks:** combined indexes (Artificial Analysis Intelligence Index, Stanford HELM, Epoch Capabilities Index) score the base model. They don't change with council quality, so use them only to choose which models sit on the council. A small slice of SWE-bench can serve as a shared coding yardstick alongside each app's own tests.
 
@@ -109,7 +117,7 @@ An informal pilot on a real app before the formal experiment. Full write-up: [Ho
 
 ### Interpretation (Claude's read, not data)
 
-- Strong early evidence for the core premise: independent reviewers catch what authors miss, and verification rounds are worth their cost.
+- Early, informal support for a narrower premise, not proof: reviewers who didn't write the code find problems the authors' tests missed. Review rounds found 97 problems the builders' tests had passed, and the privilege hole shows a self-review miss caught by an independent reviewer. With no self-review or no-review control, the pilot can't show that councils beat other set-ups.
 - Doesn't yet answer the optimum-size question, since council size wasn't varied. The formal experiment should vary it.
 - Severity-weighting matters: findings varied a lot in importance, so counts alone may mislead. Score findings by severity.
 - The cost split (about half on review) supports scaling review effort to risk, which fits the council-size-by-task-tier idea.
@@ -121,7 +129,7 @@ An informal pilot on a real app before the formal experiment. Full write-up: [Ho
 
 - Maximum number of agents per generation
 - Maximum number of generations
-- Token budget per run. Stop cleanly when it's reached and still write the report.
+- Token budget and time limit per run, enforced by the orchestrator. Stop cleanly when either is reached and still write the report.
 - No changes outside the sandbox or project folder, and nothing that touches the real system, drivers or boot settings.
 
 ## Command gating: what reviewers may run (prompted by an agent rm -rf incident, Nov 2026)
@@ -442,14 +450,59 @@ Default setup: about 3 reviewers × 3 generations, with reviewers on medium effo
 
 One run with many more agents and generations, all still under hard caps. It answers one question: do lots of extra agents actually beat the small runs by enough to justify the usage?
 
+### Baselines: does it need a council at all?
+
+Each council is compared with simpler set-ups on the same apps, scored on the same benchmark and held-out tests. If a simpler set-up matches the council, that's the answer, and the recipe and calculator recommend it.
+
+- **One reviewer, broader brief, same budget:** one strong reviewer with a single broad brief (find every problem: bugs, security, risky changes and anything else) and the same token budget as the council. The council splits that budget across narrow, one-role briefs.
+- **Rerun one reviewer:** the same single reviewer run several times independently, against the same number of reviewers with different roles. This separates what different roles add from what more independent attempts add.
+- **Self-recheck:** one reviewer rechecking its own work, as a baseline for what fresh eyes add.
+- **Builder self-review, same cost:** the builder reviews its own code (including when the builder is the smarter model), with the same budget a council gets. This tests the self-review ("marking its own homework") hypothesis below, and it's the round the WinScope pilot lacked.
+- **Generalists, specialists or a mix:** all-generalist councils (every reviewer gets the same broad brief), all-specialist councils (one focused role each) and mixed councils, at equal cost. Evolution can move a council between them, so the results show whether specialisation earns its place. Research on personas suggests a bare label ("you're a security expert") can hurt, so briefs are real task instructions, and they are tested against no briefs.
+- **Diverse strong models (core hypothesis):** copies of one strong model probably share the same blind spots, so they mostly repeat each other. The hypothesis is that a council of different strong models, with different training, covers each other's blind spots and beats both one model and copies of it. Research on debate cuts the other way: a 2026 study found mixed-model debate teams lost to a simple vote among the same models, with accuracy tracking member capability rather than diversity, and Smit et al. (ICML 2024) found multi-agent debate doesn't reliably beat self-consistency or ensembling. Debate isn't independent review, which is why this is tested, not assumed. Arms, all at equal cost:
+  - three copies of one strong model
+  - different models from one family (for example Opus 5.5, an older Opus, Fable 5.1)
+  - a cross-family mix
+  - each of those models alone, at the same cost as the council. Different versions also differ in quality (an older Opus is weaker, Fable is stronger), so this separates a different perspective from raw quality
+  - a size mix (Haiku, Sonnet, Opus) as a contrast, to separate diversity from quality
+  Diverse councils may cost more tokens. If they win, the calculator weighs that against task risk, keeping diverse councils for high-risk code.
+- **Self-review ("marking its own homework"):** an AI reviewing its own work knows what it meant and may give itself the benefit of the doubt; related research on models rating text finds they can recognise and favour their own outputs (Panickssery et al., 2024), which motivates this but doesn't prove it for code review. The hypothesis is that, for review, a reviewer without the author's context beats a smarter model checking its own work. Tested at the same cost: a top model reviewing its own code (the builder self-review condition above) against cheaper reviewers who didn't write it.
+- **Smarter model alone:** a top model checking its own work, against cheaper reviewers who didn't write the code (see Builder self-review and Self-review above).
+
+### Merging the findings
+
+Someone has to combine the reviewers' reports, and that step decides what the author finally sees. A bad merger can drop a reviewer's best catch, let a false alarm through, or add blind spots of its own. Options compared:
+
+- a dedicated merger agent
+- the judge itself (a separate arm only: a judge that merges would then be scoring its own choices, and the number of reports would reveal the council's size)
+- keep everything, with no merging
+- keep only findings at least two reviewers agree on
+- a merger that evolves with the council
+
+For fair comparisons between councils, every council uses the same fixed, independent merger. The evolving merger is tested separately.
+
+### Other checks
+
+- **Fixer quality:** check that fixes actually land, using the verification round and the tests, so a council isn't credited for findings the author fixed badly.
+- **Task difficulty:** councils may only pay off on hard or high-risk code. The complexity tiers measure this, and the calculator uses it.
+- **Anchoring:** reviewers work independently by default. A separate arm lets reviewers see each other's findings, to measure whether it helps or makes them copy each other.
+
+### Simpler alternatives
+
+Also compared, and covered in the write-up rather than the video:
+
+- Traditional tools, such as linters and security scanners
+- Longer thinking (a higher effort level) for a single reviewer
+- Hand-tuned briefs, written by a person instead of evolved
+- Reviewing in stages, one focus after another, instead of in parallel
+
 ### Model comparison
 
 Where budget allows, compare:
 
-- Sonnet reviewers with an Opus judge (cheaper)
-- Opus reviewers with an Opus judge (stronger)
+- cheaper reviewers (e.g. Sonnet) against stronger reviewers (e.g. Opus), with the same judge for both
 
-The report should say whether the cheaper mix holds up.
+The judge always comes from a model family that isn't on the council (see How "improved" is measured). The report should say whether the cheaper mix holds up.
 
 ### Effort level: a hidden variable (measured 7 Nov 2026)
 
@@ -484,7 +537,7 @@ Claude Code's docs give high as the default for every model except Opus 5.5, Son
 
 ### Council size by task complexity
 
-Test whether the optimum council size changes with how complex the task is. For example, a basic app might only need about 6 reviewers, a scientific app might need about 20, and frontier research might need far more.
+Test whether the optimum council size changes with how complex the task is. Start small: in a classic industrial experiment, two-reviewer inspection teams found defects as well as four-reviewer teams, though one reviewer alone did worse (Porter et al., IEEE TSE 1997), so a small council may often be enough. Let the results decide, and let the calculator say when a small council is enough.
 
 - Run the same size sweep on tasks of different complexity tiers.
 - Record quality and token cost for each size and tier.
@@ -530,7 +583,7 @@ Test whether the optimum council size changes with how complex the task is. For 
 
 ### Tournament vs team
 
-An elimination format where reviewers are knocked out round by round until one is left. The hard tests decide each round, not votes, because AI judges tend to favour their own style. Compare the single winner against a varied team, since earlier research suggests diversity may beat one top reviewer.
+An elimination format where reviewers are knocked out round by round until one is left. The hard tests decide each round, not votes, because AI judges tend to favour their own style. Generalist and specialist reviewers enter the same bracket. Compare the single winner against a team that mixes models. This is a side experiment only: a knockout doesn't match cost, so it can't answer the smarter-model or diverse-models questions. The matched-cost baselines above answer those.
 
 ### Split or Steal final (prisoner's dilemma)
 
@@ -657,11 +710,17 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
 
 Earlier work shows that adding more agents doesn't automatically help, and that the best number depends on the task. This experiment adds evolving councils for code review, a council-size scale for each complexity tier, and a calculator that outputs a ready-to-use prompt.
 
-- [Towards a science of scaling agent systems](https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/) (Google Research): tested 180 agent setups. Piling on more agents often hits a ceiling and can make results worse.
+- [Towards a science of scaling agent systems](https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/) (Kim et al., Google Research, [arXiv 2512.08296](https://arxiv.org/abs/2512.08296)): tested 260 agent setups (180 in the first version). Piling on more agents often hits a ceiling and can make results worse.
 - [Scaling Behavior of Single LLM-Driven Multi-Agent Systems](https://arxiv.org/abs/2606.00655): the type of task has a big effect on the best number of agents.
 - [Understanding Agent Scaling via Diversity](https://arxiv.org/html/2602.03794v1): adding identical agents gives strongly diminishing returns, but mixing different models, prompts or tools keeps paying off.
 - [On the Importance of Task Complexity in Evaluating LLM-Based Multi-Agent Systems](https://arxiv.org/html/2510.04311v1): multi-agent gains level off as tasks get wider, but keep growing as tasks get deeper.
 - [Literature Review of Multi-Agent Debate](https://arxiv.org/html/arXiv:2506.00066): the best agent count depends on task complexity, agent diversity and how the agents communicate.
+- [Beyond Symmetric Agents: Cognitive Diversity and Multi-Agent Debate in Small Language Models](https://arxiv.org/abs/2609.35875) (Ferreira, Liu & Zheng, 2026, preprint): in debates between small open models on maths and quiz questions (including GPQA Diamond and MMLU-Pro slices) and factual biography writing, a budget-matched majority vote tied or beat debate at a fraction of the token cost; deliberately extreme personas, not task-matched roles, lowered these small models' accuracy; mixed-model teams didn't beat a vote over their own members. The closest counter-evidence to councils, and the reason the baselines above exist. Its setting differs: agents debate rather than review independently, on single-answer tasks.
+- [Large Language Models Cannot Self-Correct Reasoning Yet](https://arxiv.org/abs/2310.01798) (Huang et al., ICLR 2024): models struggle to correct their own reasoning without outside feedback. Supports outside checks rather than self-review, but more for different models or tool-based checks than for fresh copies of the same model: its only test of other agents used copies of the same model, which matched voting and did no better.
+- [LLM Evaluators Recognize and Favor Their Own Generations](https://arxiv.org/abs/2404.13076) (Panickssery, Bowman & Feng, NeurIPS 2024): on news summaries, GPT-4 and GPT-3.5 recognised and favoured their own outputs, though Llama 2 didn't. One reason hidden tests and the planted-bug key decide wherever they can, and an outside-family LLM judge rules only on matching, severity and unplanted findings, checked against human labels.
+- [When "A Helpful Assistant" Is Not Really Helpful: Personas in System Prompts Do Not Improve Performances of Large Language Models](https://arxiv.org/abs/2311.10054) (Zheng et al., Findings of EMNLP 2024): persona labels don't improve accuracy and their effect is largely random. Why briefs are real task instructions, tested against no briefs.
+- [Should We Be Going MAD? A Look at Multi-Agent Debate Strategies for LLMs](https://arxiv.org/abs/2311.17371) (Smit et al., ICML 2024): multi-agent debate, in its current form, doesn't reliably beat other strategies such as self-consistency and ensembling. Counter-evidence for the diverse-models hypothesis, in a debate rather than review setting.
+- [An Experiment to Assess the Cost-Benefits of Code Inspections in Large Scale Software Development](https://doi.org/10.1109/32.601071) (Porter, Siy, Toman & Votta, IEEE TSE 1997): in a live industrial project, two-reviewer inspection teams were as effective at finding defects as four-reviewer teams, and both beat one reviewer alone (section 3.6 of the full text). Why council size starts small.
 - Darwin Gödel Machine (Sakana AI): self-improving coding agents. It's also a known case of agents faking test results to look improved.
 - RepliBench (UK AI Security Institute): a benchmark for testing whether models can replicate themselves autonomously.
 - [The Platonic Representation Hypothesis](https://arxiv.org/abs/2405.07987) (Huh, Cheung, Wang & Isola, ICML 2024, as a position paper): argues that capable models converge on a shared representation of the world, across architectures and modalities; in the paper's words, "all strong models are alike, each weak model is weak in its own way". Connection: it challenges the assumption that a judge or appealer from a different model family is independent, since that independence may shrink as models improve. It supports getting independence from limited context and narrow roles, not from family alone. Caveat: it measures internal representations, not reviewing behaviour, and its peak cross-modal (language-vision) alignment was low, about 0.16 on a scale whose maximum is 1, which the authors leave as an open question.
@@ -671,7 +730,7 @@ Earlier work shows that adding more agents doesn't automatically help, and that 
 - **Judge role** – [Judging LLM-as-a-Judge (Zheng et al., 2023)](https://arxiv.org/abs/2306.05685): LLM judges largely agree with humans, but they have known biases, such as favouring longer answers or their own outputs. This is why the plan relies on hard benchmarks.
 - **How "improved" is measured / gaming** – Specification gaming (DeepMind, 2020): agents often meet the letter of a goal instead of its spirit. This is why the plan uses held-out tests.
 - **Outside oversight** – [Measuring Progress on Scalable Oversight (Bowman et al., 2022)](https://arxiv.org/abs/2211.03540): how humans can supervise AI systems doing work they can't fully check themselves.
-- **Model comparison and the calculator** – [FrugalGPT (Chen et al., 2023)](https://arxiv.org/abs/2305.05176) and [RouteLLM (Ong et al., 2024)](https://arxiv.org/abs/2406.18665): sending each request to a cheaper or stronger model as needed can cut cost a lot without losing much quality. This is the same idea as Sonnet reviewers with an Opus judge.
+- **Model comparison and the calculator** – [FrugalGPT (Chen et al., 2023)](https://arxiv.org/abs/2305.05176) and [RouteLLM (Ong et al., 2024)](https://arxiv.org/abs/2406.18665): sending each request to a cheaper or stronger model as needed can cut cost a lot without losing much quality. This is the same idea as comparing cheaper reviewers (e.g. Sonnet) with stronger ones (e.g. Opus).
 
 *These section links are from general knowledge. Check them before citing them in an application or paper.*
 

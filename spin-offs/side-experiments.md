@@ -5,9 +5,10 @@ A spin-off of the Evolving Council & Optimum Size Experiment. Two extra experime
 ## Knockout tournament vs varied team
 
 - **Question:** does a winner-takes-all knockout of individual agents beat a varied team working together?
-- **Tournament:** agents compete in rounds and the best advances, until one is left.
+- **Tournament:** agents compete in rounds and the best advances, until one is left. Generalists and specialists enter the same bracket, so it also shows whether specialising pays.
 - **Varied team:** a mixed council (different models, roles or prompts) works on the same task.
 - **Deciding rounds:** by hard tests, not by votes or AI judges, since AI judges tend to favour outputs in their own style.
+- **Side experiment only:** a knockout doesn't match cost, so it can't answer the smarter-model or diverse-models questions. The matched-cost baselines in the experiment plan answer those.
 - **What it tells us:** whether diversity or head-to-head selection produces better code for the cost.
 
 ## Split or Steal final

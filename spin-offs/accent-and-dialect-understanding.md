@@ -15,6 +15,7 @@ Use an evolving council to improve the step after transcription: correcting and 
 - **Benchmark:** human-checked transcripts of accented speech.
 - **Hard score:** word error rate, plus whether the meaning was understood correctly.
 - **Held-out speakers:** some speakers are never shown to the council, so it learns the accent rather than individual voices.
+- **Baseline:** compare the evolved council with a single model doing the same correction step, to see whether a council corrects speech differently from one model.
 - Same rules as the main experiment: a generation advances only if it beats the score, with fresh sessions and blind judging.
 
 ## Why it matters

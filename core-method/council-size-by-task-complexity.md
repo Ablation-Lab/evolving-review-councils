@@ -8,11 +8,7 @@ Is there a council size where adding another reviewer stops paying for itself, a
 
 ## Working guesses (to be tested)
 
-- **Basic app:** around 6 reviewers.
-- **Scientific or technical work:** around 20.
-- **Frontier research:** far more.
-
-These are starting guesses only. The point of the experiment is to replace them with measured numbers.
+No numbers are assumed. Start small: in a classic industrial experiment, two-reviewer inspection teams found defects as well as four-reviewer teams, though one reviewer alone did worse (Porter et al., IEEE TSE 1997), so a small council may often be enough. Councils may only pay off on harder or higher-risk tasks. The point of the experiment is to measure this for each tier, and the calculator will say when a small council is enough.
 
 ## Unit of review effort
 
@@ -23,6 +19,7 @@ The aim is a rough "unit of review effort" per complexity tier: how many reviewe
 - Run the same council setup at different sizes on tasks of each tier.
 - Score each run on the hard benchmark and held-out tests, plus an efficiency score (tokens, agents, time).
 - The optimum is where the quality gain from one more reviewer drops below its cost.
+- Compare each council against simpler set-ups at the same token budget: one strong reviewer with a broad brief, one reviewer rerun several times, and a top model checking its own work (see Baselines in the [experiment plan](experiment-plan.md)). If one of them matches the council, it's the recommendation for that tier.
 - Weight findings by severity, since a security hole matters far more than a typo. Counts alone can mislead.
 
 ## What can realistically be measured
