@@ -306,6 +306,27 @@ Process and design notes from Lite run `lite-20261108-01`:
 - **Session time vs critical path:** the critical path was 4.9 minutes, but the main session's transcript runs from 22:13 to 23:01, about 47 minutes. That includes some work after the run that I asked for; the run folder was created at 22:16 and the run report written at 22:53. Waiting on my approvals was a large share of the difference. The main session's own tool calls spent about 20 minutes blocked for more than 30 seconds, mostly on Write and Edit calls, which take seconds once approved (inferred from the transcript's timestamps, not logged).
 - **Storage is a reproducibility risk:** Lite writes the run folder inside the reviewed project (`reviews/lite/`). Here that project was a copy of the material in a Temp folder, not a git repo, so the briefs and reports survived only because they were explicitly copied out (to `C:\Projects\council-runs\lite-20261108-01\`, which isn't versioned either). For future runs, the run folder or a copy of it should go somewhere durable, and ideally versioned, as soon as the run ends.
 
+Process and design notes from the Lite 1.6.0 test runs (9 Nov 2026):
+
+- **The runs:** two Council Dial Lite 1.6.0 Quick runs on the same material, a small slug library and its README (byte-identical copies), both with three generalist reviewers, pooled, brief version 3, every seat on Opus 5.5 and no running code. One was normal; the other was raw, analysed afterwards in a separate session. Records are kept outside this repo.
+  - **Findings:** both gave 31 pooled findings: 9, 12 and 10 per reviewer in the normal run, and 10, 10 and 11 in the raw run.
+  - **The check:** the normal run's check found all 31 copied exactly. Raw runs have no check.
+  - **The raw hand-off worked:** the analysis session got one prompt, started no agents, and recorded itself in `run.json`.
+  - **Permission prompts:** by my account there was one, for reading the templates, and no others. Prompts aren't logged.
+- **Self-reported deviations undercount:** the skill asks the main session to log anything it did differently.
+  - **Normal run:** its main session logged none. When I asked afterwards what it had found unclear or done differently, it added 4, including that its report to me had paraphrased findings.
+  - **Raw run:** its main session had logged 1, and added 4 more when asked. The raw analysis session logged 2 of its own, unasked.
+  - **So:** a session's own deviation log is a lower bound, not a full record.
+  - **Experiment idea:** an optional process-check agent that compares what the main session did with the skill and lists departures. Compare its list with the self-reported one.
+- **Verification without a judge depends on how findings are bundled:** with no judge, each session checked the pooled findings itself. Both runs raised the point that per-blog slug files don't make slugs unique across the host.
+  - **Normal run:** the point was one clause of a MED race-condition finding. The main session marked the finding partly real, because per-blog lists look intended.
+  - **Raw run:** the point was a LOW finding of its own. The analysis session dismissed it, because the slugs read as per-blog post slugs.
+  - **So:** the two sessions, both Opus 5.5, agreed on the point, but the logged rulings differ (partly real against dismissed) because of how the reviewers packaged it. Ruling counts from runs with no judge aren't comparable between runs.
+- **Unprompted grouping:** both sessions grouped the 31 findings in their own words, although the ground rules say findings in the report to the user are copied, never rewritten.
+  - **Normal run:** the report opened with "Main problems": six named issues plus a group of smaller ones. The session logged this as a deviation only when asked.
+  - **Raw run:** the analysis said the findings "boil down to about 15 distinct issues", and listed the 10 that all three reviewers raised. It didn't log this as a deviation.
+  - **So:** users likely want grouping, and pooled councils that don't merge duplicates produce long, repetitive reports (31 findings over 10 to 15 issues).
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
