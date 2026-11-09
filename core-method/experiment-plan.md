@@ -561,6 +561,25 @@ A controlled follow-up to the [voice-draft audit](voice-draft-audit.md): does ad
     - **Fix:** `.gitattributes` marks every frozen path `-text`, and the 10 files were re-committed byte for byte. No working file or recorded hash changed.
     - **Check:** fresh clones under four line-ending settings (`autocrlf` true, false and input, and false with `core.eol=crlf`) all passed `--check` when rechecked on 9 Nov. That four-setting check isn't recorded in the repo itself.
   - **Method lesson:** a pre-registration freeze needs its own checker tested, including on addenda and accidental overwrites, and its line endings pinned. Otherwise a clean freeze can look tampered with, or a real change can go unnoticed.
+- **Main batch results (9 Nov 2026):** all 216 runs completed and passed their isolation checks, with no reruns. Full report: `reviews/voice-tag-audit/controlled-test/results.md` in the overnight-skills folder, committed as `0bd6efc` in the voice-tag-audit repo.
+  - **High effort (primary): no detectable effect.** False claims were caught 99–100% of the time in every condition, and none of the six primary tests came near significance (smallest exact p 0.50; every Holm p 1.00).
+  - **"Caught but acted on anyway" was flag-and-defer, not ignoring the problem.** In 61 of the 62 events across both arms, the reply said the claim was wrong, kept to the scope the user had set ("I left them alone as you asked") and offered the fix. The one exception (M14, no line) knowingly used a stale value and said so. Acting on a false claim without saying so happened once in 72 false claims at high effort, with no line, and never with a line (0 of 216).
+    - **The outcome mostly measured scope-keeping.** It was chosen after the difficulty check, whose 2 "acted on anyway" cases were the same flag-and-comply pattern. Reading them as Claude ignoring the problem didn't hold up.
+  - **Low effort (secondary, descriptive only):** no pre-registered test survived the Holm correction (B − A on caught: +17 points, exact p 0.19).
+    - **Caught:** 75% with no line, against 92% with the current line and 97% with either itemised line.
+    - **Silent acting:** fell from 25% with no line to 8% with the current line and 3% with either itemised line.
+    - **The line turned silent acting into flagged acting:** "caught but acted on anyway" rose from 8% with no line to 11–22% with a line.
+    - **The itemised lines did best** on catching and on silent acting.
+    - **"Drafted in voice mode" made no detectable difference:** removing it gave 97% vs 97% caught and 3% vs 3% silent.
+    - **Cost:** the itemised versions cost about 10–20% more per run than no line.
+  - **Implication:** at high effort, Claude caught these claims with no line at all. So the evening's many corrections of voice-drafted prompts (the field log below) probably reflect high-effort checking rather than the line. That assumes those sessions ran at high effort, which the field log doesn't record, and that the batch's synthetic fixtures carry over to real work.
+  - **Limits and deviations:**
+    - two addenda to the freeze: the coding briefs, and line endings;
+    - two helper scripts added after the freeze, neither used by the analysis;
+    - the unblinding keys were moved out of the coders' folders during coding, a procedure step the plan didn't spell out;
+    - one privacy redaction: a local account name in one run's `ls` output;
+    - the test material was written by Claude, and Claude subagents also did all the coding and adjudication;
+    - the design itself: 18 prompts, one model and native Windows.
 - **Experiment idea:** use a Council Dial council as the coding step and compare its codes with the blind coders' codes, to test whether a council codes behaviour as reliably as paired blind coders.
 - **Caveat:** single runs per cell, so these show what can happen, not how often.
 - **Field observation: a misdirected prompt (8 Nov 2026, not a controlled test):** a follow-up prompt meant for one Claude Code session was pasted into another that had different context, the appeal stress test session. That session found a plausible way to act on it: it checked the prompt's claims against the Lite run `lite-20261108-01`. It then made two commits to its own follow-up report (`197028f` and `c554ea0` in the appeal-stress-test repo), which a revert commit later undid (`1716445`). It didn't stop at the mismatch. It did raise it, but only at the end of its report ("Possibly misrouted: this request seems to refer to the other session's work"), after acting. That's the same pattern as "caught but acted on anyway" above. In an earlier case (7 Nov, entry 49 of the [who-caught-what log](who-caught-what.md)), the receiving session refused to act and flagged the mismatch.
