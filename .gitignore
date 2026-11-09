@@ -1,0 +1,2 @@
+# Session reports quote local paths and commit hashes, so they stay on disk only.
+/reports/
