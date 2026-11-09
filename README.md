@@ -15,7 +15,7 @@ The explainer video's Remotion source, script and narration are in [ablation-lab
 ## Core method
 
 - [Experiment plan](core-method/experiment-plan.md): the full plan. It covers how "improved" is measured, evolution and stopping rules, keeping tests unbiased, cheating and collusion checks, failure modes, hard limits, the test plan and the final report.
-- [How the agents built and reviewed WinScope](core-method/winscope-pilot.md): the informal pilot. Fresh reviewers found 97 problems the builders' own tests had passed, across 11 rounds and about 3.7M subagent tokens.
+- [How the agents built and reviewed WinScope](core-method/winscope-pilot.md): the informal pilot. Fresh reviewers found 97 problems the builders' own tests had passed, across 11 rounds; the 10 subagent rounds used about 3.7M tokens.
 - [Council size by task complexity](core-method/council-size-by-task-complexity.md): whether the best number of reviewers grows with how hard the task is.
 
 ## Spin-offs

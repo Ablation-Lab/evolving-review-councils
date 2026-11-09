@@ -2,33 +2,31 @@
 
 Oct 30, 2026
 
-Four builders working in parallel behind a shared shell produced WinScope's 16,000 lines in about 33 minutes. Most of the serious bugs were then found by fresh reviewers who hadn't written the code, not by the builders' own tests.
+Four builders working in parallel behind a shared shell produced about 13,000 lines in 33 minutes, bringing WinScope to about 16,000 lines. Every one of the 97 findings then came from a review round, by design: the pilot had no builder self-review round to compare against. The clearest single case is the privilege-escalation hole from elevated writes to user AppData: the coordinator reviewed its own code and missed it, and a reviewer who hadn't written it caught it.
 
 ## At a glance
 
-Eleven rounds used about 3.7 million subagent tokens, and the review rounds found 97 problems that the builders' own tests had passed. The table is in the order things happened.
+Across eleven rounds, the 10 subagent rounds used about 3.7M tokens, and the review rounds found 97 problems that the builders' own tests had passed. The table is in the order things happened.
 
 | # | Round | Agents | Wall time | Tokens | What came out |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Shell and contract | Me (main thread) | \~1 h | not measured | The tool interface, elevation, settings, safe file writes, theme, main window, stub tools, a rules doc |
-| 2 | Parallel build (1.0) | 4 fresh builders | 33 min | 1.14 M | \~13,000 lines across four tools, 528 tests |
-| 3 | Review council | 4 fresh reviewers | 14 min | 1.00 M | 48 findings (storage safety, interop, integration, logic) |
-| 4 | Fix round | 4 resumed builders | 17 min | 0.32 M | 60 fix items closed |
-| 5 | Verification | 2 fresh reviewers | 8 min | 0.39 M | 10 more findings |
-| 6 | Storage final fix | 1 resumed builder | 3 min | 0.02 M | 6 items closed |
-| 7 | Reports feature (1.1) | 4 resumed builders | 7 min | 0.19 M | One report section per tool |
-| 8 | Privacy audit | 1 fresh reviewer | 10 min | 0.23 M | 25 findings: 12 leaks, 3 redactor bugs, 10 correctness |
-| 9 | Report fixes | 4 resumed builders and me | 4.5 min | 0.11 M | All 25 addressed; 999 tests passing |
-| 10 | Verification of report fixes | 1 fresh reviewer | 14 min | 0.26 M | 31 of 34 earlier findings confirmed fixed; 14 new (4 medium, 10 low) |
-| 11 | Last fixes | 3 resumed builders and me | 2 min, after a 25 min usage-limit pause | 0.04 M | All 4 medium and 8 low fixed, 2 kept as trade-offs; 1,051 tests; merged as 1.1 |
+| 2 | Parallel build (1.0) | 4 fresh builders | 33 min | 1.14M | \~13,000 lines across four tools, 528 tests |
+| 3 | Review council | 4 fresh reviewers | 14 min | 1.00M | 48 findings (storage safety, interop, integration, logic) |
+| 4 | Fix round | 4 resumed builders | 17 min | 0.32M | 60 fix items closed |
+| 5 | Verification | 2 fresh reviewers | 8 min | 0.39M | 10 more findings |
+| 6 | Storage final fix | 1 resumed builder | 3 min | 0.02M | 6 items closed |
+| 7 | Reports feature (1.1) | 4 resumed builders | 7 min | 0.19M | One report section per tool |
+| 8 | Privacy audit | 1 fresh reviewer | 10 min | 0.23M | 25 findings: 12 leaks, 3 redactor bugs, 10 correctness |
+| 9 | Report fixes | 4 resumed builders and me | 4.5 min | 0.11M | All 25 addressed; 999 tests passing |
+| 10 | Verification of report fixes | 1 fresh reviewer | 14 min | 0.26M | 31 of 34 earlier findings confirmed fixed; 14 new (4 medium, 10 low) |
+| 11 | Last fixes | 3 resumed builders and me | 2 min, after a 25 min usage-limit pause | 0.04M | All 4 medium and 8 low fixed, 2 kept as trade-offs; 1,051 tests; merged as 1.1 |
 
 Tokens are what each agent reported processing, including re-reading its own context. Resumed builders are counted by the extra tokens that round added. Wall time is the slowest agent in the round, because they run side by side. My own main-thread work isn't included in the token totals.
 
 ## How the parallel build was set up
 
 The split worked because the shared parts were written and frozen before any builder started. Each builder could then work blind to the others.
-
-(diagram in the original doc)
 
 **1. The shell came first, written by me.** Before any builder started, I wrote:
 
@@ -57,7 +55,7 @@ The split worked because the shared parts were written and frozen before any bui
 
 ## What independent review caught
 
-Every serious bug in WinScope was found by an agent that hadn't written the code. Authors test the cases they designed for. Fresh reviewers go after the edges: other accounts, odd file names, elevation, Windows quirks, and the seams between tools. Reviewers got the code and an area to focus on, never my opinion of it.
+Every one of the 97 findings came from a review round, by design: the pilot had no builder self-review round to compare against. The clearest single case is the privilege-escalation hole from elevated writes to user AppData: the coordinator reviewed its own code and missed it, and a reviewer who hadn't written it caught it. The last two rows of the table below were found outside the review rounds and aren't among the 97. Authors test the cases they designed for. Fresh reviewers go after the edges: other accounts, odd file names, elevation, Windows quirks, and the seams between tools. Reviewers got the code and an area to focus on, never my opinion of it.
 
 | Found by | Problem | Why the author missed it |
 | --- | --- | --- |
@@ -71,7 +69,7 @@ Every serious bug in WinScope was found by an agent that hadn't written the code
 | Storage builder, mid-fix | My redactor turned `AppData\LocalLow` into `%LOCALAPPDATA%Low` | Builders read the shared code closely while using it, and sometimes spot bugs in it |
 | My own test harness, after the audit | 5 bugs in my rewrite of the redactor, including a pattern that took 10 s on a long line | Self-testing does work once it's adversarial, i.e. built to break the code rather than show it works |
 
-The pattern held across all five review rounds. First reviews of new code found a lot: 48 findings, then 25. Verification of the fixes found less but never nothing: 10 findings the first time, 14 the second (4 of them medium). Worth noting: the privacy audit ran the real redactor code against crafted inputs rather than just reading it. Every leak it reported came with the actual input and output, which made the fixes quick and left no arguing over whether a problem was real.
+The pattern held across all four review rounds. First reviews of new code found a lot: 48 findings, then 25. Verification of the fixes found less but never nothing: 10 findings the first time, 14 the second (4 of them medium). Worth noting: the privacy audit ran the real redactor code against crafted inputs rather than just reading it. Every leak it reported came with the actual input and output, which made the fixes quick and left no arguing over whether a problem was real.
 
 ## Resuming builders vs starting fresh
 
@@ -106,7 +104,7 @@ The biggest limit is that none of this has run on Windows yet. Every agent compi
 - **Cross-tool problems need a coordinator.** Builders can't talk to each other. Events knows the author's Wi-Fi network names and Network prints adapter names; joining those up went through me, and so did triaging every finding into "shell" or "tool".
 - **Reports all sound equally sure.** An agent describes a guess in the same tone as a measured result. The best reports labelled their guesses: the privacy auditor wrote "as I understand WPF's implementation; not checked". Treat each report as a claim to verify, not a result.
 - **Reviewers aren't completely blank.** They don't see my reasoning, but they do inherit saved memory, which is how one could mention the author's preference for reviews. That's mostly harmless, but it isn't a pure clean-room.
-- **It's expensive.** About 3.7 M subagent tokens went into one app, and review and verification were 1.9 M of that, about half. For a tool that only reads data, a single review would do. For code that deletes files, runs as admin or publishes personal data, the extra rounds paid for themselves.
+- **It's expensive.** About 3.7M subagent tokens went into one app, and review and verification were 1.9M of that, about half. For a tool that only reads data, a single review would do. For code that deletes files, runs as admin or publishes personal data, the extra rounds paid for themselves.
 
 Three more turned up in the last round:
 
@@ -121,8 +119,8 @@ AirScope was built by me alone, then reviewed the same way. The review results l
 |  | AirScope 1.1–1.2 | WinScope 1.0–1.1 |
 | --- | --- | --- |
 | Build | One agent (me), one step at a time | Shell by me, then four builders side by side |
-| Reviews | 5 fresh reviewers in two councils, plus 2 verifications | 5 fresh reviewers in a council plus the privacy audit, plus 2 verifications |
-| Review tokens | 1.15 M | 1.88 M |
+| Reviews | 5 fresh reviewers in two councils, plus 2 verifications | 4 fresh reviewers in a council plus the privacy audit, plus 2 verifications |
+| Review tokens | 1.15M | 1.88M |
 | Biggest catch | Cached Wi-Fi scan results being read as fresh, which caused fake signal dips | Elevated writes to the user's AppData; the Recycle Bin wrong-file case |
 | Privacy leaks found | 9, in Screenshot mode | 12, in Reports |
 | Bugs at seams between parts | None, one author held the whole picture | Several: the 6 s freeze on close, constant graph CPU, Wi-Fi names known by one tool and shown by another |

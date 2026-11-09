@@ -1,10 +1,10 @@
 # Evolving Council & Optimum Size Experiment – Plan
 
-A handover brief for a fresh session. The goal is to test whether an evolving, self-spawning council of review agents makes app builds better and more efficient, then turn the result into the user's default build-and-review recipe.
+The plan for an experiment that tests whether an evolving, self-spawning council of review agents makes app builds better and more efficient, and turns the result into a default build-and-review recipe.
 
 ## The idea in one paragraph
 
-When Claude builds an app for the user, a council of reviewer agents checks it for bugs, security issues and risky or boot-affecting changes. In this experiment the council evolves. Each generation reviews and improves on the previous generation's work, and it only advances if it beats a hard benchmark. The output is a readable report that recommends a standard recipe: how many agents, which models, what effort level and what token budget to use for a typical app, plus clear conditions for spending more.
+When Claude builds an app, a council of reviewer agents checks it for bugs, security issues and risky or boot-affecting changes. In this experiment the council evolves. Each generation reviews and improves on the previous generation's work, and it only advances if it beats a hard benchmark. The output is a readable report that recommends a standard recipe: how many agents, which models, what effort level and what token budget to use for a typical app, plus clear conditions for spending more.
 
 ## Goals
 
@@ -60,11 +60,11 @@ From the brief version 3 templates (`briefs/v3/` and the shared reviewer brief i
 
 ## Repo structure
 
-Everything lives in one public GitHub repo. The README is the hub, with the explainer video at the top. This plan stays complete as the master copy, and each topic below also gets its own standalone doc.
+The project is split across two public GitHub repos. This one, [ablation-lab/evolving-review-councils](https://github.com/ablation-lab/evolving-review-councils), holds the plan and the docs; its README is the hub, with the explainer video at the top. The explainer's Remotion source is in [ablation-lab/council-video](https://github.com/ablation-lab/council-video). This plan stays complete as the master copy, and each topic below also gets its own standalone doc.
 
-- **Core method:** council size by task complexity; cheating, collusion and failure modes; the WinScope pilot.
-- **Spin-offs:** side experiments (tournament, Split or Steal); accent and dialect research; the council calculator tool.
-- **Supporting material:** related research and citations; the explainer video plan.
+- **Core method:** council size by task complexity; the WinScope pilot; cheating, collusion and failure modes (planned).
+- **Spin-offs:** side experiments (tournament, Split or Steal); accent and dialect research; the council calculator tool (in progress).
+- **Supporting material:** related research and citations. The explainer video's script and source are in the companion repo.
 
 ## Cheating and collusion checks
 
@@ -96,14 +96,12 @@ An informal pilot on a real app before the formal experiment. Full write-up: [Ho
 
 **Results:**
 
-- About 16,000 lines built in about 33 minutes; 1,051 tests passing at the end, merged as version 1.1.
-- About 3.7M subagent tokens across eleven rounds; review and verification were about 1.9M of that, about half.
+- About 13,000 lines built by four parallel builders in 33 minutes, on top of a shared shell written first (about 16,000 lines in all); 1,051 tests passing at the end, merged as version 1.1.
+- About 3.7M subagent tokens across 10 subagent rounds (11 rounds in all; the first was main-thread work and wasn't measured); review and verification were about 1.9M of that, about half.
 - Review rounds found 97 problems the builders' own tests had passed (48 in the first council, 10 in the first verification, 25 in a privacy audit, 14 in the second verification).
-- Every serious bug was found by an agent that hadn't written the code, e.g. a privilege-escalation hole from elevated writes to user AppData, and a Recycle Bin wrong-file case.
+- Every one of the 97 findings came from a review round, by design: the pilot had no builder self-review round to compare against. The clearest single case is the privilege-escalation hole from elevated writes to user AppData: the coordinator reviewed its own code and missed it, and a reviewer who hadn't written it caught it. Another serious example is a Recycle Bin wrong-file case.
 - Verification after fixes never came back empty: 10 new findings the first time, 14 the second (4 of them medium).
 - A single-agent comparison (AirScope) got similar review results, suggesting the reviews catch the bugs, while parallel building adds speed plus a new class of bugs at the seams between parts.
-
-(diagram in the original doc)
 
 **Pilot's own takeaways:** freeze shared parts first; fix with the author, verify with a stranger; always run a verification round; make reviewers run code against crafted inputs; aim the hardest reviews at risky code (file deletion, admin, personal data); keep one coordinator for the seams.
 
@@ -496,7 +494,7 @@ Test whether the optimum council size changes with how complex the task is. For 
 
 - **Builder:** writes or changes the app
 - **Reviewers (the council):** each checks a focus area, such as bugs, security, risky changes or efficiency
-- **Trajectory reviewer:** one reviewer looks at the whole path of a session, not just the latest step. It flags drift with tripwires such as "below the OS" or "bypasses a security check". This comes from an earlier episode where step-by-step reviews missed a slow drift toward risky work.
+- **Trajectory reviewer:** one reviewer looks at the whole path of a session, not just the latest step. It flags drift with tripwires such as "below the OS" or "bypasses a security check". It is there to catch a slow drift toward risky work that step-by-step reviews can miss.
 - **Judge:** runs the benchmarks and decides whether a generation really improved. It also signs off on the final result.
 - **Logger:** every generation writes a short log of what changed and why
 
@@ -632,9 +630,9 @@ A small app that estimates a council setup before any real usage is spent.
 4. Last step: Give the full results and report to Fable 5.1 for one deep review, to check the recipe makes sense and nothing was gamed, including any signs of hidden messages or collusion between agents.
 5. Then: Build the council calculator from the real test results, then adopt the recipe as the default for future app builds.
 
-## Instructions for the next session
+## Before each run
 
-Read this whole plan first. Before building anything, confirm the hard caps (agents, generations, tokens) with the user. Keep everything sandboxed. Stop at the budget limit and still produce the report.
+Before building anything, confirm the hard caps (agents, generations, tokens). Keep everything sandboxed. Stop at the budget limit and still produce the report.
 
 ## Future application: accent and dialect understanding
 
