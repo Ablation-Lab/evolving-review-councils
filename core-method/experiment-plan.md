@@ -321,6 +321,7 @@ Process and design notes from the Lite 1.6.0 test runs (9 Nov 2026):
   - **Raw run:** its main session had logged 1, and added 4 more when asked. The raw analysis session logged 2 of its own, unasked.
   - **So:** a session's own deviation log is a lower bound, not a full record.
   - **Experiment idea:** an optional process-check agent that compares what the main session did with the skill and lists departures. Compare its list with the self-reported one.
+  - **Lite 1.7.0, with an end-of-run deviation review (9 Nov 2026):** 1.7.0 added a review step: before reporting, the main session goes back through each section it followed and logs anything it hasn't. It didn't close the gap. When I asked afterwards, the normal run's main session went from 3 logged deviations to 9 (then a 10th, logging a correction I asked for), and the raw run's council session from 2 to 6. The raw analysis session again logged 2 of its own, unasked. The Standard run's main session had 4 before I asked, 2 of them logged only at the end-of-run review rather than when it noticed them, and added that lateness as a 5th when asked.
 - **Verification without a judge depends on how findings are bundled:** with no judge, each session checked the pooled findings itself. Both runs raised the point that per-blog slug files don't make slugs unique across the host.
   - **Normal run:** the point was one clause of a MED race-condition finding. The main session marked the finding partly real, because per-blog lists look intended.
   - **Raw run:** the point was a LOW finding of its own. The analysis session dismissed it, because the slugs read as per-blog post slugs.
@@ -329,6 +330,32 @@ Process and design notes from the Lite 1.6.0 test runs (9 Nov 2026):
   - **Normal run:** the report opened with "Main problems": six named issues plus a group of smaller ones. The session logged this as a deviation only when asked.
   - **Raw run:** the analysis said the findings "boil down to about 15 distinct issues", and listed the 10 that all three reviewers raised. It didn't log this as a deviation.
   - **So:** users likely want grouping, and pooled councils that don't merge duplicates produce long, repetitive reports (31 findings over 10 to 15 issues).
+
+Process and design notes from the Lite 1.7.0 test runs (9 Nov 2026):
+
+- **The runs:** three Council Dial Lite 1.7.0 runs on the same material as the 1.6.0 runs (the three copies are byte-identical), all brief version 3, every seat on Opus 5.5 and no running code. Records are kept outside this repo.
+  - **Normal Quick run:** three generalist reviewers, pooled. 33 findings (9, 10 and 14 per reviewer).
+  - **Raw Quick run:** the same council, analysed afterwards in a separate session. 32 findings (12, 11 and 9).
+  - **Standard run:** three specialised reviewers (correctness, security and privacy, docs and policy accuracy), a judge and an appeal. The judge merged 24 findings (10, 7 and 7) into 16, ruled 2 NOT REAL and kept 14. It's the second Lite run of this type, not the first: `lite-20261108-01` (Lite 1.4.0) was the same type. Its session called it the first because its project folder held no earlier runs.
+  - **The checks:** both check agents found every finding in the summary copied exactly (33 of 33, and 14 of 14), with no count mismatch. The raw run has no check. The appeal agreed with both dismissals and all 7 severities it checked.
+  - **The 1.7.0 features were used:** brief checks recorded before each Agent call, every saved report read back against the reply, escaped replies turned back with the reply kept as received, a target description confirmed before the run, the session's own verdict on every pooled finding (`ownChecks`), agent notes, and the end-of-run deviation review. The deviation counts are in the undercount note above.
+- **The judge left out a required reason:** the version 3 judge brief asks for each reviewer's severity, the judge's severity and a one-line reason for every OVERSTATED or UNDERSTATED ruling. The Standard run's judge ruled M10 (a race and a non-atomic write) OVERSTATED: reviewers MED and LOW, its own LOW, with no reason line. Its M3 and M7 rulings have one.
+  - **Where its explanation went:** into its check text ("Crash truncation from `writeFileSync` is a real but minor risk"). Lite's reason rule excludes what the judge checked, even when that's all the ruling says, so the appeal's severity block said "no reason given", and the appeal wrote "The judge gave no reason."
+  - **The outcome didn't change:** the appeal still judged LOW fair.
+  - **Not recorded:** agent notes cover only text an agent added beyond its brief, so `run.json` has nowhere to log an omission. The main session explained it only when I asked.
+  - **So:** this is a real brief-compliance gap, unlike M10 in `lite-20261108-01` (under "Who owns severity"), where the judge had followed the brief.
+- **The severity ceiling again:** the Standard run's judge ruled 0 UNDERSTATED and never rated a finding above its highest reviewer. Of its 14 kept findings, 11 kept the top reviewer rating and 3 were cut. With `lite-20261108-01`, that's two live version 3 judges, and neither raised a severity, although version 3 allows it.
+- **Agents add text their briefs rule out:** the reviewer, appeal and check briefs end their layout rules with "No other text"; the judge brief sets a layout without that line.
+  - **Check agents (normal and Standard runs):** both added headings and sections, such as an "Instructions in the data" note and a list or table of totals. The Standard one also added a title and a list of the files it read.
+  - **Standard judge and appeal:** the judge added a title, a method preamble and a note on how it attributed severities; the appeal added bold section labels.
+  - **Raw run:** it has no judge, appeal or check. One reviewer added a sentence its brief didn't ask for.
+  - **Beyond the check's role:** while comparing characters, the normal run's check remarked that the "Kelvin sign" in one finding is a plain ASCII K in both the report and the summary. That's a note on the finding's own text, not on whether it was copied.
+  - **Logged:** each main session recorded the extra text in that agent's `notes`.
+- **Unchecked overviews:** the normal run's overview and `results.notes` said the reviewers' severities differed only on the race. They also differed on two more issues (the trailing hyphen after truncation, and the empty slug). The session found this only when I asked afterwards, and corrected `results.notes` at my request.
+  - **Nothing checks the main session's own words:** the check agent reads only `summary.txt` and the reports, and the overview, `My check:` and `Same issue as:` lines never go in `summary.txt`. In the Standard run, too, the session said afterwards that one of its own `Same issue as:` lines overstated the overlap.
+  - **Experiment idea:** give the check agent the overview and the notes as well, and have it check each claim against the findings they cite.
+- **Same request, different description:** the three requests named the same two files in the same words ("on target/slugify.mjs and target/README.md"). Each session showed the description every brief would get, and I confirmed it. The raw run's session had added "(a JavaScript module)" and "(its documentation)", inferred from the file names; the other two used the file names alone.
+  - **So:** the same request can give reviewers slightly different briefs, and the confirmation step didn't stop it. The raw session logged the inference as a possible breach of the rule that file names are used only as paths.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
