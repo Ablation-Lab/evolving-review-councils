@@ -522,6 +522,8 @@ A controlled follow-up to the [voice-draft audit](voice-draft-audit.md): does ad
   - The misdirected session above was said not to have flagged the mismatch; it did, at the end of its report, after acting.
   - "R4 may be the key's fault" was attributed to the files; no file uses those words (the batch report called R4 a contested key item, pending an independent rating).
   - The direct appeal pilot was said to include partly true wrong reasons; only the later batch did.
+  - The model catch rates for the Council Dial READMEs' model tips were slightly misquoted; for example, Haiku was given the all-model figure (75%, not its 76%), and Sonnet's 60% was its average across efforts, not a starting point it fell from. The READMEs use the batch report's figures.
+  - The voice-tag freeze's line-ending fix was said to be verified with fresh clones under four settings; the repo doesn't record that check (it passed when rerun on 9 Nov).
   - **Interpretation:** every prompt carried the line, so there's no comparison. This can't show whether the line caused the checking or whether the sessions would have caught these anyway. One hypothesis is that the line makes sessions check the drafter's assumptions as well as the claims they're explicitly asked to check. The controlled test measures the first part; checking unprompted assumptions could be a later outcome to code.
   - **Experiment idea:** in a future batch, code "corrected an assumption the prompt didn't ask it to check" as a separate outcome.
 
