@@ -525,6 +525,12 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
   - **Fixed:** in Lite 2.1.1 (`461bdda`) and in the full edition's READMEs (`6143e04`).
 - **So:** a review asked to check a change rarely rereads the claims around it, and a review that adds a limitation can carry an outdated premise into the README. What caught these lines was reading the page as a user would, and a pre-submission check that read the READMEs whole.
 - **Experiment idea:** give a review the task "check every Planned and Limits line against the code" and see whether it catches what the change-focused reviews missed.
+- **A description over the documented limit (field note, 10 Nov 2026):** while adding a destructive-command example to both editions' descriptions (Lite 2.1.2 at `5f48914`, Council Dial 1.7.1 at `4a38eed`), the pre-submission session found that the full edition's plugin description, in `plugin.json` and its marketplace entry, was 691 characters.
+  - **The limit:** the only documented one the session found is Anthropic's Plugins API, which caps `description` at 500 characters. It found no documented limit for the directory itself. The full edition's description is now 496 characters, and Lite's is 499.
+  - **How long it was missed:** the description was over 500 characters from the first version: 603 in 1.0.0 (5 Nov), 646 from 1.1.0 and 691 from 1.3.2 (8 Nov), including 1.5.8, the version the three Fable 5.2 reviews covered. I found no council run, subagent reviewer or Fable review that flagged it. The final Fable review, which covered only Lite, called Lite's 460-character description long for a listing line, but cited no limit.
+  - **Tests:** the test suite capped Lite's description at 500 characters but had no cap for the full edition's. 1.7.1 adds a 500-character check for both.
+  - **A wrong claim in my prompt:** the voice-drafted prompt said reviewers "never run the commands". The session corrected this to "by default", because the options that allow running code give the council agents that can run things. Both descriptions and the README sentence say "by default".
+  - **So:** like the stale lines above, this was caught by a session that had to edit the text and check it against a rule, not by the reviews.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
