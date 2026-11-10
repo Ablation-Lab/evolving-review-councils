@@ -500,6 +500,24 @@ These are my observations from my own submissions, not confirmed policy, and the
   - **Stowdeck:** still in review on 10 Nov.
 - **So:** these are a few submissions from one account, so they don't show what's behind the slower times.
 
+### Stale "planned" and limits claims in the READMEs (field note, 10 Nov 2026)
+
+I spotted this reading the full edition's public GitHub page, which is still Council Dial 1.3.6 (`d56ccfd`), because nothing has been pushed since. The causes below come from both repos' git history (checked by Claude, Opus 5.5).
+
+- **What the public page says:** a "Planned (not built yet)" item for an appeal on severity downgrades, and a Limits line saying "The appeal checks only findings the judge marked NOT REAL, not ones it marked OVERSTATED". Both were true for 1.3.6. Brief version 3 (Council Dial 1.5.0 and Lite 1.3.0, 8 Nov) built the severity appeal: it checks every finding the judge ruled OVERSTATED or UNDERSTATED and every other finding it kept at LOW.
+- **The two lines, locally:**
+  - **The Planned item:** removed in the same commit that built the feature (1.5.0), so it was never stale locally.
+  - **The Limits line:** stale for two local versions (1.5.0 and 1.5.1, both 8 Nov). A pre-submission check, a Claude Code session on 1.5.1, called it "false for version 3, the default", and 1.5.2 corrected it the same day.
+  - **So:** both are stale only on the public page, until the next push.
+- **The other two Planned items:** task templates and a fingerprint of the material (a git commit or content hash per plan, with `compare` warning about different versions). Neither was ever built, in either edition: the full edition's script hashes only its brief templates, and Lite has no script. They're correctly still listed as planned.
+- **A third stale line, found while checking these:** a Limits line in both editions, "A judge can lose a finding when it merges them. The appeal sees only the findings it dismissed, so a finding dropped at the merge goes unnoticed."
+  - **Origin:** it was added on 9 Nov (Council Dial 1.6.0, Lite 1.11.0), after version 3 existed. Its wording came from the no-context review's finding "The appeal sees only explicit dismissals" (see "Context anchoring" above).
+  - **What was wrong:** the conclusion held, because the appeal never sees the reviewers' reports. But since version 3 the appeal also sees its severity block, so the stated reason was out of date.
+  - **Missed by:** the two independent reviewers of the 1.6.0 and 1.11.0 changes, the two of the Lite 2.0.0 split, and the two of the 2.1.0 changes. Each was briefed on a diff or a split, not on whether the whole README was still true. None of the three Fable 5.2 reviews could have caught it: they reviewed 1.5.8 and 1.10.1, before the line existed.
+  - **Fixed:** in Lite 2.1.1 (`461bdda`) and in the full edition's READMEs (`6143e04`).
+- **So:** a review asked to check a change rarely rereads the claims around it, and a review that adds a limitation can carry an outdated premise into the README. What caught these lines was reading the page as a user would, and a pre-submission check that read the READMEs whole.
+- **Experiment idea:** give a review the task "check every Planned and Limits line against the code" and see whether it catches what the change-focused reviews missed.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
