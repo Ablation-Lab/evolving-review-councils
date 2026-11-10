@@ -489,6 +489,16 @@ A small comparison, not a controlled test. Three Claude Code sessions on Fable 5
 - **Experiment idea:** a workflow edition of Council Dial against Lite on the same material and settings, measuring copy errors, count mismatches, deviations (logged and found afterwards), tokens and time.
 - **Open question:** whether Anthropic's plugin directory accepts plugin workflows. They're `.js` files, and the directory asked for changes to the full edition because of its script (see Council Dial's README). The workflows page says nothing about the directory.
 
+### Plugin directory: what I've seen of the review process (field note, 10 Nov 2026)
+
+These are my observations from my own submissions, not confirmed policy, and the causes are my reading.
+
+- **Scripts from organisations that aren't Verified:** from my submissions, the directory began refusing scripts and files outside the allowed types from organisations that aren't Verified around 5 Nov 2026. The portal's reason for the full Council Dial's "Needs changes" says so: "The directory accepts scripts, programs, and files outside the allowed types only from Verified organizations, and your organization isn't one, so this version is refused." The full edition has a script, which is why Lite, which has none, was made, and why only Lite is submitted. The directory docs an earlier review read had no rule like it (see "A wrong alternative explanation" in the context-anchoring comparison).
+- **Review times:** my earliest submissions were picked up within about a day. Three later ones were all submitted and scanned on 5 Nov:
+  - **Tangent Jar and Bench Diary:** approved by a reviewer on 9 Nov, about 4 days later, and still not live on 10 Nov.
+  - **Stowdeck:** still in review on 10 Nov.
+- **So:** these are a few submissions from one account, so they don't show what's behind the slower times.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
