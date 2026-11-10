@@ -18,14 +18,14 @@ Nov 3, 2026. For the researcher to review before anything is spent. Nothing paid
   claude -p --safe-mode --restricted --tools Read,Grep,Glob --strict-mcp-config --no-session-persistence --output-format json
   ```
 
-  The session ran in a fresh folder outside `C:\Projects`. It reported no CLAUDE.md, memory or project notes, and only the three tools. It was refused when it tried to read a file outside its folder.
+  The session ran in a fresh folder outside the folder that holds my project repos. It reported no CLAUDE.md, memory or project notes, and only the three tools. It was refused when it tried to read a file outside its folder.
   - `--bare` can't be used: it only accepts an API key, so it would bill the API instead of the Max plan.
   - The JSON output reports tokens and a notional cost. That's how "roughly equal usage" is measured and logged.
 - **The original builder sessions aren't on this PC.** There are no WinScope session files under `~/.claude/projects`, so a true builder self-review (resuming the actual author) isn't possible unless they exist elsewhere. See decision A.
 
 ## 2. How it works
 
-**Seeds (private until the runs are done).** Seeds are built in a private folder outside both public repos (`C:\Projects\pilot-private\`, not a git repo). That folder holds:
+**Seeds (private until the runs are done).** Seeds are built in a private folder outside both public repos (`../pilot-private/`, next to this repo rather than inside it, and not a git repo). That folder holds:
 
 - the seed patches and the answer key
 - the held-out test project
