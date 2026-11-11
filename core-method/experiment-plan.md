@@ -601,6 +601,7 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
   - **Tests:** the test suite capped Lite's description at 500 characters but had no cap for the full edition's. 1.7.1 adds a 500-character check for both.
   - **A wrong claim in my prompt:** the voice-drafted prompt said reviewers "never run the commands". The session corrected this to "by default", because the options that allow running code give the council agents that can run things. Both descriptions and the README sentence say "by default".
   - **So:** like the stale lines above, this was caught by a session that had to edit the text and check it against a rule, not by the reviews.
+- **Unpushed notes are invisible to other tools (field note, 11 Nov 2026):** a separate Fable chat, asked to help make a video about this research, could see only the 7 Nov version on GitHub. About four days of notes, 62 commits from 8 to 11 Nov, had been committed locally but not pushed, so they reached no one outside this machine. I pushed them on 11 Nov. Local commits are a record for me, not for anyone or anything else, including other AI tools working on the same project.
 
 ### Two writers on one private file (field note, 11 Nov 2026)
 
