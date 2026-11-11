@@ -612,6 +612,18 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
 - **So:** a private file that several writers update, including the user's own editor, has no lock and no history of its own. A writer with a stale view can quietly undo another's work. Here the only defences were reading the file again before each update, and edits that refuse to apply when the text isn't what they expect.
 - **Experiment idea:** run two sessions that update one shared notes file, one working from a stale read, and measure how often a lost update goes unnoticed, with and without a re-read-before-write rule.
 
+### How big is Lite's SKILL.md? Three answers (field note, 11 Nov 2026)
+
+- **Why it matters:** after a compaction, Claude Code re-attaches only the first 5,000 tokens of a skill. The second Fable 5.2 review, of Lite 2.2.1, estimated `SKILL.md` at 3,500 to 5,000 tokens and warned that the step index, then at the end of the file, could be cut.
+- **The first measurement said 7,039 tokens**, on Opus 5.5 and Sonnet 5.5. It took how much a session's input grew between the request that loaded the skill and the next one. On that figure, Lite 2.2.2 moved the step index to the top of the file, and its README and the 2.2.2 report said a compaction in 2.2.1 would have dropped the index.
+- **The corrected measurement says about 4,990 tokens.** The first figure included about 2,000 tokens that had nothing to do with the skill. The claude.ai Claude Docs connector connects late, so its instructions and tool names arrived as attachments between the same two requests. The extra turn was not the problem: the request that loaded the skill wrote only 62 output tokens, a tool call with no thinking.
+  - **With claude.ai connectors off** for the measuring sessions (`ENABLE_CLAUDEAI_MCP_SERVERS=false`), the growth minus that request's output was 4,986 tokens on Opus 5.5 at high effort and on Sonnet 5.5 at low effort.
+  - **A cross-check with no tool call or extra turn:** pasting the same loaded text (14,527 characters) into a plain prompt added 4,957 tokens on both models. Claude Code's own estimate (`claude plugin details`) says about 4.5k.
+- **The README's rule of thumb was wrong:** "5,000 tokens (about 20,000 characters)" assumes 4 characters per token. The measured rate is about 2.9, so 5,000 tokens is about 14,600 characters.
+- **The step index in 2.2.1 wasn't past the cut after all.** By the corrected figure, the whole 2.2.1 file was about 4,950 tokens as loaded, and the index ended about 50 tokens before the 5,000-token mark. So a compaction would have kept it, by a margin a few more lines would have used up. My voice-drafted prompt for this note said it sat past the cut; that came from the first measurement.
+- **A second overstatement, in an earlier voice-drafted prompt:** it called the read-back rule the one runs skip "most often", citing the changelog. The 2.2.2 session checked the changelog: it records read-back slips in four rounds, and deviations logged late in four rounds too. So Lite's README says it's "one of the rules … recorded skipped or cut short most often".
+- **So:** a size taken from session usage picks up anything else that arrives between two requests, here a connector's attachments. The second figure is trustworthy because two methods agreed (4,986 and 4,957); the first had no cross-check. By the time it was caught, the wrong figure was in a README, a report and the prompt for this note.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
