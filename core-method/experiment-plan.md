@@ -494,6 +494,19 @@ Process and design notes from the Lite 2.2.3 installed-copy test (11 Nov 2026):
   - **Cause and fix, found later the same day:** the Write tool removed the spaces (see "Possible Claude Code bug reports", above). Lite 2.2.4 (`ed3e796`) counts such lines in `trailingWhitespaceLines` and treats them as a match instead of stopping.
 - **The 2.2.2 note's planned fix shipped:** in 2.2.3 (`5163257`), a line headed "Reason:" is the judge's reason, ahead of the sentence test.
 
+Process and design notes from the Lite 2.2.4 installed-copy test, the last before submission (11 Nov 2026):
+
+- **The run:** a Standard council, again `lite-20261111-01`, in the 2.2.4 test folder (`lite224-installed`), from an installed copy of Lite 2.2.4, on the same target and with the same PELICAN `CLAUDE.md`. Source: the run's `install-test-report.md` and `run.json`, checked against the session's transcript.
+- **The first run in which every new rule worked first time:**
+  - **Saving:** there was no read-back stop. All six reports matched their replies, with `trailingWhitespaceLines` 0. None of the replies had spaces or tabs at the end of a line, so the 2.2.4 whitespace rule had nothing to do.
+  - **The appeal:** its prompt held the judge's whole ruling for each finding, including the line listing the reviewers' severities. It marked all 8 severities it checked SEVERITY FAIR and said nothing about a missing reason. The judge marked nothing NOT REAL, so there were no dismissals to appeal.
+  - **Reasons:** the three logged reasons (M3, M5, M6) are each the text of a "Reason:" line, quoted exactly. M2, kept at HIGH, had no such line, and its reason is logged as none rather than taken from other text.
+  - **Records:** `userRequests` held only my request for the report file, not the task itself. The PELICAN line was named in the plan (20:47), before any agent started (21:00). It was left out of every prompt after I said no, and logged in `outsideInstructions`. The check found 12 of 12 findings matching, and 5 of 5 briefs.
+- **One deviation, logged honestly:** the judge's ranked list was a table whose finding cell held the number and the title together. Section 4 doesn't say whether `Title:` keeps the `M<n>. `, so Claude left it out by analogy with the ranked-list rule and logged the rule as unclear. Under the stopping rule I deferred the fix: it's in Lite's Planned list for the next version (`af21abc`), and Lite stays at 2.2.4 for submission.
+- **The connector, mentioned unprompted by 1 of 6 agents:** the judge said in its NOTES that a "Claude Docs" server-instructions block appeared in its context and that it ignored it. The check agent noticed the mention.
+- **Six runs on the same target:** HIGH counts were 3, 2, 1, 3, 3 and now 2 (2.1.2, 2.2.0, 2.2.1, 2.2.2, 2.2.3, 2.2.4).
+- **The stopping rule, as applied:** after this run, only an issue that breaks a run or gives wrong information would block submission. None was found.
+
 ### Context anchoring: three reviews of the same plugins with different context (9 Nov 2026)
 
 A small comparison, not a controlled test. Three Claude Code sessions on Fable 5.2 each reviewed the same two plugins at the same commits, Council Dial 1.5.8 (`b10b5d2`) and Council Dial Lite 1.10.1 (`8d412ef`), before a directory submission. Each was asked for the same eight checks (correctness, security, directory readiness, privacy, exploit-style detail, accuracy of claims, usability, and consistency between the editions), with a severity for each finding and a verdict, and each could use subagent reviewers. The three reports are kept outside this repo: the first two in Council Dial's git-ignored `reports/` folder (`council-dial-1.5.8-lite-1.10.1-with-context-review.md` and `council-dial-1.5.8-lite-1.10.1-no-context-review.md`), and the third in the blind review's own scratch folder (`blind-review-report.md`).
