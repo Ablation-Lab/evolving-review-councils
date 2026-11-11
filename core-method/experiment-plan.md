@@ -649,6 +649,14 @@ A reference implementation: [HalfLucid/FileInteractionMCP](https://github.com/Ha
 
 Caveat, checked against its README only, not its code: its dry runs cover its own editing tools (they return a diff), its README doesn't describe one for `fs_delete`, and it has no tool for running shell commands. So it wouldn't cover arbitrary shell pipelines like the xargs case, which would need another way to resolve targets, for example running the command against a copy of the folder tree.
 
+### Plesk MCP as a real-world agent-permission example (related work, 11 Nov 2026)
+
+- **The feature:** Plesk Obsidian 18.0.80 and later exposes server management to AI agents over MCP, through the WebPros Dashboard (`https://mcp.webpros.com/api/mcp`). Keys can be scoped to one subscription or to full admin, each tool can be set to read-only or read-write, and every tool call is logged.
+- **The EULA:** the Plesk EULA (Exhibit A, sections 3.2–3.4 and 3.10) puts all risk of agent actions on the user, gives no undertaking that confirmation or reversal steps exist, and requires the user to keep independent backups.
+- **Connection:** this is a production system with scoping and logging but no judge, appeal or dry-run step for destructive actions. That's the gap the hard list, dry run and independent appealer above are designed to fill.
+- **Possible test subject:** council review of agent-proposed Plesk CLI commands.
+- **Caveats:** this came from a research tangent on linking Claude and Plesk, and only the first third of the EULA page was read.
+
 ### Video note
 
 The incident is a candidate opener for a command-gating part of the main explainer video. The video has no such part yet.
