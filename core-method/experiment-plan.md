@@ -576,12 +576,9 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
 
 - **What happened:** the private, git-ignored email draft for the plugin directory is updated by Claude after each commit. At 01:01 something rewrote it with an older version, byte-identical to the editing session's own file-history backup from 00:16. That put back two commits superseded at 00:23 (three lines: the Lite commit in the body, and both commits in the versions list). Nothing else in the file changed.
 - **How it was caught:** only because the next update, at 01:05, re-read the file first. The update replaced exact old text, so it failed when it found the older commits instead of the ones it expected. The session then read the file and reported the change instead of writing over it.
-- **Who wrote it:** not found. Checked by reading the session transcripts:
-  - No transcript records a tool call that wrote the file then.
-  - The one other session active in the projects folder only listed and read it.
-  - The editing session's conversation wasn't rewound, and no other file it had edited was reverted, so it wasn't a checkpoint restore.
-  - So the writer had a stale copy and wasn't a recorded Claude Code tool call, perhaps an editor holding the 00:16 version. That's unconfirmed.
-- **So:** a private file that several sessions update has no lock and no history of its own. A writer with a stale view can quietly undo another's work. Here the only defences were reading the file again before each update, and edits that refuse to apply when the text isn't what they expect.
+- **Who wrote it:** I did. I'd had the draft open in Notepad++ since about 00:16, and it saved that old copy around 01:01. I closed it later without saving.
+  - **What the transcripts had shown:** no transcript records a tool call that wrote the file then. The one other session active in the projects folder only listed and read it. The editing session's conversation wasn't rewound and no other file it had edited was reverted, so it wasn't a checkpoint restore. The search concluded the writer had a stale copy and wasn't a Claude Code tool call, perhaps an editor holding the 00:16 version, which was right.
+- **So:** a private file that several writers update, including the user's own editor, has no lock and no history of its own. A writer with a stale view can quietly undo another's work. Here the only defences were reading the file again before each update, and edits that refuse to apply when the text isn't what they expect.
 - **Experiment idea:** run two sessions that update one shared notes file, one working from a stale read, and measure how often a lost update goes unnoticed, with and without a re-read-before-write rule.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
