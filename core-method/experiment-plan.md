@@ -557,6 +557,7 @@ These are my observations from my own submissions, not confirmed policy, and the
     - Elastic's "no icon" warning was waived;
     - an icon edit on a live plugin sat at "Pending review" for 15 days.
   - **What I did:** I left the approved icons alone and asked the directory team in the email.
+- **How to contact the directory (field note, 11 Nov 2026):** Anthropic's [Track your directory submission](https://claude.com/docs/directory/submission-status) page, checked on 11 Nov, puts the portal's own route first for questions about a plugin submission: open the plugin in the developer portal, open its menu, and select **Get help** or **Contact Anthropic**. It gives `directory@anthropic.com` as an alternative, "where replies can be delayed", and asks for "the listing's name, the organization you submitted from, and the status the portal shows". My questions had been drafted as an email, to an address a session found in the docs on 5 Nov. I'm switching to the portal route.
 
 ### Stale "planned" and limits claims in the READMEs (field note, 10 Nov 2026)
 
