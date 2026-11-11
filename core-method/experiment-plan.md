@@ -507,6 +507,22 @@ Process and design notes from the Lite 2.2.4 installed-copy test, the last befor
 - **Six runs on the same target:** HIGH counts were 3, 2, 1, 3, 3 and now 2 (2.1.2, 2.2.0, 2.2.1, 2.2.2, 2.2.3, 2.2.4).
 - **The stopping rule, as applied:** after this run, only an issue that breaks a run or gives wrong information would block submission. None was found.
 
+Process and design notes from the plugin directory's validation of Lite 2.2.4 (11 Nov 2026):
+
+- **The result:** the portal validated `main` at `4827528` with no refusals. As I noted it from the portal:
+  - 4 warnings, on the listing fields and the icon, each "no action needed";
+  - one policy hold, `UNREAD_ASSET_REFERENCED`: CHANGELOG.md names `icon.png` twice, and `plugin.json` names it in its icon field, chained through `plan.md` naming `plugin.json`. It's held for human review, not refused.
+  - one information item, quoted: "Frontmatter keys outside the allowed list accepted only from Verified organizations: agents/council-reader.md, omitClaudeMd. This isn't refused yet. Later, the directory will accept frontmatter keys and values outside the allowed list only from Verified organizations."
+- **The image hold follows names, not use:**
+  - It comes from any text file that names the image, chained through files that name each other. Here, `plan.md` names `plugin.json`, which names the icon in its `icon` field.
+  - A changelog line recording a move added two findings: the 2.2.0 entry said "The icon is at `./icon.png`". At that commit it was the only changelog line naming the file, and it named it once, with the word "icon" earlier on the line; the portal counted two.
+  - Lite `7049778` (text only, still 2.2.4) rewords it to "The icon moved to the repository root". `plugin.json`'s `icon` field stays, since the listing uses it.
+- **A review-isolation field marked for future refusal:**
+  - `omitClaudeMd` is a documented Claude Code subagent field. Lite's read-only agent has set it since 2.2.0, so council agents start without the user's `CLAUDE.md` files; in my test on Claude Code 2.1.322, the agent no longer saw a project `CLAUDE.md`.
+  - The directory accepts it for now, but it's outside the allowed frontmatter list, which will later apply to organisations that aren't Verified.
+  - **So:** a measure the plugin relies on to keep project instructions out of reviewers' context could be removed by directory policy, not by Claude Code. Without it, by Claude Code's subagent docs, a custom subagent gets every level of `CLAUDE.md` the main conversation loads. The PELICAN line from the installed-copy tests would then reach the reviewers, although Lite's ground rule still keeps it out of their prompts.
+  - I've asked the directory whether the key can be added to the allowed list, or whether I should plan to remove it before the rule is enforced.
+
 ### Context anchoring: three reviews of the same plugins with different context (9 Nov 2026)
 
 A small comparison, not a controlled test. Three Claude Code sessions on Fable 5.2 each reviewed the same two plugins at the same commits, Council Dial 1.5.8 (`b10b5d2`) and Council Dial Lite 1.10.1 (`8d412ef`), before a directory submission. Each was asked for the same eight checks (correctness, security, directory readiness, privacy, exploit-style detail, accuracy of claims, usability, and consistency between the editions), with a severity for each finding and a verdict, and each could use subagent reviewers. The three reports are kept outside this repo: the first two in Council Dial's git-ignored `reports/` folder (`council-dial-1.5.8-lite-1.10.1-with-context-review.md` and `council-dial-1.5.8-lite-1.10.1-no-context-review.md`), and the third in the blind review's own scratch folder (`blind-review-report.md`).
