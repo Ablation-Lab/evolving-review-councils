@@ -528,6 +528,19 @@ These are my observations from my own submissions, not confirmed policy, and the
   - **Tangent Jar and Bench Diary:** approved by a reviewer on 9 Nov, about 4 days later, and still not live on 10 Nov.
   - **Stowdeck:** still in review on 10 Nov.
 - **So:** these are a few submissions from one account, so they don't show what's behind the slower times.
+- **Expired icons (field note, 11 Nov 2026):** on Bench Diary and Tangent Jar, both approved and still waiting to publish, the imported icon shows "Expired" because it wasn't reviewed in time. A separate Claude chat searched Anthropic's docs about this on 11 Nov.
+  - **What the official docs don't say:** whether replacing an icon on an approved plugin restarts review, whether plugin icons are reviewed separately, what happens with no icon, or why icons expire.
+  - **The nearest official lines:**
+    - [Track your directory submission](https://claude.com/docs/directory/submission-status): an approved MCP connector returns to draft for another review if its listing is edited before it's published. That's stated for connectors only, with no matching line for plugins, which is why I didn't replace the icons.
+    - [Submit your plugin](https://claude.com/docs/plugins/submit): changing the tracked branch or tag cancels a publish request that's still waiting.
+    - [Publish to the directory](https://claude.com/docs/directory/publish): "Review time isn't fixed."
+  - **Unofficial, from user reports** (GitHub issues #104401 and #103979 in anthropics/claude-code, and Elastic's blog post on publishing to the plugin directory):
+    - unreviewed icons are reportedly deleted after about two days;
+    - plugins go live with no icon, showing the first letter of the name;
+    - one reviewer uploaded an icon at approval;
+    - Elastic's "no icon" warning was waived;
+    - an icon edit on a live plugin sat at "Pending review" for 15 days.
+  - **What I did:** I left the approved icons alone and asked the directory team in the email.
 
 ### Stale "planned" and limits claims in the READMEs (field note, 10 Nov 2026)
 
