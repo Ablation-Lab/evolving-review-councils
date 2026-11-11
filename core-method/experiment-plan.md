@@ -572,6 +572,18 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
   - **A wrong claim in my prompt:** the voice-drafted prompt said reviewers "never run the commands". The session corrected this to "by default", because the options that allow running code give the council agents that can run things. Both descriptions and the README sentence say "by default".
   - **So:** like the stale lines above, this was caught by a session that had to edit the text and check it against a rule, not by the reviews.
 
+### Two writers on one private file (field note, 11 Nov 2026)
+
+- **What happened:** the private, git-ignored email draft for the plugin directory is updated by Claude after each commit. At 01:01 something rewrote it with an older version, byte-identical to the editing session's own file-history backup from 00:16. That put back two commits superseded at 00:23 (three lines: the Lite commit in the body, and both commits in the versions list). Nothing else in the file changed.
+- **How it was caught:** only because the next update, at 01:05, re-read the file first. The update replaced exact old text, so it failed when it found the older commits instead of the ones it expected. The session then read the file and reported the change instead of writing over it.
+- **Who wrote it:** not found. Checked by reading the session transcripts:
+  - No transcript records a tool call that wrote the file then.
+  - The one other session active in the projects folder only listed and read it.
+  - The editing session's conversation wasn't rewound, and no other file it had edited was reverted, so it wasn't a checkpoint restore.
+  - So the writer had a stale copy and wasn't a recorded Claude Code tool call, perhaps an editor holding the 00:16 version. That's unconfirmed.
+- **So:** a private file that several sessions update has no lock and no history of its own. A writer with a stale view can quietly undo another's work. Here the only defences were reading the file again before each update, and edits that refuse to apply when the text isn't what they expect.
+- **Experiment idea:** run two sessions that update one shared notes file, one working from a stale read, and measure how often a lost update goes unnoticed, with and without a re-read-before-write rule.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
