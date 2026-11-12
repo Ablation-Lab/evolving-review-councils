@@ -152,6 +152,6 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - **B:** three wide seats with the new areas folded in;
    - **C:** five narrow seats;
    - **a single generalist** with an ISO checklist, as a baseline.
-   - **Origin:** testing role sets against each other on the same seeds was joint (point 4). The four sets themselves are in the Seat roles plan, and the record doesn't say who proposed them.
+   - **Origin:** testing role sets against each other on the same seeds was joint (point 4). Claude proposed the four sets in a text reply after the review-areas research on 12 Nov 2026. I agreed to test all four against each other rather than choose one in advance. ~~The four sets themselves are in the Seat roles plan, and the record doesn't say who proposed them.~~ (corrected 12 Nov 2026)
 5. **Still open: the number of repeats per role set.**
    - **Origin:** mine.
