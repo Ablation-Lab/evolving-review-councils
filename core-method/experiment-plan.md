@@ -695,9 +695,45 @@ I spotted this reading the full edition's public GitHub page, which is still Cou
 - **A second overstatement, in an earlier voice-drafted prompt:** it called the read-back rule the one runs skip "most often", citing the changelog. The 2.2.2 session checked the changelog: it records read-back slips in four rounds, and deviations logged late in four rounds too. So Lite's README says it's "one of the rules … recorded skipped or cut short most often".
 - **So:** a size taken from session usage picks up anything else that arrives between two requests, here a connector's attachments. The second figure is trustworthy because two methods agreed (4,986 and 4,957); the first had no cross-check. By the time it was caught, the wrong figure was in a README, a report and the prompt for this note.
 
-### Doc drift caught by the paper pass (field note, 12 Nov 2026)
+### What checked the research doc, and what it missed (12 Nov 2026)
 
-An independent pass building the paper draft checked 158 numbers against the raw run files and found 9 places where the AI-assisted research doc had drifted from them (wrong figures, inferred durations stated as measured, a remark attributed to the wrong study). Lesson: a living doc kept by voice-drafted prompts needs periodic checks against the raw data, by an agent that didn't write it.
+On 12 Nov 2026 an independent pass building the paper draft checked this doc's numbers against the raw run files and found places where the doc had drifted from them. A lot had been checked before that, but none of it was this. This section sets out what each layer of checking looked at, and why none of them caught the drift.
+
+**What each layer of checking looked at:**
+- **One full independent review of the research plan (31 Oct 2026):** the [review notes](../research/review-notes-oct31.md) covered the cited papers, the plan's claims and next steps: its design, gaps and overclaims. It came before most runs existed, so there were few run figures to check. After it I made a rule of no further overall reviews of the doc, so as not to influence the research.
+- **Targeted checks as notes were added:** the terminal adding each note was asked to check its claims against the files, reports and transcripts behind it (see the [voice-draft audit](voice-draft-audit.md)). Those checks looked at one new note at a time, when it was written. They didn't re-check older notes, or whether a figure still matched its source after the run files changed.
+- **Reviews of the plugins, not of the doc:**
+  - council runs on the plugins and sample material;
+  - a Fable 5.1 review of Council Dial 1.2.0 (7 Nov);
+  - the three Fable 5.2 reviews in the context-anchoring comparison (9 Nov);
+  - the two final Fable 5.2 reviews of Lite (2.1.1 and 2.2.1);
+  - at least 21 subagent reviewers across Lite's change rounds.
+
+  These looked at the plugins and their READMEs. The with-context review could read this repo, but as background, not as material to check.
+- **The paper pass (12 Nov 2026):** the first check of the doc's numbers as a whole against the raw files: each run's `run.json`, the run reports and Lite's CHANGELOG, plus the session transcripts where nothing was written down.
+
+**What the paper pass found:** its numbers check covered 158 claims, nearly all figures, in the sections the paper uses. 154 matched (some with a caveat), 1 differed and 3 had no source. It noticed one more outside those sections, and the paper's draft report lists 9 places to check in all.
+- **Corrected, in `821d561`:**
+  - **A wrong figure, with the arithmetic built on it:** the connector's size per agent was given as 2,017 characters and about 690 tokens. The transcripts hold 1,893 characters, measured at 710 tokens. The per-run figure and its shares were recalculated from 710.
+  - **A count that couldn't be reproduced:** "85 agent replies" in the 2.2.3 notes was counted while that run was still going. The folders hold 87 subagent transcripts up to 2.2.3 and 82 saved reports before 2.2.4.
+  - **An inferred duration that didn't reproduce:** "about 20 minutes blocked" was labelled as inferred from timestamps, with no record of how it was counted. A re-read of the transcript gives about 27 minutes. It was corrected in both places it appeared.
+  - **A deviation count that later changed:** the 2.2.3 notes' "one deviation" was right when written, but the run went on to log five.
+  - **A remark attributed to the wrong study:** the voice-draft audit's "not statistically clear" belongs to its earlier blinded study, not to the 50% and 33% figures.
+  - **Two lines that contradicted each other on default effort:** one left Fable 5.2 out of the models that default to medium. Claude Code's docs include it.
+- **Weaker sources rather than errors, not corrected:**
+  - the judge's 78,934 against about 291,000 tokens matches only Council Dial's README, not a run file;
+  - the deviation counts "before I asked" come only from my account, though the totals after asking match each `run.json`;
+  - the with-context review's "3 HIGH" includes one on the private review note, so strictly 2 are on the plugins.
+
+**Why it matters:** the doc felt well checked because so much around it had been reviewed. But none of those reviews looked at the doc's own numbers against the raw data. The full review came before the data, the targeted checks saw one note at a time as it was written, and the plugin reviews looked at the plugins. Being reviewed in some way isn't the same as being checked against the source. Several of the errors were true when written and went stale: a count taken mid-run, a deviation count taken before the run had finished logging and a line on the docs that the page no longer matches. A check made at writing time can't catch that kind of drift.
+
+**The trade-off:** the no-overall-reviews rule protects the research from being steered by a reviewer's views, but it also meant drift went unnoticed. The middle ground is a numbers-only check against the raw files, which corrects facts without changing opinions or structure. The paper pass's check worked that way. It was read-only and gave each claim MATCHES, DIFFERS or NO SOURCE FOUND with the source it checked, and it suggested no new wording or structure. I then made each correction, keeping the original wording visible.
+
+**Experiment ideas:**
+- **How fast drift builds up:** run a numbers-only check at set points, for example every 50 commits. Measure corrections per 100 claims checked, and how long each error stood before it was caught.
+- **Who wrote the note:** compare drift in notes written from voice-drafted prompts with notes written directly by the terminal that ran the test. Score both with the same numbers-only check, and compare like with like (run results with run results, field notes with field notes).
+
+**Lesson:** a living doc kept by voice-drafted prompts needs periodic checks against the raw data, by an agent that didn't write it.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
