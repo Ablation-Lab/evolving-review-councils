@@ -106,3 +106,28 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ---
 
 **Decisions** (to be filled in by the researcher): adopted, rejected or parked, with a reason for each.
+
+**Seeds (12 Nov 2026), all adopted by me after reading [seed-sources-research.md](seed-sources-research.md).** Each point says where it came from: Claude's suggestions in that file, or me.
+
+1. **Real bugs are the main seeds.**
+   - **Reason:** Kumar et al. (2026) report the best model's F1 at 0.847 on injected bugs and 0.066 on real bug-fix PRs. So written seeds may make councils look far better than they are.
+   - **Origin:** the decision is mine. The evidence and the proposal of ReviewBench as the main external source of real seeds came from Claude. Claude's write-up had left real against written seeds open.
+   - **Caveats:**
+     - Kumar et al.'s injected bugs were made by mutation, not by Claude, so the result says nothing directly about Claude-written seeds.
+     - The figures were read only through a fetch tool's summary of the abstract page. They need checking against the paper before the paper cites them.
+2. **Order of preference for each ISO area:**
+   1. real documented bugs;
+   2. seeds made without any Claude model: by mutation tools, or written by a non-Claude model;
+   3. Claude-written seeds, only where neither is possible.
+
+   Every seed is tagged with its ISO area and its source. The paper states plainly which areas needed Claude-written seeds and why.
+   - **Reason** (Claude's wording; I didn't give one): the further a seed is from a Claude model, the less a mostly-Claude council can be helped by sharing the writer's habits. Real bugs also avoid the injected-seed gap above.
+   - **Origin:** the order, the non-Claude writer, the tagging and the statement in the paper are mine. Claude had suggested the mutation tools, as a cheap control rather than the main seeds, and fix commits from our own never-public repos as a held-out real set.
+   - **Caveat:** the Kumar et al. result is about mutation seeds, which this order puts second. Tagging by source will show whether they are as easy for our councils.
+3. **Equal numbers of seeds per area to start.** Results are reported by area and by source, so a weak seat isn't confused with harder or easier seed sources.
+   - **Origin:** mine.
+4. **Before relying on ReviewBench:**
+   - check which models helped build its golden findings;
+   - check its data licence;
+   - score with our own outside-family judge, not its Claude judge (Claude Sonnet 5).
+   - **Origin:** checking the data licence was Claude's suggestion. Checking the models is mine, building on Claude's notes that "several frontier models" helped find the golden findings and that the answers have been public since October 2026. Using our own judge is mine; it applies the plan's existing outside-family judge rule ([experiment-plan.md](experiment-plan.md), from the 31 Oct review) to this source.
