@@ -155,3 +155,44 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - **Origin:** testing role sets against each other on the same seeds was joint (point 4). Claude proposed the four sets in a text reply after the review-areas research on 12 Nov 2026. I agreed to test all four against each other rather than choose one in advance. The proposal's own words are in [outside-reviews-sources/2026-11-12-role-sets-proposal.md](outside-reviews-sources/2026-11-12-role-sets-proposal.md). I pasted them from the claude.ai conversation, so they can't be checked against any local transcript. ~~The four sets themselves are in the Seat roles plan, and the record doesn't say who proposed them.~~ (corrected 12 Nov 2026)
 5. **Still open: the number of repeats per role set.**
    - **Origin:** mine.
+
+---
+
+## Outside review 3: what the prior-work search means for the plan
+
+- **Date:** 12 Nov 2026
+- **Reviewer:** Claude, the chat assistant. It is **not independent**, for the same reasons as in entry 1.
+- **Material:** [prior-work-research.md](prior-work-research.md) (commit aabd10f), read in full.
+- **Record:** the reviewer's suggestions, then my direction and the focus the reviewer suggested for it. All were adopted by me on 12 Nov 2026. Claude Code checked the figures against the papers' pages and corrected one (suggestion 4).
+
+### Suggestions (all adopted)
+
+1. **A stronger single-reviewer baseline:** one generalist, run several times and pooled, at the same cost as the councils. Then B and C can't win just by spending more.
+   - **Basis:** Tran and Kiela (2026), where one agent matched or beat multi-agent systems at equal reasoning tokens; and SWR-Bench's multi-review aggregation, where pooling several runs of one tool raised F1 by up to 43.67%.
+2. **Check the scoring judge against my own hand labels** on a sample of findings, and report the agreement.
+3. **Add CRBugBench and MCR-Bench to the seed sources to check.** MCR-Bench is included because severity is part of its key: its abstract says each task has defect metadata including "description, type, severity".
+   - **Not yet checked:** whether every defect carries a severity label, and both benchmarks' data licences and availability.
+4. **Note the persuasive-PR-description threat as a later test,** linked to the R4 worst-case wording idea. That idea covers R4's ratings and the variant packet in [experiment-plan.md](experiment-plan.md), and the dramatic-wording test in entry 1 (D3).
+   - **SEVRA-BENCH** wraps reversed vulnerability fixes in persuasive PR descriptions.
+   - **"When AI Agrees Too Much"** (Alexopoulos et al., to appear at ICSE 2027) tested an LLM-refined attack against two review pipelines. It got 17 of 17 reintroduced CVEs past the Claude Code pipeline and 15 of 16 past CodeRabbit, 32 of 33 in all. Each CVE was tested against one pipeline only.
+   - **Correction:** the prompt said 32 of 33 got past Claude Code's pipeline; that figure covers both pipelines.
+
+### My direction, and the focus the reviewer suggested (adopted)
+
+**My direction:** keep the decisions solid, but aim the work at what prior work hasn't done.
+
+**The reviewer's suggested focus:**
+- **Lead with the parts the search didn't find:**
+  - an appeal that can reinstate the judge's dismissals;
+  - whole role sets compared at equal cost against planted bugs;
+  - the judge's severity calls checked against a severity key (MCR-Bench) and against human labels;
+  - evolving or racing review councils.
+- **Extend Song (2026) rather than repeat it.**
+  - **What Song did:** compared single reviews and pairs of review calls, same-model against cross-model. It had no council, judge or appeal.
+  - **What this project would do:** put a non-Claude model in one council seat (for example the appeal or one reviewer), and test whether a mixed-family council beats an all-Claude one at equal cost.
+
+**Also for the record:** I came to this work independently and found the prior work afterwards. The paper will say so plainly, and will position the work as building on Song (2026), MARG and EvoMAS (Hu et al.).
+
+---
+
+**Decisions:** all of the above adopted by me on 12 Nov 2026.
