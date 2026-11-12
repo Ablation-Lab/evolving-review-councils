@@ -1078,6 +1078,10 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
 - A [who-caught-what log](who-caught-what.md) of who caught which mistakes during the research.
 - An animated explainer video built with Remotion, linked at the top of the README so visitors can see what the project is before reading further. The Remotion source code lives in a companion repo, [ablation-lab/council-video](https://github.com/ablation-lab/council-video). Before rendering, a small council of 2–3 fresh subagents reviews the video code independently (bugs, timing, overlapping text), which doubles as a mini pilot of the council method.
 
+### Publishing
+
+- **Paper format decided (12 Nov 2026):** write the paper in LaTeX using the ICML style (two-column, Figure 1 teaser under the title, single-paragraph abstract, author-year citations, roughly 8 to 10 pages of main text plus references and appendices), modelled on The Platonic Representation Hypothesis (arXiv 2405.07987). Plan to post as an arXiv preprint: remove the ICML proceedings footer, use the non-anonymous option, acknowledge Claude's assistance in the paper and check whether arXiv endorsement is needed for a first submission.
+
 ## Related research
 
 Earlier work shows that adding more agents doesn't automatically help, and that the best number depends on the task. This experiment adds evolving councils for code review, a council-size scale for each complexity tier, and a calculator that outputs a ready-to-use prompt.
