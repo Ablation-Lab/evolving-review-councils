@@ -736,6 +736,9 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 
 **Lesson:** a living doc kept by voice-drafted prompts needs periodic checks against the raw data, by an agent that didn't write it.
 
+**Drafting the paper as a check (field note, 12 Nov 2026):** the first paper draft was built only to see what the work looked like, not to submit. Reading it surfaced gaps the running tests hadn't. One was the figure drift in this doc (see above). The other came from the first figure on the first page: the seat roles came from practice rather than any framework, leaving out maintainability, reliability, performance, the app's own tests, usability and compatibility ([outside-reviews.md](outside-reviews.md) entry 2, checked in [review-areas-research.md](review-areas-research.md)). As a first-time researcher reviewing my own paper, I found that turning the notebook into something an outsider would read worked as a review in itself.
+- **Decision:** paper edits are parked, listed in the paper repo's `next-draft-fixes.md`. The seat-role research and tests come first, then a fresh draft.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
