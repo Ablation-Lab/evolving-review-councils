@@ -429,3 +429,15 @@ The paper's `references.bib` has 30 entries. It cites Panickssery, Wataoka, Kim 
   - Gong et al. give 54.3% in the text and 55.0% in a table.
 - **SWR-Bench:** a search snippet gave a different earlier title, but the arXiv page shows only the current one.
 - **Kumar et al.** ([arXiv 2606.15689](https://arxiv.org/abs/2606.15689)): the fetch summary gives a submission date that doesn't fit its June 2026 arXiv number. Check this on the page before citing.
+
+## Loosely related
+
+### Predicting Acceptance and Review Effort in Human and Agent Pull Requests
+- **Paper:** Kartik Ghanshyambhai Pansuriya, Ehsan Ghorbani, Deepak Singh and Eman Abdullah AlOmar, Stevens Institute of Technology; arXiv preprint, v1 13 Jul 2026; no venue stated. [arXiv 2607.12057](https://arxiv.org/abs/2607.12057). Abstract page and [full text](https://arxiv.org/html/2607.12057v1) read by me through a fetch tool.
+- **Tested:** whether a PR's acceptance and review effort can be predicted at submission time, from metadata only. It used classical machine learning (logistic regression, random forests, gradient boosting, extra trees and MLPs) on human- and agent-authored PRs from the AIDev corpus.
+  - **Acceptance:** predictable, with tree-based models reaching F1 above 0.95.
+  - **Review effort:** comment counts and time to merge are only modestly explained (R² 0.20 and 0.12, pooled).
+- **Not prior work on councils:** it doesn't evaluate AI reviewers.
+- **How it connects:**
+  1. **Motivation.** It reports that "agent-authored PRs show slightly higher discussion and longer median time-to-merge". That is mild support for the project's motivation, though it gives no split figures, only the direction.
+  2. **A possible source of real agent-written bugs** for the same-family question: AIDev includes Claude Code PRs. See the "To check" section in [seed-sources-research.md](seed-sources-research.md).

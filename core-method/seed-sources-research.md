@@ -298,3 +298,25 @@ These are my recommendations, not decisions.
 8. **An idea, not from any source:** our own apps' histories could give a truly held-out set. Fix commits in repos that have never been public can't have been seen by any model. They need no licence, and they're in our languages. The cost is the work of picking and checking each fix ourselves.
 
 **Choosing between real and written seeds** isn't settled by these sources. The one direct comparison I found (Kumar et al.) used mutation, not Claude-written bugs. A run with the same council on ReviewBench PRs and on written seeds in matched areas would measure the gap for our setup.
+
+## To check
+
+Sources not yet read in full or not yet judged as seed sources. Anything marked *unverified* couldn't be confirmed on the source's own pages.
+
+| Source | Why it might help | Licence | Status |
+|---|---|---|---|
+| **AIDev** (Hao Li, Haoxiang Zhang and Ahmed E. Hassan, Queen's University *(affiliation from a snippet)*): [Hugging Face dataset](https://huggingface.co/datasets/hao-li/AIDev), papers [arXiv 2507.15003](https://arxiv.org/abs/2507.15003) (20 Jul 2025) and [arXiv 2602.09185](https://arxiv.org/abs/2602.09185) (9 Feb 2026), code at [SAILResearch/AI_Teammates_in_SE3](https://github.com/SAILResearch/AI_Teammates_in_SE3) | Real PRs written by coding agents, including Claude Code, for the same-family question: does a Claude council miss bugs that Claude Code wrote more often than bugs from other agents? | CC BY 4.0 | partly checked; details below |
+
+**AIDev: what's confirmed.** The dataset card (v5) and its licence field were read directly, and the two arXiv abstract pages through a fetch tool.
+- **Size:** v5 ("AIDev-7.6M", cutoff 31 Mar 2026) has 7,685,281 PRs in 961,168 repositories.
+- **Agents:** six. Claude Code has 1,567,100 PRs; the others are OpenAI Codex, GitHub Copilot, Cursor, Google Jules and Devin.
+- **Contents:** PR comments, reviews, review comments, commits, commit details, timelines and linked issues.
+- **Earlier versions,** as git tags: v4 (2.7M PRs, cutoff Nov 2025) and v3 (about 1M PRs). The papers describe smaller earlier releases: 456,000 PRs and 932,791 PRs.
+- **Licence:** CC BY 4.0 on Hugging Face.
+
+**AIDev: still unverified.**
+- **Languages:** not listed on the card, though a language-usage notebook exists.
+- **Start of the date range:** not stated.
+- **Bug-fix links:** whether PRs are linked to later bug fixes. I found no table that does this, so bug-introducing PRs would have to be traced ourselves, for example through later fix commits and issues.
+- **Human PRs:** whether the corpus includes human-authored PRs for comparison. The card describes agent PRs only.
+- **A lead:** "Will It Survive? Deciphering the Fate of AI-Generated Code in Open Source" ([arXiv 2601.16809](https://arxiv.org/abs/2601.16809)) is listed on the card as using AIDev. It may already trace what happens to agent-written code, but I haven't read it.
