@@ -202,4 +202,5 @@ Each entry: what the prompt said, what was true, how Claude Code found out, and 
 - Claims were coded from what Claude Code reported checking. A claim it checked silently and found right may be missing from the confirmed count.
 - The untagged groups were chosen for signs of voice drafting or for asking for checks, which selects for prompts with checkable claims. They are not a random sample of untagged prompts; the earlier blinded study drew one and is summarised above.
 - The tag's wording varied across the 30 prompts; the first four also say "tell me which ones were wrong", which invites an itemised report.
+- **Decisions made in a claude.ai chat (added 12 Nov 2026):** they leave no local transcript, so a terminal can't verify them. The fix is to paste the chat's own words into the repo, as with [the role-sets proposal](outside-reviews-sources/2026-11-12-role-sets-proposal.md).
 - Several turns were still running or ended at a clarification question when the transcript was read (T17, T21, T29, U7, U8), so corrections that landed in the next turn are counted only where the next turn was read (U7, U8).
