@@ -712,18 +712,18 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   These looked at the plugins and their READMEs. The with-context review could read this repo, but as background, not as material to check.
 - **The paper pass (12 Nov 2026):** the first check of the doc's numbers as a whole against the raw files: each run's `run.json`, the run reports and Lite's CHANGELOG, plus the session transcripts where nothing was written down.
 
-**What the paper pass found:** its numbers check covered 158 claims, nearly all figures, in the sections the paper uses. 154 matched (some with a caveat), 1 differed and 3 had no source. It noticed one more outside those sections, and the paper's draft report lists 9 places to check in all.
-- **Corrected, in `821d561`:**
+**What the paper pass found:** its numbers check covered 158 claims, nearly all figures, in the sections the paper uses. 154 matched (some with a caveat), 1 differed and 3 had no source. It noticed one more outside those sections, and the paper's draft report lists 9 places to check in all. Not all 9 were drift. The paper's third pass reads them as 5 drift from the run files plus 4 secondary sources or inconsistencies within the doc. `821d561` had split the same 9 as 6 corrected and 3 weaker sources, because one of the corrected six was an inconsistency within the doc rather than drift.
+- **Drift from the run files, corrected in `821d561`:**
   - **A wrong figure, with the arithmetic built on it:** the connector's size per agent was given as 2,017 characters and about 690 tokens. The transcripts hold 1,893 characters, measured at 710 tokens. The per-run figure and its shares were recalculated from 710.
   - **A count that couldn't be reproduced:** "85 agent replies" in the 2.2.3 notes was counted while that run was still going. The folders hold 87 subagent transcripts up to 2.2.3 and 82 saved reports before 2.2.4.
   - **An inferred duration that didn't reproduce:** "about 20 minutes blocked" was labelled as inferred from timestamps, with no record of how it was counted. A re-read of the transcript gives about 27 minutes. It was corrected in both places it appeared.
   - **A deviation count that later changed:** the 2.2.3 notes' "one deviation" was right when written, but the run went on to log five.
   - **A remark attributed to the wrong study:** the voice-draft audit's "not statistically clear" belongs to its earlier blinded study, not to the 50% and 33% figures.
-  - **Two lines that contradicted each other on default effort:** one left Fable 5.2 out of the models that default to medium. Claude Code's docs include it.
-- **Weaker sources rather than errors, not corrected:**
-  - the judge's 78,934 against about 291,000 tokens matches only Council Dial's README, not a run file;
-  - the deviation counts "before I asked" come only from my account, though the totals after asking match each `run.json`;
-  - the with-context review's "3 HIGH" includes one on the private review note, so strictly 2 are on the plugins.
+- **An inconsistency within the doc, also corrected in `821d561`:** two lines contradicted each other on default effort. One left Fable 5.2 out of the models that default to medium, and Claude Code's docs include it.
+- **Secondary sources and a nuance within the doc, not corrected:**
+  - **Only a secondary source:** the judge's 78,934 against about 291,000 tokens matches only Council Dial's README, not a run file.
+  - **Only my account:** the deviation counts "before I asked", though the totals after asking match each `run.json`.
+  - **A nuance within the doc:** the with-context review's "3 HIGH" includes one on the private review note, so strictly 2 are on the plugins.
 
 **Why it matters:** the doc felt well checked because so much around it had been reviewed. But none of those reviews looked at the doc's own numbers against the raw data. The full review came before the data, the targeted checks saw one note at a time as it was written, and the plugin reviews looked at the plugins. Being reviewed in some way isn't the same as being checked against the source. Several of the errors were true when written and went stale: a count taken mid-run, a deviation count taken before the run had finished logging and a line on the docs that the page no longer matches. A check made at writing time can't catch that kind of drift.
 
@@ -1042,7 +1042,7 @@ A controlled follow-up to the [voice-draft audit](voice-draft-audit.md): does ad
     - **"Numbers" vs claims:** "158 numbers checked". The numbers check has 158 rows, each a claim, nearly all of them figures.
     - **"First time anything checked":** the targeted checks had compared each new note with its raw files as it was written. The paper pass was the first check of the doc's numbers as a whole.
     - **"Inferred stated as measured":** the "about 20 minutes" was already labelled as inferred. The problem was that it didn't reproduce: a re-read gave about 27.
-    - **The nine counted as errors:** a figure carried over from the short note being expanded. Six were errors, and three were weaker sources (a secondary source, my own account and a strict count).
+    - **The nine counted as errors:** a figure carried over from the short note being expanded. ~~Six were errors, and three were weaker sources (a secondary source, my own account and a strict count).~~ Five were drift from the run files, one was an inconsistency within the doc (both kinds corrected) and three were a secondary source, my own account and a nuance within the doc (reworded 12 Nov 2026, following the paper's third pass).
     - **"Counts that couldn't be reproduced":** there was one such count, not several. The terminal wrote it in the singular but didn't list it in its reply.
     - **So:** the slips came from summaries carried forward through voice conversations, each retelling an earlier summary rather than the files. That's the same mechanism the subsection describes, one step removed.
   - **Two writers on one repo (12 Nov 2026):** while the paper terminal was building its second pass from the research doc at `d8098cf`, this notes terminal committed `821d561` to the same repo (01:47).
