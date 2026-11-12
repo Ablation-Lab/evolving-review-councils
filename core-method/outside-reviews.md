@@ -131,3 +131,27 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - check its data licence;
    - score with our own outside-family judge, not its Claude judge (Claude Sonnet 5).
    - **Origin:** checking the data licence was Claude's suggestion. Checking the models is mine, building on Claude's notes that "several frontier models" helped find the golden findings and that the answers have been public since October 2026. Using our own judge is mine; it applies the plan's existing outside-family judge rule ([experiment-plan.md](experiment-plan.md), from the 31 Oct review) to this source.
+
+**Seat roles (12 Nov 2026), adopted by me.** The full plan is in the Claude Docs doc "Seat roles plan" (12 Nov 2026), which is private. Each point says where it came from, using the discussion record above: Claude, me or both.
+
+1. **ISO/IEC 25010:2023 is the reference map, not a standard to pass.** Every seat and every seed is labelled with the ISO areas it covers, so coverage can be compared with a recognised baseline. The seed tags are seed decision 2 above.
+   - **Origin:** Claude proposed ISO/IEC 25010 as a reference point (point 1). Using it as a map rather than a standard, and labelling every seat, are mine.
+2. **Council Dial Lite, the read-only tier:**
+   - **It keeps** its current areas: correctness; security and privacy; docs and policy accuracy.
+   - **It adds** reliability, performance efficiency, safety, the app's own tests and maintainability.
+   - **Maintainability is limited to clear-cut problems,** such as dead code, duplicated logic and comments that contradict the code. Taste and style stay out of the scoring.
+
+   That covers six of ISO's nine areas: functional suitability, security, reliability, performance efficiency, maintainability and safety. Docs and policy accuracy and the app's own tests aren't ISO areas. The nearest ISO item to the tests is testability, which falls under maintainability.
+   - **Origin:** four of the additions were in Claude's list of areas the seats don't cover (point 1): maintainability, reliability, performance and the app's own tests. Safety came from Claude's literature check ([review-areas-research.md](review-areas-research.md)), which found it missing from that list. The choice of areas and the clear-cut limit on maintainability are mine.
+   - **Not decided here:** whether the new areas get seats of their own or are folded into existing briefs. I had suggested folding them in (point 2), and decision 4 leaves it to the tests.
+3. **Left out on purpose for now: compatibility, flexibility and interaction capability,** because they need a running app. They come later in the full Council Dial, including a seat that reviews frames of the running app with the video-review tool.
+   - **Origin:** mine. The running-app tier and the video-review seat are from point 2, where I also said usability and compatibility matter little for the Claude skills built so far. Flexibility came from Claude's literature check.
+   - **Caveat:** Claude had argued that usability does apply to the formal experiment, and that some of it (error messages, settings, help text) can be seen in the code (point 3). Leaving interaction capability out of Lite leaves those readable parts out too.
+4. **No winner chosen in advance.** These are tested against each other on the same seeds at the same cost, with repeats, and the results decide:
+   - **A:** the current seats, as the baseline;
+   - **B:** three wide seats with the new areas folded in;
+   - **C:** five narrow seats;
+   - **a single generalist** with an ISO checklist, as a baseline.
+   - **Origin:** testing role sets against each other on the same seeds was joint (point 4). The four sets themselves are in the Seat roles plan, and the record doesn't say who proposed them.
+5. **Still open: the number of repeats per role set.**
+   - **Origin:** mine.
