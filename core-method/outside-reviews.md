@@ -124,7 +124,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - **Reason** (Claude's wording; I didn't give one): the further a seed is from a Claude model, the less a mostly-Claude council can be helped by sharing the writer's habits. Real bugs also avoid the injected-seed gap above.
    - **Origin:** the order, the non-Claude writer, the tagging and the statement in the paper are mine. Claude had suggested the mutation tools, as a cheap control rather than the main seeds, and fix commits from our own never-public repos as a held-out real set.
    - **Caveat:** the Kumar et al. result is about mutation seeds, which this order puts second. Tagging by source will show whether they are as easy for our councils.
-3. **Equal numbers of seeds per area to start.** Results are reported by area and by source, so a weak seat isn't confused with harder or easier seed sources.
+3. **Equal numbers of seeds per area to start.** This is a starting point, to be adjusted after the first results ("to begin with, anyway", in my words). Results are reported by area and by source, so a weak seat isn't confused with harder or easier seed sources.
    - **Origin:** mine.
 4. **Before relying on ReviewBench:**
    - check which models helped build its golden findings;
