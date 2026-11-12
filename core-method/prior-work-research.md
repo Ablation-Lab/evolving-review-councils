@@ -35,9 +35,22 @@
   - the role set isn't varied and cost isn't matched.
 
 ### Hydra-Reviewer: A holistic multi-agent system for automatic code review comment generation
-- **Paper:** Xiaoxue Ren, Chaoqun Dai, Qiao Huang, Ye Wang, Bo Jiang and Chao Liu; an IEEE journal paper presented in the [FSE 2026 Journal-First track](https://conf.researchr.org/details/fse-2026/fse-2026-journal-first/40/Hydra-Reviewer-A-holistic-multi-agent-system-for-automatic-code-review-comment-gener). Only the listing was read: IEEE Xplore (document 11203269) returned an empty page and no preprint was found.
-- **Tested:** agents built around a taxonomy of review dimensions from an empirical study, with context retrieval and reflection. It reports BLEU 8.20 against 7.85 for DeepSeek-V3, 7.8 dimensions covered per comment, and $0.018 and 62.63 s per change.
+- **Paper:** Xiaoxue Ren, Chaoqun Dai, Qiao Huang, Ye Wang, Bo Jiang and Chao Liu.
+  - **Venue:** IEEE Transactions on Software Engineering, 2025, issue 12. This is from the IEEE Computer Society listing (path `ts/2025/12/11203269`), seen via search only. It was also presented in the [FSE 2026 Journal-First track](https://conf.researchr.org/details/fse-2026/fse-2026-journal-first/40/Hydra-Reviewer-A-holistic-multi-agent-system-for-automatic-code-review-comment-gener).
+  - **Read:** abstract read (pasted by the researcher from the IEEE page, 12 Nov 2026). ~~Only the listing was read: IEEE Xplore (document 11203269) returned an empty page and no preprint was found.~~ The full text still isn't accessible; I'm requesting a copy from the first author.
+- **Tested:** agents built around a taxonomy of review dimensions from an empirical study, with context retrieval and reflection.
+  - **Motivation:** the authors name three limitations of existing automated code review: lack of comprehensiveness, incorrectness and vagueness.
+  - **Evaluation:** on CodeReview, CodeReviewNew and a new dataset of their own, against CodeReviewer, LLaMA-Reviewer, ChatGPT, Comprehensive-ChatGPT and DeepSeek-V3. Each component is ablated, and there is a user study.
+  - **Results:** BLEU 8.20 against 7.85 for DeepSeek-V3, 7.8 dimensions covered per comment, and $0.018 and 62.63 s per change.
+  - **The taxonomy's dimensions** aren't listed in the abstract.
 - **Closeness: medium.** Its dimension-based agents are the nearest thing to seat roles chosen from a taxonomy. It is scored by BLEU, and whether its ablation compares role sets couldn't be checked.
+- **How it bears on the project:**
+  - **Its three limitations map onto parts of the council:**
+    - comprehensiveness onto seat coverage;
+    - incorrectness onto the judge, the appeal and the checks;
+    - vagueness onto the findings format, which asks for the file, the line and the evidence (as in Lite's reviewer, judge and appeal briefs).
+  - **Its BLEU gain** (8.20 against 7.85) measures similarity to human comments, not bugs caught.
+  - **Its ablation** is the part to read for the question of folding areas into existing seats against giving them seats of their own.
 
 ### CodeAgent: Autonomous Communicative Agents for Code Review
 - **Paper:** Xunzhu Tang et al. (9 authors); EMNLP 2024 main conference; [arXiv 2402.02172](https://arxiv.org/abs/2402.02172) (v1 3 Feb 2024, v5 24 Sep 2024). Full text read, except the appendices.
