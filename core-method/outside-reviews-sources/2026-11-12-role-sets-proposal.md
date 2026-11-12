@@ -17,3 +17,5 @@ The Claude Docs doc "Seat roles plan" and entry 2's decisions changed the propos
 | C, the docs seat | docs | docs and maintainability |
 
 The proposal doesn't mention maintainability at all; entry 2's decision 2 adds it, limited to clear-cut problems.
+
+The plan is the current version. The proposal came first; after it, I decided to include clear-cut maintainability (dead code, duplicated logic, comments that contradict the code) and to add safety, as recorded in entry 2's Decisions (seat roles, decision 2), and the plan doc folded both into B and C.
