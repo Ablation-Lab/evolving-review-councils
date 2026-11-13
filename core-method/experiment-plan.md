@@ -748,6 +748,29 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 
 **An assumed check that wasn't there (field note, 12 Nov 2026):** setting up a local seat-roles worktree for Council Dial Lite found that the Lite repo has never had the local privacy hook my other public repos use. No commit in its history has a `.githooks` folder or a privacy script, and `core.hooksPath` isn't set. ~~Privacy was checked before submission: the release reports record the full edition's privacy-check script run on Lite by hand, and the full edition's hook ran at its own commits.~~ Privacy was checked before submission by the manual pre-push check (11 Nov 2026, in Council Dial's local `pre-push-check.md`), run before Lite's first push. Lite's remote was empty, so that check covered its whole history. It searched every commit message, every line those 32 commits added and every tracked file for my personal address and the private name patterns. It also ran the privacy-check script over the working tree and looked for paths on my machine, and found nothing. The release reports also record the full edition's privacy-check script run on Lite by hand (corrected 12 Nov 2026). But no commit-time hook was running on Lite. Like the doc drift, this was a check assumed to exist that nobody had verified. A setup task with no review brief found it. Lite now has a local, uncommitted pre-commit privacy hook in its `.git/hooks` folder, which covers the worktree too.
 
+**Lessons from building the seed pilot (field note, 13 Nov 2026):** a Claude Code session built the pilot set in the private, local-only seed folder that [outside review 5](outside-reviews.md) decided on. This note comes from its report, the seed pilot report (`erc-seeds-pilot-report.md`), which stays private like the seeds. No seed is named here.
+- **The set:** 35 candidates, five in each of seven areas, 22 from ReviewBench and 13 from MCR-Bench. All are waiting for my hand-check.
+- **Filtering by source labels wasn't enough:**
+  - 5 of the 22 MCR-Bench defects in state New that were read were the problem the round's diff fixes, not a bug in its new code;
+  - ReviewBench's manifest sizes can understate the diff that's reviewed: for one PR the reviewed diff was several times the manifest's size, though the other 19 measured matched or were close;
+  - 5 of the 28 ReviewBench golden findings checked against the real diffs pointed partly or fully outside the diff.
+  - **So:** every seed has to be read against its diff, not just filtered.
+- **Thin areas:**
+  - **Security:** MCR-Bench has only 7 usable defects in its security and privacy category (F.7) in our four languages. "Usable" here means New, with a line range inside the round's diff, which leaves 1,013 of 1,616 New defects. Outside review 5 recorded 34 F.7 defects before that filter.
+  - **Performance:** the candidates were mostly minor. ReviewBench has 36 performance true positives in our languages, 33 of them rated low.
+  - **So:** both may need written seeds.
+  - **Privacy** *(from the report, not my prompt)*: only one candidate is a privacy problem, so privacy may need written seeds too, as outside review 5 anticipated.
+- **Producers:** of the 22 ReviewBench candidates, 14 were found by Claude (all Claude Sonnet 4.6) and 8 by other models (all GPT-5.5). So any split by producer rests on one non-Claude model.
+- **Contamination** *(from the report, not my prompt)*: no candidate is from after mid-2026, so the pilot doesn't control for it. SWE-bench-Live's July 2026 tasks are the planned check.
+- **Raw downloads stay out of git:** the third-party data trips the privacy check's generic patterns (upstream contributors' email addresses, password assignments and hardware words), though none of my private patterns. The check wasn't narrowed and the data wasn't allow-listed. Instead, the seed folder's local repo commits SHA-256 checksums of the downloads, so a fresh download can be verified.
+
+**Who sees the seeds (decision, 13 Nov 2026):**
+- **The briefs are frozen:** the role-set briefs were written before any seeds existed and are frozen for the comparison. Claude Code checked the order: the last commit to the briefs or their design note is 11 minutes before the seed folder's first commit.
+- **The chat assistant doesn't see the seeds:** it helps shape the councils (it proposed the role sets: see [outside review 2](outside-reviews.md)), so I hand-check the seeds myself.
+- **The hand-checks do two jobs:** they're also my labels for validating the scoring judge, as outside review 3's second suggestion asked.
+- **Questions are logged:** if I ask the chat assistant about a specific seed, that's logged.
+- **Open** *(Claude Code's note)*: the decision covers the chat assistant only. The Claude Code session that built the pilot saw every seed, and the session that wrote this note read the pilot report. Whether a Claude Code session that has seen the seeds may later work on the councils or their briefs is still to decide.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
