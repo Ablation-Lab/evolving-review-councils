@@ -106,7 +106,12 @@ Blind judging and the collusion checks assume each seat sees only what its brief
 - **Field observation: installed plugins add text too (13 Nov 2026):** ~~from my account, after I installed Tangent Jar and Bench Diary from the directory in the Claude app, both skills' descriptions appeared in the chat assistant's context in an existing conversation, with nothing else changed.~~ (amended 13 Nov 2026, to state exactly what was observed) From my account:
   - **Text chat, observed:** in the Claude app's text chat, the skills list available to the chat assistant gained Tangent Jar's and Bench Diary's skills, with full descriptions, at the first message after I installed them from the directory. Neither appeared earlier in that conversation.
   - **Voice, not seen:** in a voice call shortly after, the voice assistant didn't see them among its tools, so it first doubted the observation. The text side then confirmed it.
-  - **Claude Code sessions and council subagents, untested.**
+  - ~~**Claude Code sessions and council subagents, untested.**~~ (amended 13 Nov 2026, after the run-isolation dry run: see "The run-isolation dry run" under the seed notes below)
+  - **Claude Code sessions, observed:** directory-installed plugins reach ordinary Claude Code sessions on this machine.
+    - **The dry run's evidence:** its report says an ordinary Claude Code session on this machine lists both plugins, while the dry-run session didn't.
+    - **A confound in that** *(Claude Code's note)*: this machine also has both plugins from my own Ablation Lab marketplace, installed on 7 Nov, so an ordinary session listing them doesn't show which copy it loaded.
+    - **Better evidence** *(Claude Code's note)*: Claude Code's folder of plugins synced from my account now holds both directory copies (its list was updated at 22:38 UTC on 13 Nov). And the other eight plugins installed in the Claude app, which aren't installed in Claude Code itself, all appear in this Claude Code session's skills list. So plugins installed in the Claude app do load into Claude Code sessions.
+  - **Council subagents, still untested:** the dry run kept all plugins but Lite out of the session, so it didn't test whether skill descriptions reach a reviewer agent.
   - **Not just my plugins:** the Claude app lists 10 installed plugins under "From Anthropic & Partners": my two plus eight others, among them SuperMe, Postiz and Anthropic's Product Management, Marketing, Finance, Engineering and Design plugins. The chat assistant's skills list held skills from all of them. *(Claude Code's note: the same eight others are in Claude Code's folder of plugins synced from my account. The eighth is a plugin for making and managing plugins.)*
   - **The platform's own name for the channel:** each plugin's page in the app has a "Connectors & tools" box, and for both of mine it says "Only adds instructions for Claude".
   - **Listed for chat, built for Claude Code:** both listing descriptions say "Runs in Claude Code with Node.js" (Claude Code checked: it's the description in each plugin's manifest, and both ship a Node.js helper script). Yet both are listed for the Claude apps and Cowork, with a "Try in chat" button. What a chat user gets is untested.
@@ -114,7 +119,7 @@ Blind judging and the collusion checks assume each seat sees only what its brief
   - ~~**In Claude Code too** *(Claude Code's note)*: the Claude Code session that wrote this note also has both skills' descriptions in its context, in the list of available skills, among those of every other installed plugin. Whether skill descriptions reach a council's subagents, including Lite's read-only agent, is untested.~~ (amended 13 Nov 2026: those copies weren't installed from the directory, so they don't test this.)
   - **A different install, in Claude Code** *(Claude Code's note)*: the Claude Code session that wrote this note has both skills' descriptions in its list of available skills. But those copies came from my own Ablation Lab marketplace, installed on 7 Nov, not from the directory. ~~Claude Code's folder of plugins synced from my account held neither when checked on 13 Nov.~~ Claude Code's folder of plugins synced from my account held neither when checked on 13 Nov, but its list was last updated at 00:12 UTC that day, before either plugin went live, so it says nothing either way (corrected 13 Nov 2026). So this shows that locally installed plugins reach a Claude Code main session, not that directory-installed ones do.
   - **To do:**
-    - check whether plugins installed from the directory also load into Claude Code sessions and into Lite's reviewer agents;
+    - check whether plugins installed from the directory also load into Claude Code sessions and into Lite's reviewer agents *(Claude Code sessions: done 13 Nov 2026, they do; reviewer agents: still to check)*;
     - record installed plugins with each run's environment;
     - check the category tags on the portal's Listing tab: whether I chose them, and whether I can change "Jobs & career". The listings show Tangent Jar as "Jobs & career" and "Notes & memory", and Bench Diary as "Data", "Files & documents" and "Notes & memory".
 - **The channels, and what holds each one:**
@@ -845,6 +850,25 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Privacy check:** third-party code tripped 27 lines against the generic privacy patterns (dummy test passwords and similar). They were allow-listed by hash, with the patterns unchanged.
 - **A small relay slip:** from my account, while talking to the chat assistant by voice, I mentioned that one particular seed was marked "none" (not a bug). That seed was dropped, so no harm was done, but it's another case of seed detail crossing the relay (see "The leak" above).
   - **To confirm** *(Claude Code's note)*: the hand-check sheet's label for not a bug is "Informational", not "none". So it's still to confirm that the seed mentioned was one of the dropped ones.
+
+**The run-isolation dry run (field note, 13 Nov 2026):** a test of the seed folder's run-isolation rules, on made-up material only, so no seed was involved. The source is the dry run's results report in the seed folder. Claude Code checked the set-up against the dry run's own instructions.
+- **Set-up:** a fresh, seed-free Claude Code session in a scratch folder.
+  - **How it started:** with `--setting-sources project,local`, a separate plugin cache and `ENABLE_CLAUDEAI_MCP_SERVERS=false`.
+  - **What the project settings denied:** web tools, both shells (Bash and PowerShell) and reads of the seed folder and of a decoy folder.
+  - **The material:** a tiny made-up project with one harmless planted bug. A `CLAUDE.md` with a marker word sat inside it.
+- **Results: all passed.**
+  - **No web or shell tools:** they weren't available at all, so none was called.
+  - **Outside reads:** both were refused, and the decoy's marker appeared nowhere.
+  - **No connectors:** `/mcp` showed none. An earlier session started without the variable had two, so leaving out user settings doesn't remove claude.ai connectors.
+  - **Only Lite:** only Lite and Claude Code's built-in skills and agents were available.
+  - **The review:** Lite's Quick review completed, with 3 reviewers and the check, and 19 findings. The check found all 19 copied correctly from the reports into the summary.
+- **Planted instructions:** the `CLAUDE.md` never loaded as instructions, but the main session and all 3 reviewers read it as a file. The reviewers flagged it as an instruction aimed at them and didn't follow it. It's one run, but it's a data point on resistance to planted instructions (compare "Planted text in the material" under [What reaches an agent that the council doesn't control](#what-reaches-an-agent-that-the-council-doesnt-control)).
+- **Many extra findings:** 19 findings on a tiny made-up project with one planted bug. Quick review pools findings with no judge, so none was confirmed. It's an early sign that unconfirmed extra findings will be numerous in real runs.
+- **Plugins:** Tangent Jar and Bench Diary, installed in the Claude app today, reach ordinary Claude Code sessions on this machine, but not the dry-run session. This updates the installed-plugins note above.
+  - **What kept them out isn't isolated** *(Claude Code's note)*: the report credits `--setting-sources project,local`. But the session also used a separate plugin cache, and either setting could have done it. Leaving out user settings drops the copies from my own marketplace, which are enabled at user level.
+- **Not settled:**
+  - **Path forms:** which Windows path form the read denies and the `CLAUDE.md` exclusion need. Both forms are kept. No `CLAUDE.md` loaded even after files beside it were read, and there was no control run without the exclusion, so the run doesn't show that the exclusion is what stopped it.
+  - **Reviewer agents:** whether the denies bind them. They weren't asked to try an outside read, and the transcript scan covers their reads.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
