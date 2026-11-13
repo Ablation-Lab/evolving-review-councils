@@ -655,6 +655,36 @@ These are my observations from my own submissions, not confirmed policy, and the
   - **Where they're listed:** Claude Code, Cowork and the Claude apps (web, desktop and mobile).
   - **Icons:** both still show "waiting for review" after going live. On 11 Nov they showed "Expired" (see the next note), and I hadn't replaced them.
   - **Updates:** by scheduled check only, about every 6 hours.
+- **Open question: why did two plugins with scripts go live? (13 Nov 2026):** Tangent Jar and Bench Diary each ship a Node.js script, yet both were approved and went live. The "Scripts from organisations that aren't Verified" note above says the directory began refusing scripts from organisations that aren't Verified around 5 Nov. Both notes are left as they were. Claude Code checked what the files can settle on 13 Nov.
+  - **The refusal:** the automatic check refused Council Dial 1.3.6 (commit `d56ccfd`) with the code `LOCAL_CODE_FILE_TYPE`. The rule, as the portal confirmed it on 9 Nov, begins: "The directory accepts scripts, programs, and files outside the allowed types only from Verified organizations, and your organization isn't one, so this version is refused." The allowed types are Markdown, text, JSON, YAML and five image formats (PNG, JPEG, GIF, WebP and ICO). No file may start with `#!`, and package manager configuration files must go.
+    - **When:** 1.3.6 was committed at 01:32 UTC on 8 Nov, and the refusal was first recorded at 11:00 UTC that day, in a prompt to a Claude Code session. Its exact time isn't on file.
+  - **When the rule began:** the earliest record is a notice the portal showed on Council Dial, saying it would later accept these files only from Verified organisations. It's first recorded at 01:48 UTC on 8 Nov, in the prompt that added a warning about it to Seaready (Seaready 1.1.0, the same day). The reports, notes and session transcripts hold no earlier refusal or notice of this kind.
+    - **Against that:** Seaready itself, which ships 11 `.mjs` files, was validated on 5 Nov at commit `f883860` (14:20 UTC). The portal raised three policy holds on it and no file-type finding.
+    - **Tangent Jar and Bench Diary** were submitted and scanned on 5 Nov, after their submitted commits at 21:04 and 21:43 UTC. That's about two and a half days before the first record of the rule.
+  - **What each ships, at its submitted commit:**
+
+    | Plugin and commit | Script | Lines |
+    |---|---|---|
+    | Tangent Jar, `1101d92` | `skills/tangent-jar/scripts/tangent.mjs` | 322 |
+    | Bench Diary, `e50d6d5` | `skills/bench-diary/scripts/diary.mjs` | 501 |
+    | Council Dial, `d56ccfd` | `skills/council-dial/scripts/council.mjs` | 852 |
+
+    - **The same kind in all three:** one `.mjs` file in the skill's `scripts/` folder, with a first line of `#!/usr/bin/env node`. Each is run only because its `SKILL.md` tells Claude to run `node "${CLAUDE_SKILL_DIR}/scripts/<name>.mjs"`. None has a hook, a `bin/` folder or an MCP or LSP server, and no manifest declares one.
+    - **How Council Dial's differs:** it's larger, and it reads an environment variable, which the portal held separately (`MCP_FORWARDS_CREDENTIAL_ENV`). It doesn't differ in kind: all three break the same two parts of the rule, a file type outside the list and a first line starting with `#!`.
+  - **The current docs (re-read on 13 Nov):** I read [Submit your plugin](https://claude.com/docs/plugins/submit), [Publish to the directory](https://claude.com/docs/directory/publish), [Track your directory submission](https://claude.com/docs/directory/submission-status) and the [plugin pre-submission checklist](https://claude.com/docs/plugins/pre-submission-checklist).
+    - **Nothing on the rule:** none mentions Verified organisations for plugins (Verified appears only as a connector label) or `LOCAL_CODE_FILE_TYPE`.
+    - **What the checklist allows:** "Include only text files, SVG included, complete PNG, JPEG, GIF, and WebP images, and font files." Other binary files are held for a reviewer, not refused.
+    - **Skill-run scripts:** the checklist's hold for programs the validator can't read through says "A script that `SKILL.md` only tells Claude to run isn't part of this check." So by today's docs, all three scripts would pass.
+  - **Related:** Lite 2.2.5's report (11 Nov) records a second rule limited to Verified organisations, `LOCAL_CODE_FRONTMATTER_KEY`, for an agent frontmatter setting. The docs don't mention it either.
+  - **What the evidence supports:** timing. The two plugins were submitted and scanned on 5 Nov, the rule's first record is early on 8 Nov, and Seaready's scripts got no file-type finding on 5 Nov.
+    - **A narrower target doesn't fit:** the three scripts are the same kind, run the same way and break the rule in the same ways.
+    - **The 10 Nov note's date looks too early:** nothing on file supports "around 5 Nov". The records put the notice by early 8 Nov and the first refusal later that day. Its description of what's refused matches the refusal's own words.
+    - **Not settled:** the portal's own records aren't on file, and the approved versions weren't scanned again after the rule appeared.
+  - **What would settle it:**
+    - **The two plugins' Versions tabs:** the checks recorded for `1101d92` and `e50d6d5`, and whether either showed the notice.
+    - **Council Dial's Versions tab:** when the notice first appeared and when the refusal came.
+    - **The next version of either plugin:** its scan would show whether the rule applies to them now. The docs say a newer version that doesn't pass leaves the published one live.
+    - **The directory team:** asking through the portal's **Get help**.
 - **Expired icons (field note, 11 Nov 2026):** on Bench Diary and Tangent Jar, both approved and still waiting to publish, the imported icon shows "Expired" because it wasn't reviewed in time. A separate Claude chat searched Anthropic's docs about this on 11 Nov.
   - **What the official docs don't say:** whether replacing an icon on an approved plugin restarts review, whether plugin icons are reviewed separately, what happens with no icon, or why icons expire.
   - **The nearest official lines:**
