@@ -275,7 +275,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 - **A′ added:** three seats with 32 items (12, 11 and 9), all copied by script from the shared pool in set C. It uses the same neutral opening, layout and out-of-scope rule as B and C. The skill files spell it "A-prime" to stay plain ASCII.
   - **Selection:** its items follow A's own focus texts in `briefs/v3/shared.md`, not ISO areas alone.
   - **Partial areas:** where it takes part of an area (reliability, and maintainability for comments only), it has its own ISO line naming just what its items cover.
-- **Three policy items added:** licence problems against the project's stated licence, stated project rules the code breaks, and promises the code breaks.
+- **Three policy items added:** licence problems against the project's stated licence, stated project rules the code breaks and promises the code breaks.
   - **Where:** each is in the docs seat of A′, B and C and in G's list, word for word the same. C's docs seat is renamed "docs, policies and maintainability", and B's to match.
   - **Tag:** "no ISO characteristic: policy", so policy seeds can be reported as their own area.
   - **Counts:** B, C and G now share 58 items.
@@ -297,7 +297,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
     - licence notices belong to the licence item, not the rules item.
   - **A′'s correctness out-of-scope line:** now says how the code handles failures and malformed outside input isn't reviewed.
   - **Partial failures added to A′'s correctness seat,** since A's focus names "data loss", which brought A′ to 32 items.
-  - **Two header notes completed:** what A′ leaves out compared with A, and that A′ leaves out scope lines.
+  - **Two header notes completed:** what A′ leaves out compared with A and that A′ leaves out scope lines.
 - **Changed in the design note:** every seed is also tagged with the checklist item it plants (or "none"). A′ against B and C is then scored only on seeds whose item A′ has.
 - **Left unchanged, with the session's reason:** "runs code it downloads" and "uses the network" fall on the same lines as the security items on unchecked downloads and plain HTTP. They're different problems, a broken promise against a missing check, so both may be reported and the judge merges them if they turn out to be one. This is recorded in the design note.
 
