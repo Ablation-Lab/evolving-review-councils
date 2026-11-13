@@ -196,3 +196,72 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ---
 
 **Decisions:** all of the above adopted by me on 12 Nov 2026.
+
+---
+
+## Outside review 4: the first reviewer briefs for the role sets
+
+- **Date:** 13 Nov 2026
+- **What happened:** a Claude Code session in the local seat-roles worktree wrote:
+  - reviewer briefs for role sets B, C and G;
+  - set A's file, which has no text of its own and points to the existing templates;
+  - a design note.
+
+  They are in commit c49ecb8 on the local `seat-roles` branch of Council Dial Lite. It isn't pushed, because Lite is in directory review.
+- **Reviewer:** the briefs got an independent check: a fresh read-only subagent that the session started. It was given only the new brief files, the design note and [review-areas-research.md](review-areas-research.md), with none of the session's conclusions.
+  - **Not independent of Claude:** the writer and the checker are both Claude.
+- **Record:** the session's own report, `seat-roles-briefs-report.md`, a local file outside this repo. The figures below are from it. I also checked the commit and the brief files in the worktree.
+
+### Design choices by the session
+
+1. **B, C and G share the same checklist items, word for word, so the sets differ only in grouping.**
+   - **How:** the session wrote C by hand, then built B's and G's blocks from it with a scratch script. A second script checked that:
+     - all three have the same 55 items, with none repeated;
+     - G has C's items in C's order;
+     - B's seats are C's seats regrouped.
+   - **Tags:** every item is tagged with its ISO/IEC 25010:2023 characteristic, or marked as having none.
+   - **Set A** keeps today's templates and has no checklist.
+2. **The out-of-scope rule.** Every reviewer stays in its scope, in every set, A included. But it may list up to two problems it would rate HIGH under the heading "Outside my scope". Because those entries carry their own heading, scoring can count catches with and without them.
+   - **Not from a source:** the threshold (HIGH) and the cap (two) are the session's judgment calls.
+
+### The independent check
+
+- **Personas:** it found no persona wording in the B, C or G texts.
+- **What was changed in the briefs:**
+  - **Items that needed knowledge outside the material:** six were reworded, about commit messages, unbounded sizes, batched calls, failure handling, file permissions and example output.
+  - **Overlaps between seats:** eight were settled, each by moving the boundary or sending the problem to one seat.
+  - **New items:** weak cryptography and guessable values; unprotected transfer and temporary files; crafted input that exhausts the machine; deadlocks; reading back a corrupt state file; order mistakes, including an unawaited call.
+  - **Other changes:** a retention clause for personal data, several ISO tags corrected, "naming" narrowed to "naming conventions" and consistent wording between A and the common out-of-scope text.
+- **What was changed in the design note only:**
+  - how a missing-test finding scores against a code seed;
+  - a corrected detail on where out-of-scope entries go;
+  - a note that A's opening gives a role identity and the other sets' don't;
+  - a note that B's first seat carries 31 items against 16 and 8;
+  - a note that "can be found by reading" is an instruction for performance, not an established result.
+- **Left unchanged, with the session's reasons:**
+
+  | Point | Why it stayed |
+  |---|---|
+  | "A return value or default misread" needs knowledge of the library | Reading code always draws on knowing its libraries; saying so wouldn't change what a reviewer does. |
+  | Busy waiting overlaps waits with no limit | Both are in the same seat in every set, and they're different defects. |
+  | No item for server-side request forgery (SSRF) | Rare in the local apps and skills reviewed so far, and still covered by "other problems within the scope count too". |
+  | Resource leaks stay tagged reliability (availability) | Leaks degrade the app and eventually stop it on a long run. |
+  | The briefs give the unchecked safety and functional-suitability subcharacteristics without a caveat | Reviewers don't need to know how a source was checked; the design note marks them as unchecked. |
+  | Failure handling: impact not added to the item | Impact is the severity's job, not the item's. |
+
+### Two questions the session raised, Claude's suggestions and my decisions (both adopted)
+
+1. **Add A′.** A′ is A's three areas written in the new checklist format, with a neutral opening.
+   - **Why:** A against A′ then tests the checklist, and A′ against B and C tests the split of areas. Without it, A differs from the other sets in its role-identity opening and its lack of a checklist at the same time.
+   - **Origin:** the session raised A′ as an option in its design note. Claude suggested adding it, and I decided to.
+2. **Add policy to the docs seat in B, C and G:** rules, licences and policies the project says it follows. Then every set covers the same ground.
+   - **Why:** today only A's docs seat covers policy, so policy seeds would favour A. The design note had said seeds should hold no policy problems unless the other sets gained policy. With this decision they can.
+   - **Origin:** the session raised it. Claude suggested adding policy, and I decided to.
+
+### Open item
+
+- **Four ISO subcharacteristics in the briefs come from general knowledge.** They are functional correctness, and safety's operational constraint, fail safe and hazard warning. They must be checked against ISO/IEC 25010:2023 before the plan is locked. [review-areas-research.md](review-areas-research.md) doesn't list subcharacteristics for functional suitability or safety.
+
+---
+
+**Decisions:** A′ and policy in B, C and G adopted by me on 13 Nov 2026. The subcharacteristic check is open.

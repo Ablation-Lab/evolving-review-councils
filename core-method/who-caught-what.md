@@ -295,3 +295,18 @@ These entries come from the [voice-draft audit](voice-draft-audit.md) of every v
    - **Status:** transcript. The one-model-for-every-seat limit was also checked in Council Dial 1.3.8's README (the Model row).
 
 **Human-in-the-loop note:** both 8 Nov corrections came from voice-drafted prompts that ended with the line asking Claude Code to verify claims before acting.
+
+## 13 Nov 2026
+
+54. **There are no "v3 reviewer templates"** (13 Nov, session d1e9212c, tagged)
+   - **Caught by:** Claude Code
+   - **Corrected:** the voice draft's instruction that "the current brief v3 templates must stay byte-identical"
+   - **What:** `briefs/v3/` holds only `shared.md`, `judge.md` and `appeal.md`. Reviewers in both versions use `briefs/reviewer.md`. The session kept every file in `briefs/` and `briefs/v3/` byte-identical anyway.
+   - **Status:** checked in the seat-roles worktree of Council Dial Lite at commit c49ecb8, by listing `briefs/v3/`. The draft's wording was checked in the session's transcript.
+
+55. **Reviewers don't give a "proposed severity"** (13 Nov, session d1e9212c, tagged)
+   - **Caught by:** Claude Code
+   - **Corrected:** the voice draft's description of the findings format as including a "proposed severity"
+   - **What:** version 3's format asks each finding for a severity (HIGH, MED or LOW), a short title, "the file and line", the evidence, a suggested fix and the reviewer's confidence. It doesn't say "proposed". But from version 3 the judge sets the final severity from the evidence, so the reviewer's is in effect a proposal.
+   - **Status:** checked in `briefs/v3/shared.md` (the Report line and the description of the judge's rulings) at commit c49ecb8. The draft's wording was checked in the session's transcript.
+
