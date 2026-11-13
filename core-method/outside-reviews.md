@@ -265,3 +265,51 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ---
 
 **Decisions:** A′ and policy in B, C and G adopted by me on 13 Nov 2026. The subcharacteristic check is open.
+
+### Second round (13 Nov 2026)
+
+- **The commit:** 83d9897 on the local `seat-roles` branch, after c49ecb8. It isn't pushed.
+- **Source:** the "Second round" section of `seat-roles-briefs-report.md`. I also checked the commit and the brief files in the worktree.
+
+**What changed:**
+- **A′ added:** three seats with 32 items (12, 11 and 9), all copied by script from the shared pool in set C. It uses the same neutral opening, layout and out-of-scope rule as B and C. The skill files spell it "A-prime" to stay plain ASCII.
+  - **Selection:** its items follow A's own focus texts in `briefs/v3/shared.md`, not ISO areas alone.
+  - **Partial areas:** where it takes part of an area (reliability, and maintainability for comments only), it has its own ISO line naming just what its items cover.
+- **Three policy items added:** licence problems against the project's stated licence, stated project rules the code breaks, and promises the code breaks.
+  - **Where:** each is in the docs seat of A′, B and C and in G's list, word for word the same. C's docs seat is renamed "docs, policies and maintainability", and B's to match.
+  - **Tag:** "no ISO characteristic: policy", so policy seeds can be reported as their own area.
+  - **Counts:** B, C and G now share 58 items.
+- **A wording change for B and C too:** the shared neutral opening no longer says "the other reviews cover the rest", since that isn't true for A′. B's and C's out-of-scope paragraphs still say other reviews cover those areas. No council has run on the first-round texts, so no runs are left incomparable.
+- **The script checks were rerun and passed:**
+  - B, C and G hold the same 58 items, and A′'s 32 are pool items word for word;
+  - the policy items are in every set once, always in the docs seat;
+  - there's no persona wording;
+  - every file from de465aa is unchanged.
+
+**The second independent check.** A fresh read-only subagent got only the round-two diff, the new A′ file, the current set C and the shared layout file. It found no persona wording and confirmed the counts.
+- **Changed in the briefs:**
+  - **Licence items:** reworded so they don't need licence knowledge from outside the material.
+  - **Rules item:** limited to what the code, manifests or packaging files in the material show.
+  - **Privacy wording:** "the review that covers privacy", not an item the docs reviewer can't see.
+  - **Overlaps settled:**
+    - promises about system changes go to the review that covers safety;
+    - promises broken by collecting, keeping or sending personal data go to the review that covers privacy;
+    - licence notices belong to the licence item, not the rules item.
+  - **A′'s correctness out-of-scope line:** now says how the code handles failures and malformed outside input isn't reviewed.
+  - **Partial failures added to A′'s correctness seat,** since A's focus names "data loss", which brought A′ to 32 items.
+  - **Two header notes completed:** what A′ leaves out compared with A, and that A′ leaves out scope lines.
+- **Changed in the design note:** every seed is also tagged with the checklist item it plants (or "none"). A′ against B and C is then scored only on seeds whose item A′ has.
+- **Left unchanged, with the session's reason:** "runs code it downloads" and "uses the network" fall on the same lines as the security items on unchecked downloads and plain HTTP. They're different problems, a broken promise against a missing check, so both may be reported and the judge merges them if they turn out to be one. This is recorded in the design note.
+
+**My decisions, each adopted on Claude's suggestion (13 Nov 2026):**
+1. **A′'s items follow A's own focus texts.** So partial failures, races, deadlocks and contradicting comments are in, which keeps A against A′ a test of format.
+2. **Broken personal-data promises belong to the privacy seat, not the policy items,** so no promise sits in two seats.
+3. **A′ not being a pure format test is accepted and recorded.** Its checklist and out-of-scope paragraphs draw sharper edges between seats than A's overlapping focus texts do.
+4. **A′ has no seat for broken system-change promises.** That follows from A's areas, so it stays.
+
+**My decisions on round one's open questions (13 Nov 2026):**
+1. **The out-of-scope rule stays** (HIGH only, at most two), as a recorded judgement call. I'll revisit it after the first runs, by scoring with and without those entries.
+2. **The design note will move out of the plugin** to this repo before any merge.
+3. **A version name for the role-set briefs** is decided when they're wired into Lite.
+
+**Open item, unchanged:** functional suitability's "functional correctness", and safety's operational constraint, fail safe and hazard warning, come from general knowledge. They must be checked against ISO/IEC 25010:2023 before the plan is locked.
