@@ -787,6 +787,21 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **The briefs:** they stay frozen either way.
   - **Origin:** I raised the leak. Claude Code raised the open point about its own sessions, and I decided it.
 
+**The seed pilot after the hand check (field note, 13 Nov 2026, counts only):** no seed, folder, file or area is named here. Claude Code checked the counts against the seed folder's own report and lists.
+- **The hand check:** I checked each of the 35 candidates for whether it's a real bug and its severity (HIGH, MED or LOW, or not a bug). 29 were kept. Of the 6 dropped, 5 weren't real bugs and 1 had no link to its source.
+- **Ranges and areas:** I didn't hand-check line ranges or areas at first. The seed pilot session then checked the ranges mechanically and flagged 11 seeds for me to recheck: 2 failed the mechanical check, 5 had doubtful ranges and 5 had earlier area doubts. Some seeds were flagged for more than one reason, so these add up to more than 11.
+- **Gaps:** 10 new candidates were found for two under-filled areas. They're waiting for my check.
+- **Material:** 27 folders for 29 seeds, because three seeds share one PR's folder.
+  - **What each folder holds:** the changed files at the reviewed commit, the diff and a one-line neutral description.
+  - **What's left out:** PR titles and descriptions, reviewer comments, commit messages, the sources' answers and source names.
+  - **Diff index lines:** removed, because their blob IDs could be looked up.
+  - **Web access:** the code is public and can be recognised from its content, so council runs must have no web access.
+- **"Known, not planted" bugs:** the keys hold 130 bugs from the sources' findings in the same files, so councils that find real problems nobody planted aren't scored as false flags. 20 of them overlap a planted range, and a flag there counts as finding the planted seed.
+- **Possible leaks:** 7 comments or names that point at a bug, in 5 folders. They were noted, but the code wasn't edited.
+- **Privacy check:** third-party code tripped 27 lines against the generic privacy patterns (dummy test passwords and similar). They were allow-listed by hash, with the patterns unchanged.
+- **A small relay slip:** from my account, while talking to the chat assistant by voice, I mentioned that one particular seed was marked "none" (not a bug). That seed was dropped, so no harm was done, but it's another case of seed detail crossing the relay (see "The leak" above).
+  - **To confirm** *(Claude Code's note)*: the hand-check sheet's label for not a bug is "Informational", not "none". So it's still to confirm that the seed mentioned was one of the dropped ones.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
