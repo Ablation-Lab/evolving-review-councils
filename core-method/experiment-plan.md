@@ -634,6 +634,13 @@ These are my observations from my own submissions, not confirmed policy, and the
   - **Tangent Jar and Bench Diary:** approved by a reviewer on 9 Nov, about 4 days later, and still not live on 10 Nov.
   - **Stowdeck:** still in review on 10 Nov.
 - **So:** these are a few submissions from one account, so they don't show what's behind the slower times.
+- **Going live (field note, 13 Nov 2026):** Bench Diary 1.0.0 (commit `e50d6d5`) and Tangent Jar 1.0.0 (commit `1101d92`) went live on 13 Nov. This is from their portal pages.
+  - **Timeline, the same for both:** submitted and security-scanned on 5 Nov, approved by a reviewer about 9 Nov (the portal said "4 days ago" on 13 Nov), then published by a reviewer on 13 Nov with no action from me in between. Bench Diary was published at about 15:06 UK time and Tangent Jar at about 15:09.
+  - **So:** about 4 days from submission to approval and another 4 from approval to going live.
+  - **Batches (my inference):** the two were published three minutes apart, which suggests reviewers publish in batches. Two plugins from one account can't show that.
+  - **Where they're listed:** Claude Code, Cowork and the Claude apps (web, desktop and mobile).
+  - **Icons:** both still show "waiting for review" after going live. On 11 Nov they showed "Expired" (see the next note), and I hadn't replaced them.
+  - **Updates:** by scheduled check only, about every 6 hours.
 - **Expired icons (field note, 11 Nov 2026):** on Bench Diary and Tangent Jar, both approved and still waiting to publish, the imported icon shows "Expired" because it wasn't reviewed in time. A separate Claude chat searched Anthropic's docs about this on 11 Nov.
   - **What the official docs don't say:** whether replacing an icon on an approved plugin restarts review, whether plugin icons are reviewed separately, what happens with no icon, or why icons expire.
   - **The nearest official lines:**
