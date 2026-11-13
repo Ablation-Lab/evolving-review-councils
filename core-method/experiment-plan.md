@@ -766,10 +766,21 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 
 **Who sees the seeds (decision, 13 Nov 2026):**
 - **The briefs are frozen:** the role-set briefs were written before any seeds existed and are frozen for the comparison. Claude Code checked the order: the last commit to the briefs or their design note is 11 minutes before the seed folder's first commit.
-- **The chat assistant doesn't see the seeds:** it helps shape the councils (it proposed the role sets: see [outside review 2](outside-reviews.md)), so I hand-check the seeds myself.
+- ~~**The chat assistant doesn't see the seeds:** it helps shape the councils (it proposed the role sets: see [outside review 2](outside-reviews.md)), so I hand-check the seeds myself.~~ (amended 13 Nov 2026: the chat assistant has seen the pilot seeds, as described in "The leak" below. The rule is now about shaping, not seeing, as set out under "Seed-aware and seed-free sessions" below.) The chat assistant helped shape the councils (it proposed the role sets: see [outside review 2](outside-reviews.md)). I hand-check the seeds myself.
 - **The hand-checks do two jobs:** they're also my labels for validating the scoring judge, as outside review 3's second suggestion asked.
 - **Questions are logged:** if I ask the chat assistant about a specific seed, that's logged.
-- **Open** *(Claude Code's note)*: the decision covers the chat assistant only. The Claude Code session that built the pilot saw every seed, and the session that wrote this note read the pilot report. Whether a Claude Code session that has seen the seeds may later work on the councils or their briefs is still to decide.
+- ~~**Open** *(Claude Code's note)*: the decision covers the chat assistant only. The Claude Code session that built the pilot saw every seed, and the session that wrote this note read the pilot report. Whether a Claude Code session that has seen the seeds may later work on the councils or their briefs is still to decide.~~ (decided 13 Nov 2026: see "Seed-aware and seed-free sessions" below.)
+- **The leak (field note, 13 Nov 2026):**
+  - **What happened:** I had decided the chat assistant shouldn't see the seeds. I then attached the full seed pilot report to the chat on 13 Nov, so it saw all 35 candidates. No council agent saw them. This is from my own account, since the chat leaves no local transcript.
+  - **Why it matters:** this is a human-in-the-loop finding. The person relaying files between sessions is itself a leak channel, and no hook or privacy check covers a file attached by hand.
+  - **Related:** the misdirected prompt of 8 Nov (under "Voice-tag controlled test" below) was the same kind of slip. There I was the bridge between sessions too, and that time I sent a prompt to the wrong session. Both bear on the "Full relay" setup in section 4 of the [human-in-the-loop plan](https://github.com/Ablation-Lab/human-in-the-loop/blob/main/plan.md), where the human reads and pastes every message between the agents.
+- **The pilot seeds' status:** the 35 pilot seeds are used only for the difficulty check and tooling tests, never reported as results. Only seed-aware sessions build and hand-check the full seed set. The chat gets only counts and general questions about it.
+- **Seed-aware and seed-free sessions (decided 13 Nov 2026):** the rule is about shaping, not seeing.
+  - **Seed-aware sessions:** the chat assistant, the seed pilot session and the session that writes these notes. They may record, build seeds and score. They never edit the role-set briefs, the council set-up or the choice of material for the comparison.
+  - **Seed-free sessions:** the seat-roles worktree session, which owns the briefs, and every session that runs a council. They never see the seeds folder, the keys or the candidate list. Councils get only the seed folder's `material\` folder.
+  - **The scoring judge:** it sees the keys, as it must, and doesn't shape councils.
+  - **The briefs:** they stay frozen either way.
+  - **Origin:** I raised the leak. Claude Code raised the open point about its own sessions, and I decided it.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
