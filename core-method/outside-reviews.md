@@ -264,7 +264,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions:** A′ and policy in B, C and G adopted by me on 13 Nov 2026. The subcharacteristic check is open.
+**Decisions:** A′ and policy in B, C and G adopted by me on 13 Nov 2026. The subcharacteristic check is open. *(Closed 13 Nov 2026: see outside review 5.)*
 
 ### Second round (13 Nov 2026)
 
@@ -312,4 +312,43 @@ From the above, these are the decisions the locked plan needs that the paper doe
 2. **The design note will move out of the plugin** to this repo before any merge.
 3. **A version name for the role-set briefs** is decided when they're wired into Lite.
 
-**Open item, unchanged:** functional suitability's "functional correctness", and safety's operational constraint, fail safe and hazard warning, come from general knowledge. They must be checked against ISO/IEC 25010:2023 before the plan is locked.
+**Open item, unchanged** *(closed 13 Nov 2026: see outside review 5)*: functional suitability's "functional correctness", and safety's operational constraint, fail safe and hazard warning, come from general knowledge. They must be checked against ISO/IEC 25010:2023 before the plan is locked.
+
+---
+
+## Outside review 5: which real-bug sources to use
+
+- **Date:** 13 Nov 2026
+- **Reviewer:** Claude, the chat assistant. It is **not independent**, for the same reasons as in entry 1.
+- **Material:** [seed-access-check.md](seed-access-check.md) (commit 0610c52), read in full.
+- **Record:** the reviewer's suggestions, all adopted by me on 13 Nov 2026, then the closing of the ISO item left open in entry 4. Claude Code checked each point against the access check and added notes where the check doesn't settle it.
+
+### Suggestions (all adopted)
+
+1. **The source plan:**
+   - **MCR-Bench first.** Its functional defects, plus F.6 performance, F.7 security and privacy, and evolvability defects filtered down to clear-cut maintainability. Every seed's severity is hand-checked, because its labels are LLM-assigned and loose.
+     - **Not yet checked:** whether the evolvability codes separate clear-cut problems (dead code, duplicated logic, comments that contradict the code) from style, so that filter may need reading each defect.
+     - **Small pool:** F.7 has only 34 defects, across all rounds.
+   - **ReviewBench** for correctness, reliability, tests, docs and performance. Results are always reported separately for findings from Claude producers and from non-Claude producers, since Claude models wrote about 55% of its key.
+   - **SWE-bench-Live MultiLang's C# and JavaScript tasks from July 2026** (22 and 13) serve as a contamination check, not as main seeds.
+   - **CVEfixes, rerun for 2025 to 2026 CVEs,** gives security seeds later.
+   - **Only safety and policy need written seeds,** from a non-Claude writer first. No source in the access check labels either area.
+     - **Privacy:** it has no label of its own in any source either. It is part of MCR-Bench's F.7 and isn't separated in ReviewBench's security category. Privacy seeds may also need writing if the real ones prove too few.
+   - **CRBugBench is on hold:** it has no licence, and its public data has no severity or category labels.
+2. **Seeds and answer keys stay private until the experiment is done:** in a local-only folder with no remote, outside this repo and outside anything a council reviews.
+3. **Before the full set, a pilot:** about five seeds per area, hand-checked, for the difficulty check (step 5 of the Seat roles plan).
+
+### Closing the ISO item from entry 4
+
+- **The open item is closed.** Functional suitability's "functional correctness" and the safety subcharacteristics used in the briefs are confirmed. The source is the ISO/IEC FDIS 25010 sample from iTeh, read in full by Claude Code.
+- **Functional suitability** has three subcharacteristics: functional completeness, functional correctness and functional appropriateness (section 3.1).
+- **Safety** has five, listed in the foreword: operational constraint, risk identification, fail safe, hazard warning and safe integration. The briefs use three of them: operational constraint, fail safe and hazard warning.
+- **Definitions:** the safety definitions come from iso25000.com, because the sample stops before the safety section.
+- **Caveats:**
+  - the source is the Final Draft International Standard, not the published text;
+  - iso25000.com doesn't state which edition it describes.
+
+---
+
+**Decisions:** all of the above adopted by me on 13 Nov 2026. The ISO item from entry 4 is closed.
+
