@@ -326,7 +326,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ### Suggestions (all adopted)
 
 1. **The source plan:**
-   - **MCR-Bench first.** Its functional defects, plus F.6 performance, F.7 security and privacy, and evolvability defects filtered down to clear-cut maintainability. Every seed's severity is hand-checked, because its labels are LLM-assigned and loose.
+   - **MCR-Bench first.** Its functional defects (F.6 performance and F.7 security and privacy among them) are included, plus evolvability defects filtered down to clear-cut maintainability. Every seed's severity is hand-checked, because its labels are LLM-assigned and loose.
      - **Not yet checked:** whether the evolvability codes separate clear-cut problems (dead code, duplicated logic, comments that contradict the code) from style, so that filter may need reading each defect.
      - **Small pool:** F.7 has only 34 defects, across all rounds.
    - **ReviewBench** for correctness, reliability, tests, docs and performance. Results are always reported separately for findings from Claude producers and from non-Claude producers, since Claude models wrote about 55% of its key.
