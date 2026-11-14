@@ -870,6 +870,27 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Path forms:** which Windows path form the read denies and the `CLAUDE.md` exclusion need. Both forms are kept. No `CLAUDE.md` loaded even after files beside it were read, and there was no control run without the exclusion, so the run doesn't show that the exclusion is what stopped it.
   - **Reviewer agents:** whether the denies bind them. They weren't asked to try an outside read, and the transcript scan covers their reads.
 
+**The pilot difficulty check (field note, 14 Nov 2026, counts only):** no seed, folder, file or area is named here. The source is the difficulty check's results report in the seed folder. Claude Code checked the counts against that report, the check's plan and its match list.
+- **The runs:** 8 Council Dial Lite 2.2.5 Quick reviews, one for each of 8 pilot folders.
+  - **The sample:** a stratified random sample holding 10 planted seeds (1 HIGH, 7 MED and 2 LOW). One folder was picked at random for each area not yet covered, and the rest were filled at random.
+  - **The session:** one fresh, seed-free session, with the dry run's isolation widened *(from the report, not my prompt)*: the deny rules also covered the whole projects folder, Claude Code's transcripts folder and the preparing session's temp folder.
+  - **The transcript scan:** CLEAN, so the runs stand.
+- **The result: too easy.** All 10 planted seeds were caught, and 8 of 8 without the leak-tagged folders. Under the bands fixed in advance, 9 or 10 of 10 means too easy. Claude Code checked that the bands were committed the night before the runs and haven't changed since.
+  - **Single reviewers:** across the 30 pairs of reviewer and seed, a reviewer found the seed in 25 (83%). So a single reviewer would land in the too-easy band too.
+- **All findings:** of 182 findings, 25 matched planted seeds and 63 matched known, not planted bugs. The other 94 (52%) are unconfirmed extras. Compare the dry run's 19 findings on one planted bug above.
+- **Still to check:**
+  - **The matching:** a Claude session did it, so it waits for my spot-check.
+  - **The extras:** they wait for a hand-checked sample.
+- **Why it was easy (Claude's suggestion, to confirm):**
+  - **The claim:** every pilot seed was a bug already found by a reviewer reading the same diff, so a review council finding it again is expected.
+    - **ReviewBench:** its key was built mostly by AI reviewers. All 22 of its pilot seeds were found by models (Claude Sonnet 4.6 or GPT-5.5), and none came from human review.
+    - **MCR-Bench:** its defects were raised in the PRs' own review rounds.
+  - **Kumar et al.:** consistent with it. Their best model scored far higher on bugs injected by mutation than on real bug-fix PRs.
+- **Proposed next step:** a hard tier of escaped bugs alongside the current easy tier. An escaped bug is one introduced in a change that passed review and was fixed later. It's traced back from a fresh 2026 fix with the SZZ method.
+  - **Connection** *(Claude Code's note)*: fresh fixes would also do the contamination check planned with SWE-bench-Live's July 2026 tasks (see the seed pilot lessons above).
+- **Another relay slip:** I passed the keys folder's match file to the chat assistant along with the seed-free report. That file holds seed IDs and known-bug locations. It's pilot seeds only, so no new harm, but it's another case of seed detail crossing the relay (see "The leak" above).
+  - **Not all seen before** *(Claude Code's note)*: the chat had seen the seeds in the full pilot report, but not the known-bug locations. The pilot report predates the list of known, not planted bugs.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
