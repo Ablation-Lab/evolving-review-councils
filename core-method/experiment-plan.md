@@ -898,6 +898,22 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Another relay slip:** I passed the keys folder's match file to the chat assistant along with the seed-free report. That file holds seed IDs and known-bug locations. It's pilot seeds only, so no new harm, but it's another case of seed detail crossing the relay (see "The leak" above).
   - **Not all seen before** *(Claude Code's note)*: the chat had seen the seeds in the full pilot report, but not the known-bug locations. The pilot report predates the list of known, not planted bugs.
 
+**The hard-tier pilot (field note, 15 Nov 2026, counts only):** no seed, project, file or area detail is named here. The source is the hard-tier pilot report in the seed folder. Claude Code checked the counts against that report and my check sheet.
+- **What it is:** the hard tier proposed in the difficulty check note above. Its seeds are escaped bugs, found by tracing bug fixes back to the change that introduced them (SZZ). The current seeds become the easy tier.
+- **How the candidates were found** *(from the report, not my prompt)*:
+  - **Tracing:** R-SZZ, the best-scoring variant in a published comparison of nine, with the V-SZZ chain recorded alongside. Both picks were only proposals, and every introducing change was read by hand.
+  - **Screens:** the fix must change at least one code line outside tests. The introducing change must be a merged pull request reviewed by someone other than its author (bot reviews don't count) and at most 1,500 changed lines, not counting generated files. The bug must be visible from that pull request alone.
+  - **Sources:** SWE-bench-Live tasks from July 2026 on, and CVEs with a linked fix commit from NVD's 2025 and 2026 feeds.
+  - **The funnel:** 228 items looked at: 10 kept, 203 dropped and 15 not reached. The most common reason for dropping one was that the introducing change wasn't a pull request reviewed by another person (83 of 203).
+  - **SZZ wasn't enough on its own:** of 43 traces read by hand, 15 were dropped because SZZ's pick wasn't the change that introduced the bug.
+- **The 10 candidates:** 3 from SWE-bench-Live and 7 from CVEs. By area: 5 security and privacy, 3 reliability and 2 correctness, and none elsewhere. Fixes that cite an issue or a CVE rarely land in the other areas, so the hard tier will be thin outside these three.
+  - **How long the bugs survived:** from 57 days to 8.1 years, with a median of 3.3 years.
+- **The hand check:** I checked all 10, and all 10 were kept as real bugs a reviewer could have spotted by reading the introducing change. Their lines and areas were confirmed. My severities: 6 HIGH and 4 MED. Compare the easy pilot sample, with 1 HIGH in 10.
+- **A material rule (decided 15 Nov 2026):** generated files are left out of all seed material, with a note in the folder saying so. One hard-tier candidate's introducing change is mostly generated code, which raised the question.
+  - **Not yet in the seed folder** *(Claude Code's note)*: none of its files records the rule yet, and no hard-tier material has been built.
+- **Next:** hard-tier keys and material, then a difficulty check on all 10 with the same bands.
+- **Limits** *(from the report, not my prompt)*: it's a pilot of 10. Several introducing changes predate 2026, so a model may have seen the code, though not the fix. Two candidates come from the same project.
+
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
