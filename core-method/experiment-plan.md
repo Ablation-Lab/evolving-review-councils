@@ -910,8 +910,13 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **How long the bugs survived:** from 57 days to 8.1 years, with a median of 3.3 years.
 - **The hand check:** I checked all 10, and all 10 were kept as real bugs a reviewer could have spotted by reading the introducing change. Their lines and areas were confirmed. My severities: 6 HIGH and 4 MED. Compare the easy pilot sample, with 1 HIGH in 10.
 - **A material rule (decided 15 Nov 2026):** generated files are left out of all seed material, with a note in the folder saying so. One hard-tier candidate's introducing change is mostly generated code, which raised the question.
-  - **Not yet in the seed folder** *(Claude Code's note)*: none of its files records the rule yet, and no hard-tier material has been built.
+  - ~~**Not yet in the seed folder** *(Claude Code's note)*: none of its files records the rule yet, and no hard-tier material has been built.~~ (amended 15 Nov 2026: the seed folder now records the rule, and the material is built.)
+  - **Where it applied** *(from the report, not my prompt)*: the rule covers both tiers. Each affected folder has a one-line `OMITTED.txt`. In the easy tier it removed one lock file from one folder, with no key row pointing at it. In the hard tier it removed 18 generated files from one folder and kept its 2 hand-written files.
 - **Next:** hard-tier keys and material, then a difficulty check on all 10 with the same bands.
+  - **Done since** *(from the seed folder's hard-tier prep report, not my prompt)*:
+    - **The material:** 10 folders, one seed each, numbered separately from the easy tier. Each holds the introducing pull request's diff and files, and nothing from the fix or after it.
+    - **The keys:** 11 planted rows, because one seed spans two files, plus 2 known, not planted bugs.
+    - **The difficulty check:** prepared, not run. It covers all 10 folders with the same scoring rules and bands, fixed before any run. The isolation is the first check's, with the first check's folder also denied.
 - **Limits** *(from the report, not my prompt)*: it's a pilot of 10. Several introducing changes predate 2026, so a model may have seen the code, though not the fix. Two candidates come from the same project.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
