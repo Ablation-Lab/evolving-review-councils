@@ -879,8 +879,15 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Single reviewers:** across the 30 pairs of reviewer and seed, a reviewer found the seed in 25 (83%). So a single reviewer would land in the too-easy band too.
 - **All findings:** of 182 findings, 25 matched planted seeds and 63 matched known, not planted bugs. The other 94 (52%) are unconfirmed extras. Compare the dry run's 19 findings on one planted bug above.
 - **Still to check:**
-  - **The matching:** a Claude session did it, so it waits for my spot-check.
-  - **The extras:** they wait for a hand-checked sample.
+  - **The matching:** a Claude session did it, so it waits for my spot-check, a stratified sample of 15 items (still to do on 15 Nov 2026).
+  - ~~**The extras:** they wait for a hand-checked sample.~~ (done 15 Nov 2026: see "The extras sample" below.)
+- **The extras sample (15 Nov 2026):** I hand-checked a random sample of 20 of the 94 unconfirmed extras, as one non-specialist. Claude Code checked the counts against the answer sheet.
+  - **All 20 were real problems:** 14 LOW, 6 MED and none HIGH.
+  - **Repeats:** 3 of the 20 repeat another sampled finding, so the sample covers 17 distinct problems. Each repeat came from a different reviewer in the same review.
+  - **So:** the extras are mostly real issues missing from the keys, not false flags. But 0 false flags in 20 still allows a false-flag rate of up to about 15% (the rule of three: 3 ÷ 20, at 95% confidence). Counting only the 17 distinct problems, the bound is about 18% *(Claude Code's note)*.
+  - **"Real" isn't "acted on":** here "real" means a genuine problem, not one a developer would act on. The Atlassian study (Goldman et al., in [review-areas-research](review-areas-research.md)) measured that, and found 60% to 70% of LLM review comments unresolved. So the two don't conflict.
+  - **Connection** *(Claude Code's note)*: recommendation 3 in review-areas-research treats extra flags as "false or unwanted". This sample suggests they're mostly real, even if some are unwanted.
+  - **Implication (Claude's suggestion):** on easy seeds the catch rate is at its ceiling. So comparisons should lean on the hard tier, real findings per unit cost and their severity, with extras counted as real only through sampling.
 - **Why it was easy (Claude's suggestion, to confirm):**
   - **The claim:** every pilot seed was a bug already found by a reviewer reading the same diff, so a review council finding it again is expected.
     - **ReviewBench:** its key was built mostly by AI reviewers. All 22 of its pilot seeds were found by models (Claude Sonnet 4.6 or GPT-5.5), and none came from human review.
