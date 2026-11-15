@@ -918,6 +918,11 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **The keys:** 11 planted rows, because one seed spans two files, plus 2 known, not planted bugs.
     - **The difficulty check:** prepared, not run. It covers all 10 folders with the same scoring rules and bands, fixed before any run. The isolation is the first check's, with the first check's folder also denied.
 - **Limits** *(from the report, not my prompt)*: it's a pilot of 10. Several introducing changes predate 2026, so a model may have seen the code, though not the fix. Two candidates come from the same project.
+- **Another relay slip (15 Nov 2026):** a seed-aware session's chat reply, not its report, named details of three hard-tier pilot seeds, and I passed that reply to the chat assistant. See "The leak" above.
+  - **Response:** the 10 hard-tier pilot seeds are pilot-only, like the easy pilot's. The seed-free rule now covers seed-aware sessions' chat replies as well as their reports, since those replies get relayed.
+- **A neutral run folder (decided 15 Nov 2026):** before the hard-tier difficulty check, the run folder is renamed from a path containing "hard" to a neutral one. The run session sees its own folder path, and a name that signals difficulty could change how it behaves. The first check's folder name had already been noted as a near miss.
+  - **Not done yet** *(Claude Code's note, 15 Nov 2026)*: the folder still has its old name, and the check's start command still uses it.
+  - **The first check** *(Claude Code's note)*: its folder name contained "difficulty", and its runs went ahead with it. So that name could have affected the first check. Nothing shows that it did.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
