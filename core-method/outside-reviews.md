@@ -410,7 +410,18 @@ From the above, these are the decisions the locked plan needs that the paper doe
     - **Checked** *(Claude Code's note)*: the other value is `"fresh"`, the default, which branches from the remote's default branch. With no remote, it falls back to the local `HEAD`.
     - **Decision:** pending.
 
+### Added by me (16 Nov 2026)
+
+11. **Research question for the workflow edition: how much freedom should the orchestration have?** Lite gives the main session and the subagents more autonomy: they choose turn by turn, and the findings are free text. A workflow fixes the steps and the output form. The aim is to measure the differences, not to find the best setup. Freedom may help on fuzzy judgements (UI, design and interaction review), and fixed steps may help bug hunts stay consistent. This is a key part of the workflow comparison, measured by task type. Matching free-text findings to the key wasn't a large error source in the pilot (15 of 15 hand-checked matches were right), so differences are more likely in consistency and skipped steps than in scoring.
+    - **Correction** *(Claude Code's note)*: Lite's steps and findings aren't free either. Its skill sets out every step in its step files, and briefs come from templates word for word. Reviewers report in a fixed format: numbered findings, each with a severity, title, file and line, evidence, fix and confidence. The difference is what holds these in place. In Lite it's instructions, and the main session logs any slips as deviations. In a workflow it's the script, and for an `agent()` call with a `schema`, JSON that the runtime checks. So the freedom being compared is the freedom to skip, reorder or drift, not a freedom designed in.
+    - **Correction** *(Claude Code's note)*: the reviewers are subagents in both editions, so in a workflow they still choose their own reads and tool calls. What a workflow fixes is the orchestration. It fixes the output form only for calls that set a `schema`. Without one, an agent returns prose.
+    - **Loose** *(Claude Code's note)*: the 15 were a stratified sample of the matches a Claude session made: 5 catches, 5 matches to known bugs and 5 close calls. Claude Code checked this against the seed folder's record. Finding no errors in 15 still allows an error rate of up to about 20%, by the rule of three (3 ÷ 15, at 95% confidence). So the claim holds only as "no errors found in a sample of 15". The research doc's pilot difficulty note still calls this check "still to do".
+    - **Connection** *(Claude Code's note)*: this widens the experiment idea already in the research doc under "Dynamic workflows: a scripted Council Dial". That idea measures copy errors, count mismatches, deviations, tokens and time. The same entry says that copying hasn't slipped in any Lite check so far. It also says both recorded count slips were in count lines the agents wrote themselves. That fits the expectation here.
+    - **Task types** *(Claude Code's note)*: Lite is the read-only tier. It leaves out interaction capability on purpose, because judging that needs a running app (entry 2, seat roles decision 3). So in Lite, UI and interaction review is limited to what the code shows, such as error messages, settings and help text. A full test of interaction review waits for the full Council Dial's seat that reviews frames of the running app.
+    - **Who acts on it** *(Claude Code's note)*: it shapes the workflow edition's design, so it belongs to seed-free sessions, like item 5.
+    - **Decision:** adopted by the researcher, for the workflow edition comparison, on 16 Nov 2026.
+
 ---
 
-**Decisions:** all pending.
+**Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added)
 
