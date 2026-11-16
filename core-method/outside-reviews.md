@@ -403,6 +403,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - **Checked** *(Claude Code's note)*: `omitClaudeMd` leaves out the user, project and local `CLAUDE.md` files, but managed policy files still load, and it needs Claude Code 2.1.271 or later. The docs confirm that plugin agents ignore those three fields, and that a subagent starts with a git status snapshot.
    - **Already true** *(Claude Code's note)*: none of the dry-run or review run folders is in a git repository.
    - **Note** *(Claude Code's note)*: Lite's reader agent is a plugin agent, and Lite is in review. So adding `omitClaudeMd` means a new Lite version.
+     - (amended 16 Nov 2026 *(Claude Code's note)*: the directory refused that key in Lite 2.2.4, and 2.2.5 removed it. See item 12.)
    - **Decision:** pending.
 8. **Possible later arm:** a debate council run as an agent team, to test talking against independence.
    - **Checked** *(Claude Code's note)*: the agent teams page gives a debate as a use case: teammates "talk to each other to try to disprove each other's theories". But teammates load `CLAUDE.md`, MCP servers and skills like an ordinary session, start in the lead's permission mode, and need an interactive session. So the isolation would differ from a subagent council, and it would need its own dry run.
@@ -424,8 +425,41 @@ From the above, these are the decisions the locked plan needs that the paper doe
     - **Task types** *(Claude Code's note)*: Lite is the read-only tier. It leaves out interaction capability on purpose, because judging that needs a running app (entry 2, seat roles decision 3). So in Lite, UI and interaction review is limited to what the code shows, such as error messages, settings and help text. A full test of interaction review waits for the full Council Dial's seat that reviews frames of the running app.
     - **Who acts on it** *(Claude Code's note)*: it shapes the workflow edition's design, so it belongs to seed-free sessions, like item 5.
     - **Decision:** adopted by the researcher, for the workflow edition comparison, on 16 Nov 2026.
+12. **`omitClaudeMd` on reviewer seats.** Council Dial Lite 2.2.5 dropped `omitClaudeMd` from its reviewer agent for directory submission reasons. Run folders exclude `CLAUDE.md` through their settings instead, which the dry run confirmed. The plan is to offer `omitClaudeMd` as an option only in the GitHub edition (full or research), and to compare seats with and without it on the same material, under controlled conditions. Every run record must state which version and setting it used.
+    - **Checked** *(Claude Code's note)*: the reason is right.
+      - The directory's automatic policy check refused Lite 2.2.4 (`7049778`) with `LOCAL_CODE_FRONTMATTER_KEY`. It accepts frontmatter keys outside its list only from Verified organisations.
+      - Lite 2.2.5 (`de465aa`) removed the key and passed the check.
+      - The agent is Lite's read-only agent, `council-reader`. In brief version 3 it runs every seat (reviewers, judge, appeal and check) unless running code is allowed.
+    - **Correction** *(Claude Code's note)*: the run folders' settings don't replace it. They cover a different set of files.
+      - **The run folders' setting, `claudeMdExcludes`:** keeps out `CLAUDE.md` files under the `material` folder, for the whole session.
+      - **`omitClaudeMd`:** leaves out the user, project and local `CLAUDE.md` files, for that agent only. By the docs and Lite's README, it doesn't stop a subfolder's `CLAUDE.md` from loading when the agent reads files there.
+      - **What keeps the other files out:** in the run folders, only the fact that there's no user, project or parent-folder `CLAUDE.md`, `CLAUDE.local.md` or `AGENTS.md`. Claude Code checked this on 16 Nov 2026.
+    - **Correction** *(Claude Code's note)*: the dry run didn't confirm it. No `CLAUDE.md` loaded, but there was no control run without the exclusion. So the run doesn't show that the exclusion is what stopped it. The research doc says so under the dry run's "Not settled".
+    - **Correction** *(Claude Code's note)*: the full edition already sets `omitClaudeMd: true` on its read-only agent, always, and has since Council Dial 1.8.0 (`4a92f9e`). Version 1.9.1 still does. So making it an option means changing the full edition.
+    - **Lite's history** *(Claude Code's note, from its git log and changelog)*: no version has a tag or a GitHub release. Every version was pushed to main.
+      - **With `omitClaudeMd`:** 2.2.0 (`3b7b74c`) to 2.2.4 (`7049778`), all on 11 Nov 2026.
+      - **Without it:** every version up to 2.1.2, and 2.2.5, the version in review and the one the pilot used.
+    - **Earlier runs with each** *(Claude Code's note)*:
+      - **With it:**
+        - the five installed-copy Standard councils, one on each version from 2.2.0 to 2.2.4. Each project's `CLAUDE.md` held a marker line, and none of their 35 agent transcripts contains it;
+        - one session of the 2.2.0 marker test. Asked about the marker, the agent answered NONE.
+      - **Without it:**
+        - the marker test's other session, whose agent named the marker word;
+        - every test council from Lite 1.0.0 to 2.1.2;
+        - on 2.2.5, the dry run and the 8 pilot difficulty runs.
+      - **No run:** the 2.2.5 installed-copy test folder holds a `CLAUDE.md` but no run.
+    - **Not controlled, but partly for a different reason** *(Claude Code's note)*: some of these runs did review the same material. The 2.1.2 Standard council and the 2.2.0 and 2.2.1 installed-copy councils reviewed byte-identical copies of the same target. They still aren't a controlled comparison:
+      - the Lite version and the way it was installed changed;
+      - only the installed-copy projects held a `CLAUDE.md`;
+      - each version had one run.
+      
+      The dry run and the pilot used other material. The marker test is the only like-for-like pair, and it had one run on each side and asked a probe question rather than running a review.
+    - **What the comparison needs** *(Claude Code's note)*: the setting changes what an agent gets only when a user, project or local `CLAUDE.md` is there to leave out. Without one, both arms get the same context.
+    - **Records** *(Claude Code's note)*: Lite's `run.json` records `liteVersion` but has no field for this setting, because the version implies it. An edition where the setting is an option needs a field for it.
+    - **Who acts on it** *(Claude Code's note)*: it changes the council set-up, so it belongs to seed-free sessions and the full edition's repo.
+    - **Decision:** adopted by the researcher, on 16 Nov 2026.
 
 ---
 
-**Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added)
+**Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added) Item 12 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 12 added)
 
