@@ -916,13 +916,83 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Done since** *(from the seed folder's hard-tier prep report, not my prompt)*:
     - **The material:** 10 folders, one seed each, numbered separately from the easy tier. Each holds the introducing pull request's diff and files, and nothing from the fix or after it.
     - **The keys:** 11 planted rows, because one seed spans two files, plus 2 known, not planted bugs.
-    - **The difficulty check:** prepared, not run. It covers all 10 folders with the same scoring rules and bands, fixed before any run. The isolation is the first check's, with the first check's folder also denied.
+    - ~~**The difficulty check:** prepared, not run. It covers all 10 folders with the same scoring rules and bands, fixed before any run. The isolation is the first check's, with the first check's folder also denied.~~ (amended 16 Nov 2026: run and scored on 15 Nov 2026. See "The hard-tier difficulty check" below.)
 - **Limits** *(from the report, not my prompt)*: it's a pilot of 10. Several introducing changes predate 2026, so a model may have seen the code, though not the fix. Two candidates come from the same project.
 - **Another relay slip (15 Nov 2026):** a seed-aware session's chat reply, not its report, named details of three hard-tier pilot seeds, and I passed that reply to the chat assistant. See "The leak" above.
   - **Response:** the 10 hard-tier pilot seeds are pilot-only, like the easy pilot's. The seed-free rule now covers seed-aware sessions' chat replies as well as their reports, since those replies get relayed.
 - **A neutral run folder (decided 15 Nov 2026):** before the hard-tier difficulty check, the run folder is renamed from a path containing "hard" to a neutral one. The run session sees its own folder path, and a name that signals difficulty could change how it behaves. The first check's folder name had already been noted as a near miss.
-  - **Not done yet** *(Claude Code's note, 15 Nov 2026)*: the folder still has its old name, and the check's start command still uses it.
+  - ~~**Not done yet** *(Claude Code's note, 15 Nov 2026)*: the folder still has its old name, and the check's start command still uses it.~~ (amended 16 Nov 2026: the rename was done on 15 Nov 2026, before the hard-tier check ran.)
   - **The first check** *(Claude Code's note)*: its folder name contained "difficulty", and its runs went ahead with it. So that name could have affected the first check. Nothing shows that it did.
+
+**The hard-tier difficulty check (field note, 15 Nov 2026, counts only):** no seed, folder, file or problem is named here. It was run and scored on 15 Nov 2026, and the seed folder's commits landed on 16 Nov. The source is the hard-tier results report in the seed folder (`reports\difficulty-hard-results.md`). Claude Code checked the counts against it.
+- **The runs:**
+  - 10 Council Dial Lite 2.2.5 Quick reviews, one per hard-tier folder, all in one fresh session in the neutral run folder;
+  - each review had 3 reviewers and a check, all on Lite's read-only agent;
+  - every review completed.
+- **The result: too easy, like the easy tier.** The hard tier's seeds are escaped bugs, which survived a median of 3.3 years (see the hard-tier pilot note above).
+  - **Catches:** all 10 seeds were caught, and all 6 rated HIGH.
+  - **The band:** under the bands fixed in advance, 9 or 10 of 10 means too easy. So the result is in the too-easy band, as the easy tier's was.
+  - **Single reviewers:** they found the seed in 29 of the 30 pairs of reviewer and seed (97%). The easy tier's first check had 10 of 10 and 25 of 30.
+  - **Unconfirmed extras:** 238 (88% of the 272 findings in the main lists).
+    - **Partly a key effect** *(from the report, not my prompt)*: the hard-tier folders have far fewer known, not planted bugs in the keys (3 matches, against the easy tier's 63). So fewer flags had a known row to match.
+- **Memory:** all 5 seeds published after the reviewing model's training cutoff were caught. So memory of those bugs can't explain those catches.
+  - **Not the whole story** *(Claude Code's note)*: that covers the 5, not all 10. And 11 findings, in 4 folders, described how the original project behaves upstream, which is knowledge from training rather than file access. So training knowledge of the projects did play a part, even where it didn't include the bug. The cutoff split was for information only and wasn't in the plan.
+- **Working explanation (mine, untested):** these bugs escaped human review inside large codebases. Cutting each into a small folder with a one-line description removed the haystack. So the surroundings, not the bug itself, may be what made them hard.
+  - **What the report says** *(Claude Code's note)*: each folder holds exactly the pull request that introduced its bug, so a reviewer's attention is already on the right change. The large codebases and the one-line description come from my account. Neither report checked here states them.
+- **Open decision, pending:** before the real comparison, choose one of these, or a mix:
+  - put the haystack back, with the real project or a larger real pull request;
+  - drop the description;
+  - change the main measure, to precision, cost to a full catch or severity accuracy.
+  - **The report's options** *(from the report, not my prompt)*:
+    - hide the change among more code (a bigger diff, or several changes);
+    - give less help (the folder without its diff, or the changed files without saying which lines changed);
+    - rely on other measures (the extras, false alarms, severity agreement and cost).
+
+    "The real project" is my addition. The report suggests leaving out the diff, where I suggest leaving out the description.
+- **A post-hoc exception (deviation):**
+  - **What happened:** the transcript scan first came back BREACH, on 2 calls. The run session had written a three-line test file in its own temporary scratch folder and read it back, to see how its file tool saved escaped characters.
+  - **What wasn't touched:** nothing on the deny list. There were no web, connector or outside-path calls, and the one shell call (Lite's link check) was refused.
+  - **Under the rule:** the scan rule was fixed before the run, and under the void rule BREACH voided all ten runs.
+  - **The exception:** I accepted the runs as an exception before any scoring, because the scratch folder belongs to the session and starts empty.
+  - **The rule change:** the scan rule was then changed to list a session's own scratch folder separately, and with that the scan came back CLEAN. **So the CLEAN verdict comes from a rule written after the calls it judges.** That makes this a post-hoc exception, and it's reported as one.
+  - **Experiment ideas:**
+    - block writes outside the project folder, and see whether Lite still completes or works around the block;
+    - fix the scan rule before the run, including how a session's own scratch folder counts, so no exception is needed.
+- **The reviews' own slips** *(from the report, not my prompt)*:
+  - every check found the summary's findings matching the reports, with no count mismatches;
+  - 1 review miscounted its overview by one finding, and its check flagged it;
+  - 6 reviews logged procedural deviations, none affecting a match.
+- **Hand checks still to mark:** the 15-row match pack and the 20-row extras pack are built.
+  - **Where the counts come from** *(Claude Code's note)*: the seed folder's messaging-check report gives both counts. The match sample is stratified: 5 catches, 2 known-bug matches, 5 close calls and 3 judgement calls.
+- **Another relay slip (16 Nov 2026):** while relaying the seed pilot's output, I pasted rows of the hard-tier matches file, which gives seed IDs per folder, into the chat. The chat assistant is already seed-aware, and the 10 hard-tier seeds are already pilot-only (see "Another relay slip (15 Nov 2026)" above). So no result is affected.
+  - **Connection** *(Claude Code's note)*: it's the fifth relay slip recorded in these notes, after "The leak" and the three slips above it. It's a human-in-the-loop finding.
+
+**The messaging check (field note, 16 Nov 2026, counts only):** the source is the seed folder's messaging-check report (`reports\messaging-check.md`). Claude Code checked the counts against it.
+- **Scope:** 99 sessions, with 332 agent transcripts:
+  - the dry run, review A and review B;
+  - the `C:\test` sessions;
+  - every other session where Council Dial or Lite appears.
+- **Result: no message carried content between sessions or between seats** in any of the 99.
+  - **The three runs:** the dry run and the two difficulty checks, review A and review B. They had 0 messaging calls, 0 incoming messages and 0 `notify_when_idle` uses.
+    - **Their seats:** all 76 were Lite's read-only `council-reader` (Read, Grep and Glob).
+    - **Their main sessions:** they had `SendMessage` and `ListAgents` available, and called neither.
+  - **Elsewhere:** 2 `SendMessage` calls ran, both in development sessions. Each went from a main session to its own subagent, and neither carried council material.
+  - **So the earlier results stand.**
+  - **Outside the 99** *(from the report, not my prompt)*: the two sessions below used no council.
+    - The 16 Nov canary's sender (see below).
+    - One project session used `notify_when_idle` in a question to another project session.
+- **Gap:** when running code is allowed, seats run as general-purpose agents and get every tool the session has, including `SendMessage`.
+  - **Brief version 2:** seats are always general-purpose there, in both editions *(Claude Code's note: Lite's plan step says this too)*.
+  - **Closed from 16 Nov 2026:** the current run folder denies `SendMessage` and `ListAgents` in its project settings and sets `crossSessionInbound` to `refuse`. The subagents docs say a deny rule in settings applies to the main conversation and to subagents. Claude Code checked the settings file.
+  - **The canary that evening:** on Claude Code 2.1.325, `/workflows` showed as an unknown command, and a canary message was refused. The refusal is in the report. The version and `/workflows` come from my account.
+  - **Still to check:** whether Lite completes with the deny, on the first review of the next run. The report suggests checking it in a dry run instead.
+  - **Earlier folders** *(Claude Code's note)*: the dry run's and review A's folders have neither the denies nor the `refuse`. They don't need them unless they're used again.
+- **Method note:** "Message from @" is only the on-screen preview line. A received message is stored as a user turn marked as coming from a peer. A subagent's hand-back arrives the same way. So the scan checks the stored form, and lists hand-backs separately (79, in 14 sessions, none in the runs).
+- **A human-in-the-loop field note (16 Nov 2026):** during the canary, the sender session received the refusal notice. But it first told me the message was "in that session's inbox", and corrected itself only in its next reply. That's from my account.
+  - **Connection:** this bears on the hand-relay versus messaging experiment idea under "Voice-tag controlled test". A session's account of its own messaging can be wrong even when the refusal notice is in its context.
+- **A proposed run rule: proposed, pending the researcher's decision before the plan is locked.**
+  - **A call:** any `SendMessage` or `ListAgents` call in a run is logged as a deviation. With the deny in place, the call will be refused.
+  - **Content:** a message that carries content into or out of a run session or seat voids the run.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
