@@ -937,6 +937,11 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **Partly a key effect** *(from the report, not my prompt)*: the hard-tier folders have far fewer known, not planted bugs in the keys (3 matches, against the easy tier's 63). So fewer flags had a known row to match.
 - **Memory:** all 5 seeds published after the reviewing model's training cutoff were caught. So memory of those bugs can't explain those catches.
   - **Not the whole story** *(Claude Code's note)*: that covers the 5, not all 10. And 11 findings, in 4 folders, described how the original project behaves upstream, which is knowledge from training rather than file access. So training knowledge of the projects did play a part, even where it didn't include the bug. The cutoff split was for information only and wasn't in the plan.
+- **Seed choice (16 Nov 2026):** future seeds should favour bugs fixed after the model's training cutoff, and the difficulty measure should be read from post-cutoff seeds.
+  - **Limits** *(Claude Code's note)*:
+    - **The cutoff:** it's the cutoff of every model that reviews, judges or appeals, so the latest one counts, and a new model moves the line.
+    - **The code:** a fix after the cutoff keeps the fix out of training, but not the code around it. The hard-tier pilot's limits note that a model may have seen the code, and the upstream-knowledge findings above show it can draw on it.
+    - **This check:** read from post-cutoff seeds alone, it rests on 5 seeds, all caught.
 - **Working explanation (mine, untested):** these bugs escaped human review inside large codebases. Cutting each into a small folder with a one-line description removed the haystack. So the surroundings, not the bug itself, may be what made them hard.
   - **What the report says** *(Claude Code's note)*: each folder holds exactly the pull request that introduced its bug, so a reviewer's attention is already on the right change. The large codebases and the one-line description come from my account. Neither report checked here states them.
 - **Open decision, pending:** before the real comparison, choose one of these, or a mix:
