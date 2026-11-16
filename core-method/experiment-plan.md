@@ -879,7 +879,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Single reviewers:** across the 30 pairs of reviewer and seed, a reviewer found the seed in 25 (83%). So a single reviewer would land in the too-easy band too.
 - **All findings:** of 182 findings, 25 matched planted seeds and 63 matched known, not planted bugs. The other 94 (52%) are unconfirmed extras. Compare the dry run's 19 findings on one planted bug above.
 - **Still to check:**
-  - **The matching:** a Claude session did it, so it waits for my spot-check, a stratified sample of 15 items (still to do on 15 Nov 2026).
+  - ~~**The matching:** a Claude session did it, so it waits for my spot-check, a stratified sample of 15 items (still to do on 15 Nov 2026).~~ (amended 16 Nov 2026: done on 15 Nov 2026. I hand-checked a stratified sample of 15 of the easy tier's matches and found no errors. That still allows an error rate of up to about 20%, by the rule of three. The hard tier's matching spot-check is still to do.)
   - ~~**The extras:** they wait for a hand-checked sample.~~ (done 15 Nov 2026: see "The extras sample" below.)
 - **The extras sample (15 Nov 2026):** I hand-checked a random sample of 20 of the 94 unconfirmed extras, as one non-specialist. Claude Code checked the counts against the answer sheet.
   - **All 20 were real problems:** 14 LOW, 6 MED and none HIGH.
