@@ -936,14 +936,44 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Unconfirmed extras:** 238 (88% of the 272 findings in the main lists).
     - **Partly a key effect** *(from the report, not my prompt)*: the hard-tier folders have far fewer known, not planted bugs in the keys (3 matches, against the easy tier's 63). So fewer flags had a known row to match.
 - **Memory:** all 5 seeds published after the reviewing model's training cutoff were caught. So memory of those bugs can't explain those catches.
-  - **Not the whole story** *(Claude Code's note)*: that covers the 5, not all 10. And 11 findings, in 4 folders, described how the original project behaves upstream, which is knowledge from training rather than file access. So training knowledge of the projects did play a part, even where it didn't include the bug. The cutoff split was for information only and wasn't in the plan.
-- **Seed choice (16 Nov 2026):** future seeds should favour bugs fixed after the model's training cutoff, and the difficulty measure should be read from post-cutoff seeds.
+  - **Not the whole story** *(Claude Code's note)*: that covers the 5, not all 10. And ~~11 findings, in 4 folders, described how the original project behaves upstream~~, which is knowledge from training rather than file access. So training knowledge of the projects did play a part, even where it didn't include the bug. The cutoff split was for information only and wasn't in the plan.
+    - (amended 16 Nov 2026 *(Claude Code's note)*: of the 11 findings that mention "upstream", 9 describe how the original project's code or conventions behave. The other 2 use the word for earlier in the program's own call chain. None describes the later fix. See "The material's size" below.)
+- **The material's size (field note, 16 Nov 2026, counts only):** the source is the seed folder's material-size report (`reports\hard-material-size.md`). Claude Code checked the figures against it. Here the "project" is the original repository at the commit the introducing pull request was built on.
+  - **A small slice of each project:**
+    - **By files:** the median ratio of project to material is about 196, ranging from 8.7 to 981.
+    - **By lines:** the median ratio is 22 *(from the report, not my prompt)*.
+    - **Share of the project's lines:** the material holds under 7% of them in 7 of the 10 folders, and at most 21% in any folder.
+    - **The pull requests:** a median of 8.5 files changed and 303 lines added.
+  - **The diff points at the seed:**
+    - In all 10 folders, the material's diff contains the seeded lines.
+    - In 9, every seeded line is one the change added or rewrote. In the tenth, all but one are, and that one is an unchanged line shown as context in the diff *(from the report, not my prompt)*.
+  - **The 11 "upstream" findings don't describe the later fix.**
+    - 9 describe how the original project's code or conventions behave, for code not in the material. That's knowledge of the projects, not memory of the fixes.
+    - The other 2 use "upstream" to mean earlier in the program's own call chain.
+    - **Split by the cutoff** *(from the report, not my prompt)*:
+      - 5 of the 11 came from 1 folder whose seed was published before the cutoff, and 3 of those 5 were catches;
+      - 6 came from 3 folders whose seeds were published after it, and none of those 6 was a catch.
+- ~~**Seed choice (16 Nov 2026):** future seeds should favour bugs fixed after the model's training cutoff, and the difficulty measure should be read from post-cutoff seeds.~~ (amended 16 Nov 2026: the reason is corrected below.)
+- **Seed choice (revised 16 Nov 2026):** as a precaution, future seeds should still favour bugs fixed after the model's training cutoff, and the difficulty measure should be read from post-cutoff seeds. The reason is that the model knows the projects, not that it recalls the fixes. The post-cutoff seeds were also caught, 5 of 5, so "too easy" stands either way.
+  - **The reason doesn't quite fit the precaution** *(Claude Code's note)*: a fix after the cutoff guards against recall of the fix, and this check found no sign of that. It doesn't guard against knowing the project.
+    - 4 of the 9 project-knowledge findings came from folders whose seeds were published after the cutoff, because those projects existed before it.
+    - To guard against project knowledge, seeds would need code that's new since the cutoff, such as projects or modules created after it.
   - **Limits** *(Claude Code's note)*:
     - **The cutoff:** it's the cutoff of every model that reviews, judges or appeals, so the latest one counts, and a new model moves the line.
     - **The code:** a fix after the cutoff keeps the fix out of training, but not the code around it. The hard-tier pilot's limits note that a model may have seen the code, and the upstream-knowledge findings above show it can draw on it.
     - **This check:** read from post-cutoff seeds alone, it rests on 5 seeds, all caught.
-- **Working explanation (mine, untested):** these bugs escaped human review inside large codebases. Cutting each into a small folder with a one-line description removed the haystack. So the surroundings, not the bug itself, may be what made them hard.
+- ~~**Working explanation (mine, untested):** these bugs escaped human review inside large codebases. Cutting each into a small folder with a one-line description removed the haystack. So the surroundings, not the bug itself, may be what made them hard.~~ (amended 16 Nov 2026: revised below, after the material-size report.)
   - **What the report says** *(Claude Code's note)*: each folder holds exactly the pull request that introduced its bug, so a reviewer's attention is already on the right change. The large codebases and the one-line description come from my account. Neither report checked here states them.
+    - (amended 16 Nov 2026 *(Claude Code's note)*: the material-size report now confirms the material is a small slice of each project. The one-line description is still not stated in either report.)
+- **Working explanation (revised 16 Nov 2026, the researcher's interpretation, untested):** the human reviewers who missed these bugs also reviewed the pull request's diff, so the removed project context isn't the main difference. It's more likely that the AI reviewers:
+  - read every line of the diff;
+  - flag widely, with 238 extras across 10 folders, about 24 per folder;
+  - are pointed at the change by the diff.
+  - **Checked** *(Claude Code's note)*:
+    - Every introducing change was screened to be a merged pull request reviewed by someone other than its author (see the hard-tier pilot note above), so the human reviewers did see the diff. But they also had the whole project, so the project context was something they had in addition, not something they lacked.
+    - 238 ÷ 10 is 23.8.
+    - That the AI reviewers read every line wasn't measured.
+  - **A tension** *(Claude Code's note)*: the human reviewers were pointed at the change by the same diff. So the pointer is common to both and can't on its own explain the difference. What's left is how closely each read and how widely each flagged.
 - **Open decision, pending:** before the real comparison, choose one of these, or a mix:
   - put the haystack back, with the real project or a larger real pull request;
   - drop the description;
@@ -954,6 +984,20 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - rely on other measures (the extras, false alarms, severity agreement and cost).
 
     "The real project" is my addition. The report suggests leaving out the diff, where I suggest leaving out the description.
+  - **Two levers that work together (added 16 Nov 2026, still pending):**
+    - **(a) Remove the pointer:** give the code after the change plus the modules around it, with no diff.
+      - **Note** *(Claude Code's note)*: the human reviewers had the diff. So without it, the task is harder than the one they failed at, and a catch no longer compares directly with their miss.
+    - **(b) Make noise count:**
+      - add precision measures, such as extras per catch and whether the seed is among the top few findings;
+      - score the output after the judge, where there is a judge.
+      - **Where councils may help:** Quick has no judge. Filtering noise may be where councils add value.
+- **A cautious observation, not a claim (16 Nov 2026):** these changes had passed human review. Even so, AI reviewers flagged the escaped bug in 29 of 30 single-reviewer attempts. The caveats:
+  - the seeds were selected for lines inside the introducing change;
+  - the reviewers were primed to find problems;
+  - they flagged far more than a human reviewer would.
+  - **Wording** *(Claude Code's note)*:
+    - "Passed human review" here means each change was merged after review by someone other than its author. The screen didn't check for a formal approval.
+    - "Far more than a human reviewer would" is an expectation, not a measure: the human reviewers' comments weren't counted.
 - **A post-hoc exception (deviation):**
   - **What happened:** the transcript scan first came back BREACH, on 2 calls. The run session had written a three-line test file in its own temporary scratch folder and read it back, to see how its file tool saved escaped characters.
   - **What wasn't touched:** nothing on the deny list. There were no web, connector or outside-path calls, and the one shell call (Lite's link check) was refused.
