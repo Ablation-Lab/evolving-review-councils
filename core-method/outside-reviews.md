@@ -415,7 +415,46 @@ From the above, these are the decisions the locked plan needs that the paper doe
    - **Decision:** pending.
 8. **Possible later arm:** a debate council run as an agent team, to test talking against independence.
    - **Checked** *(Claude Code's note)*: the agent teams page gives a debate as a use case: teammates "talk to each other to try to disprove each other's theories". But teammates load `CLAUDE.md`, MCP servers and skills like an ordinary session, start in the lead's permission mode, and need an interactive session. So the isolation would differ from a subagent council, and it would need its own dry run.
-   - **Decision:** pending.
+   - **The design** (my wording, 16 Nov 2026):
+     - **Three arms, on the same material and seats:**
+       - **independent seats:** current Lite;
+       - **structured debate:** Lite's debate turns, relayed by the main session;
+       - **free debate:** an agent team, whose teammates message each other directly.
+     - **Measures:** catch rate, false flags, deviation rates and cost. Also anchoring signs, such as a finding raised by one seat and then adopted by others without independent evidence.
+     - **Isolation for the team arm:** a separate run folder, with agent teams enabled (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) in its project settings only.
+       - `SendMessage` stays allowed there, because teammates need it.
+       - `crossSessionInbound` stays `refuse`.
+       - `ListAgents` stays denied, if teams still work without it. A dry run checks that.
+       - The scan logs teammate messages as expected. Any message to or from a session outside the team voids the run.
+     - **Limits:** agent teams are experimental, use in-process mode on Windows, and can't be resumed. Pin the Claude Code version.
+   - **Checked against the agent teams and cross-session messaging pages, 16 Nov 2026** *(Claude Code's note)*:
+     - **Enabling:** right. The variable is set to `1` in the shell or in a settings file's `env`. A project settings `env` entry applies after user settings, so the team folder's own settings can turn teams on there and leave every other folder off. Teammates spawn only in an interactive session. With `-p`, a named subagent runs as an ordinary subagent.
+     - **`SendMessage` must stay allowed:** right. The messaging page says denying `SendMessage` "also removes messaging to subagents and agent-team teammates, since the same tool serves both". An in-process teammate runs under the lead's live deny rules. So in the team arm the lead can also send to sessions outside the team, and only the scan would catch that.
+     - **`crossSessionInbound` set to `refuse`:** the page says it drops messages "arriving from your other sessions". Neither page says it touches messages inside a team, which go through the team's mailbox files rather than the session's inbox. Nothing found says it blocks teammates. The dry run should confirm that teammates still receive messages with it set.
+     - **`ListAgents`:** the teams page doesn't name it for teammates.
+       - Teammates message each other by the names the lead gives them.
+       - They can read the team config's member list.
+       - `/list-agents` does list a session's own teammates, though.
+       
+       So teams may work without it. That's still for the dry run, as planned.
+     - **"The same seats":** partly. A teammate can be spawned from a subagent definition such as Lite's `council-reader`.
+       - **What it keeps:** that definition's `tools` (Read, Grep, Glob), plus `SendMessage`, added for every in-process teammate even if the definition leaves it out. In a session that has the Task tools, it also gets those.
+       - **The definition's body:** appended to the teammate's default system prompt, where a subagent uses the body alone.
+       - **The definition's `skills`:** not applied. The teammate loads skills, `CLAUDE.md` and MCP servers from the project and user settings like an ordinary session. When the lead starts with `--setting-sources`, it uses the same restricted sources.
+       
+       So a teammate seat also differs from a subagent seat in its system prompt and loaded context, not only in messaging. The comparison should record this.
+     - **Where teammate messages are recorded:** each agent's mailbox is a JSON file at `~/.claude/teams/{team-name}/inboxes/{agent-name}.json`. Claude Code removes the team config directory when the session ends, and the mailboxes sit inside it, so they probably go too. The task list (`~/.claude/tasks/{team-name}/`) stays. The docs don't say where a teammate's transcript is kept, or whether its messages appear there. So the dry run should find where the scan can see teammate messages. The records rule (copy into `runs\` before scanning) may need to copy the mailbox files before the session ends.
+     - **"In-process mode on Windows":** partly right. In-process is the default display mode in every terminal. Split panes need tmux or iTerm2, which native Windows doesn't have, so in-process is what runs here. The docs don't name Windows.
+     - **"Can't be resumed":** partly right. `/resume` and `/rewind` don't restore in-process teammates, so a resumed session has lost its team. Within one running session, Claude Code does bring back a teammate that stopped when it's messaged. So an interrupted team run can't be continued with its team. The plan should say, before the runs, what happens to such a run.
+     - **Also from the docs:**
+       - **Other arms:** while teams are on, any subagent Claude names launches as a teammate, so the other two arms need folders with teams off (`0`), as the current run folder has.
+       - **Permission mode:** a teammate starts in the lead's permission mode.
+       - **One team:** a session has one team, and teammates can't spawn teammates.
+       - **Teammates' own subagents:** they run in the foreground.
+       - **Cache:** an in-process teammate's prompt cache holds for 5 minutes by default, which matters for the cost measure.
+     - **Version:** this machine has Claude Code 2.1.325, the version of all three runs so far. The docs' version notes show team behaviour changing recently. For example, split-pane teammates loaded every settings source before 2.1.281. So pinning the version matters.
+     - **Recorded by** *(Claude Code's note)*: the seed folder's session wrote this down at the researcher's request. As the note at the top of this entry says, building the team arm's run folder, its settings and its dry run belongs to seed-free sessions.
+   - **Decision:** adopted by the researcher, 16 Nov 2026.
 9. **Possible human-in-the-loop experiment:** hand relay against cross-session messaging, comparing errors and leaks.
    - **Already recorded** *(Claude Code's note)*: the research doc has this idea under the misdirected prompt in "Voice-tag controlled test". It compares the same multi-session task relayed by hand and with the sessions messaging each other. This suggestion adds leaks as a measure.
    - **Decision:** pending.
@@ -498,5 +537,5 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added) Item 12 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 12 added) (amended again 16 Nov 2026: item 12's record rule is adopted, and its revised comparison is pending. Item 5's interrupted-run rule is proposed, pending.)
+**Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added) Item 12 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 12 added) (amended again 16 Nov 2026: item 12's record rule is adopted, and its revised comparison is pending. Item 5's interrupted-run rule is proposed, pending.) (amended again 16 Nov 2026: item 8, the debate council as an agent team, is adopted by me on 16 Nov 2026, with its design written out under the item. Items 1 to 7, 9 and 10 are pending.)
 
