@@ -352,3 +352,65 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 **Decisions:** all of the above adopted by me on 13 Nov 2026. The ISO item from entry 4 is closed.
 
+---
+
+## Outside review 7: Claude Code agent features: eight pages read 16 Nov 2026
+
+- **Date:** 16 Nov 2026
+- **Reviewer:** Claude, the chat assistant. It is **not independent**, for the same reasons as in entry 1.
+- **Material:** Anthropic's article [Introducing dynamic workflows in Claude Code](https://claude.com/resources/articles/introducing-dynamic-workflows-in-claude-code) (28 May 2026, since updated to say the feature is generally available) and seven Claude Code docs pages:
+  - [dynamic workflows](https://code.claude.com/docs/en/workflows);
+  - [subagents](https://code.claude.com/docs/en/sub-agents);
+  - [running agents in parallel](https://code.claude.com/docs/en/agents);
+  - [agent view](https://code.claude.com/docs/en/agent-view);
+  - [worktrees](https://code.claude.com/docs/en/worktrees);
+  - [agent teams](https://code.claude.com/docs/en/agent-teams);
+  - [cross-session messaging](https://code.claude.com/docs/en/cross-session-messaging).
+- **Record:** the reviewer's ten suggestions, all waiting for my decision. Nothing from them is in the research doc yet. Claude Code checked each one against the pages on 16 Nov 2026 (Claude Code 2.1.325 on this machine), and the corrections and extra notes are marked *(Claude Code's note)*.
+- **Who acts on them** *(Claude Code's note)*: items 5, 7 and 8 change the council set-up, which only seed-free sessions may do (see "Seed-aware and seed-free sessions" in the research doc). Items 1 to 4 are run isolation and records, which belong to the seed folder's session.
+
+### Suggestions (decision pending)
+
+1. **Isolation gap: cross-session messaging.** It's on by default from Claude Code 2.1.224, and Claude may send messages without being asked. Runs need `crossSessionInbound` set to `"refuse"` and a `ListAgents` deny in the project settings, confirmed from the settings file, because `/status` shows nothing.
+   - **Checked** *(Claude Code's note)*: the docs say Claude "can decide to send a message without being asked". A `refuse` in project or local settings "applies over every other source". And a refusing session "shows no visible change" in `/status`, so the docs say to check the settings files.
+   - **Correction** *(Claude Code's note)*: 2.1.224 is the minimum on macOS and Linux. On native Windows, which these runs use, it's 2.1.234.
+   - **Correction** *(Claude Code's note)*: the docs' way to stop sending and listing is deny rules naming **both** `SendMessage` and `ListAgents`. Without `ListAgents`, Claude can't list sessions, but the docs don't say that a message to a name it already knows is blocked. Denying `SendMessage` also removes messaging to subagents, so first check that Lite doesn't use it.
+   - **Already in place** *(Claude Code's note)*: the current run folder's settings have the `refuse` and a `ListAgents` deny, but no `SendMessage` deny.
+   - **Decision:** pending.
+2. **Isolation gap: agent teams.** If agent teams are on, named subagents become teammates that can message each other. Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=0` in the run project, and add `CLAUDE_CODE_DISABLE_WORKFLOWS=1` to the launch line.
+   - **Checked** *(Claude Code's note)*: agent teams are experimental and off by default. While they're on, a subagent that Claude names in an interactive session launches as a teammate, unless the call is a fork or sets `isolation` itself. Teammates message each other directly. A `0` in a settings file's `env` overrides a shell export, and only higher-precedence settings, such as a `--settings` value or managed settings, could turn teams back on. `CLAUDE_CODE_DISABLE_WORKFLOWS=1` is read at startup.
+   - **Already in place** *(Claude Code's note)*: the current run folder has both.
+   - **Decision:** pending.
+3. **Transcript scan.** A `SendMessage` or `ListAgents` call, or a "Message from @" line, means the run isn't CLEAN.
+   - **To test** *(Claude Code's note)*: the docs show "Message from @" as the on-screen preview of an arriving message. They don't say that the transcript file stores that text. So the scan's rule should be tried once on a transcript known to hold a delivered message.
+   - **Decision:** pending.
+4. **Records.** Subagent transcripts and saved workflow results are deleted after `cleanupPeriodDays` (30 by default). Copy them into each run record.
+   - **Checked** *(Claude Code's note)*: subagent transcripts are deleted with their parent session's transcript once it's older than `cleanupPeriodDays`, which defaults to 30. The workflows page says a run's saved results are kept under the session's directory, but neither page lists them in the sweep. So they probably go with the session, but the docs don't say so.
+   - **A related risk, not checked** *(Claude Code's note)*: my user settings set `cleanupPeriodDays` to 365. Run sessions start with `--setting-sources project,local`, which leaves user settings out, so a run session may use the 30-day default. The docs don't say whether a session's sweep covers every project's transcripts or only its own. If it covers all of them, a run session could delete my older transcripts. The seed folder's checks already count session folders before and after each run, and the docs' `retention_sweep` event would settle it.
+   - **Decision:** pending.
+5. **Workflow edition design.** The script holds the plan, so comparing a workflow edition with Lite isolates the orchestrator. My call between stages means separate workflows: reviewers, judge and appeal; then the call; then the check. Use schema-checked findings. A repeat must be a new run, never a relaunch, because relaunches return saved results.
+   - **Checked** *(Claude Code's note)*: in the docs' comparison table, the script decides what runs next. The docs say a workflow takes no input mid-run, and "for sign-off between stages, run each stage as its own workflow". A `schema` makes an agent return JSON of that shape, retried up to five times. On a relaunch, completed agents return their saved results, and the runtime blocks timestamps and random numbers inside the script so that a relaunch repeats the same calls.
+   - **Decision:** pending.
+6. **Cost measure.** Workflow agents share a prompt cache, with a 5-minute TTL. Record input, cache-read, cache-write and output tokens separately. The `/workflows` per-agent tokens give a third figure to check against.
+   - **Checked** *(Claude Code's note)*: agents in the same run share a cache when they have the same model, effort, agent type, tools, output schema and working directory. The default TTL is five minutes, or an hour with `subagentPromptCacheTtl`. `/workflows` shows each agent's token usage.
+   - **Note** *(Claude Code's note)*: what's shared is the tools and system prompt prefix, not any agent's findings, so it doesn't break the seats' independence. But it makes later seats cheaper, so a cost comparison with Lite needs to know whether Lite's seats share a cache too. The runtime also holds matching agents for up to 5 seconds so they can read the first one's cache.
+   - **Decision:** pending.
+7. **Seat definitions.** Use `omitClaudeMd` plus a read-only `tools` list as extra isolation. Plugin agents ignore `hooks`, `permissionMode` and `mcpServers`, so isolation stays in the run folder's settings. Subagents get a git status snapshot, so keep run folders out of git.
+   - **Checked** *(Claude Code's note)*: `omitClaudeMd` leaves out the user, project and local `CLAUDE.md` files, but managed policy files still load, and it needs Claude Code 2.1.271 or later. The docs confirm that plugin agents ignore those three fields, and that a subagent starts with a git status snapshot.
+   - **Already true** *(Claude Code's note)*: none of the dry-run or review run folders is in a git repository.
+   - **Note** *(Claude Code's note)*: Lite's reader agent is a plugin agent, and Lite is in review. So adding `omitClaudeMd` means a new Lite version.
+   - **Decision:** pending.
+8. **Possible later arm:** a debate council run as an agent team, to test talking against independence.
+   - **Checked** *(Claude Code's note)*: the agent teams page gives a debate as a use case: teammates "talk to each other to try to disprove each other's theories". But teammates load `CLAUDE.md`, MCP servers and skills like an ordinary session, start in the lead's permission mode, and need an interactive session. So the isolation would differ from a subagent council, and it would need its own dry run.
+   - **Decision:** pending.
+9. **Possible human-in-the-loop experiment:** hand relay against cross-session messaging, comparing errors and leaks.
+   - **Already recorded** *(Claude Code's note)*: the research doc has this idea under the misdirected prompt in "Voice-tag controlled test". It compares the same multi-session task relayed by hand and with the sessions messaging each other. This suggestion adds leaks as a measure.
+   - **Decision:** pending.
+10. **Worktree note:** `isolation: worktree` starts from the default branch unless `worktree.baseRef` is `"head"`.
+    - **Checked** *(Claude Code's note)*: the other value is `"fresh"`, the default, which branches from the remote's default branch. With no remote, it falls back to the local `HEAD`.
+    - **Decision:** pending.
+
+---
+
+**Decisions:** all pending.
+
