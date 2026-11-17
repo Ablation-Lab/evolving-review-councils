@@ -1101,17 +1101,28 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **The trade:** with 3 runs and one miss, it describes these runs only.
 - **Run 2's scope:**
   - **What happened:** run 2 was launched with the first repository's base hash. That commit shares no history with run 2's repository, so Ultrareview reviewed every file whole (1,312 lines) instead of the change. It still caught its seed.
-    - **The cause:** the hash came from the steps file written by the seed folder's session. That's from my account: the report says only which hash the run was launched with.
+    - ~~**The cause:** the hash came from the steps file written by the seed folder's session. That's from my account: the report says only which hash the run was launched with.~~ (amended 17 Nov 2026: a slip by me, not the steps file. I used repository 1's base hash for run 2. See the human-in-the-loop notes below.)
     - **The fallback** *(Claude Code's note)*: the docs page describes it. With no merge base, "ultrareview reviews every tracked file in the repository instead".
     - **Scoring** *(from the report, not my prompt)*: it's scored by the same rules and flagged, as decided before any score was reported.
   - **An accidental data point:** run 2 is a single data point for the no-diff lever (lever (a) under the hard-tier entry), on a different system. Nothing can be inferred from it.
     - **Half the lever** *(Claude Code's note)*: run 2 had no diff, but it had only the material's files, not the modules around them. So it's closer to the material-size report's option of giving the changed files without saying which lines changed.
-- **Open, pending reconciliation:** I recall the steps file showing the same hash in all three sections, while the report treats runs 1 and 3 as correctly scoped.
+  - **A paid rerun (planned, 17 Nov 2026):** run 2 will be rerun against its own base. The rerun will replace run 2 in the main figures, and the whole-file run will be reported separately.
+    - **A change after scoring** *(Claude Code's note)*: the report says run 2 was to be scored by the same rules and flagged, as decided before any score was reported. Replacing it is decided after its result was seen, so it should be logged as a deviation. It's the same kind of post-hoc change as the hard tier's scan exception.
+    - **Not a like-for-like repeat** *(Claude Code's note)*: the rerun comes later, probably on a newer Claude Code, and is a paid run rather than a free one. Keeping the 2-run figures alongside, as the table does, shows the result without the replaced run.
+- ~~**Open, pending reconciliation:** I recall the steps file showing the same hash in all three sections, while the report treats runs 1 and 3 as correctly scoped.~~ (amended 17 Nov 2026: reconciled. The saved launch lines show run 3 used the right hash. See (b) below.)
   - **What it turns on** *(Claude Code's note)*: the hash run 2 got was the first repository's, so if all three sections shared it, run 1 was scoped correctly either way, and only run 3 is in question. A base with no shared history falls back to the whole-file review, as run 2's did, so the report's treatment of run 3 implies its base was its own. The run records can settle it, and I didn't read them.
-- **A human-in-the-loop note:** an agent wrote wrong run instructions for a one-off, unrepeatable run, and I followed them as written. Nobody checked the hashes before the run. This is copied to the human-in-the-loop project.
-  - **Suggested fix:** steps files for one-off runs get a pre-run check of every argument against the repository.
+- ~~**A human-in-the-loop note:** an agent wrote wrong run instructions for a one-off, unrepeatable run, and I followed them as written. Nobody checked the hashes before the run. This is copied to the human-in-the-loop project.~~ (amended 17 Nov 2026: the cause was a slip by me, not wrong instructions. Replaced by (a) and (b) below.)
+  - ~~**Suggested fix:** steps files for one-off runs get a pre-run check of every argument against the repository.~~ (amended 17 Nov 2026: revised in (a).)
   - **"Unrepeatable"** *(Claude Code's note)*: the free runs are a one-time allotment, so a repeat would now be a paid run, typically $5 to $25 by the docs page. It can't be repeated for free.
   - **Connection** *(Claude Code's note)*: like the relay slips, it's a check nobody ran at a hand-run step that no hook covers.
+- **Human-in-the-loop notes (17 Nov 2026, copied to the human-in-the-loop project):**
+  - **(a) A slip by me.** The run steps file (`ultra-run.md`) listed each repository's hash at the top. But its steps were one "repeat for each" block, filled in with repository 1's values. I used repository 1's hash for runs 1 and 2, and the right one for run 3.
+    - **Fix:** for one-off runs, write each command out in full with its own values, and check every argument against the repository before running.
+    - **Sources** *(Claude Code's note)*: the steps file and the launch lines are from my account, since I didn't read them. The report agrees: run 2 was launched with the first repository's base hash, and runs 1 and 3 reviewed the change.
+    - **The layout played a part** *(Claude Code's note)*: a block holding one repository's values, to be repeated for the others, leaves the swap to whoever runs it. The fix removes that step.
+  - **(b) Recollection against record.** I recalled using the wrong hash for all three runs. The saved launch lines show run 3 was right. My memory and the record disagreed, and the record was right, like the canary sender misreporting its own message (see the messaging check above).
+    - **So:** accounts of what happened, human or agent, are checked against the record.
+    - **"The transcripts"** *(Claude Code's note)*: Ultrareview runs have no transcript. Their record is `results.json` and `progress.txt` in each run folder, by the run list (`runs\README.md`), plus the launch lines I saved. So "the record" covers these runs and "the transcripts" doesn't.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
