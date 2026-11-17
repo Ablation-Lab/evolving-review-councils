@@ -166,7 +166,7 @@ Builds on seed-sources-research.md, which covers ReviewBench, Martian, Qodo and 
 - **Tested:** 1,000 review tasks from 98 open-source repositories plus 800 proprietary ones. Each is a human-verified bug paired with the PR that introduced it.
   - **Results:** the best set-up (claude-opus-5 with copilot-cli) catches 71.9% of bugs in its top 5 comments, up from 47.7% for opus-4.6.
   - **Cost:** prompts that nudge exploration gain up to 5.8% for 10% more cost.
-- **Closeness: high on scoring** (real known bugs, review by reading). It tests single agent set-ups, not councils, and there is no same-family analysis.
+- **Closeness: high on scoring** (real known bugs, review by reading). ~~It tests single agent set-ups, not councils, and there is no same-family analysis.~~ There is no same-family analysis. (amended 17 Nov 2026, from the full text, which Claude Code read through a fetch tool: section 4.6 and Table 3 do test multi-agent set-ups on gpt-5.6-sol. Self-refine, Ensemble@3, Ensemble@5, a three-model ensemble and sub-agents gain "+2.8% on average" in recall@5 "with a much higher cost (3.68x)", and the authors conclude that "comprehensive prompt configurations dominate multi-agent configurations". Ensemble@5 reached 70.4 against the base's 65.6, at $8.07 against $1.50 per task. Sub-agents scored 61.9. It measures recall@k only, never precision. See the 2026 additions below.)
 
 ### CR-Bench: Evaluating the Real-World Utility of AI Code Review Agents (rechecked)
 - **Paper:** Kristen Pereira, Neelabh Sinha, Rajat Ghosh and Debojyoti Dutta; arXiv preprint, 10 Mar 2026; [arXiv 2603.11078](https://arxiv.org/abs/2603.11078). Full text read. Already cited in [decision-6-seeds-and-stopping.md](../research/decision-6-seeds-and-stopping.md).
@@ -193,6 +193,7 @@ Builds on seed-sources-research.md, which covers ReviewBench, Martian, Qodo and 
   - **Closeness: medium.**
 - **MCR-Bench** ([arXiv 2608.27442](https://arxiv.org/abs/2608.27442); Zheng, Wang et al., ISSTA 2026 per the arXiv page):
   - **Tested:** 2,269 multi-round review tasks, with each defect's type and **severity** in the key. Its judge agreement figure (QWK about 0.67–0.73) is *(snippet only)*.
+    - (amended 17 Nov 2026: confirmed from the full text by a Claude Code subagent, through a fetch tool, not rechecked by me. Section 5.3, Table 4: the LLM hit judge's QWK with humans is 0.73 for GPT-5.2 Pro, 0.70 for Claude Opus 4.5 and 0.67 for Gemini 3 Pro. Its 0.87 kappa is agreement between the human annotators. Table 9 gives higher hit rates on Major and Critical defects, about 0.52, than on Trivial and Minor, about 0.40.)
   - **Closeness: medium.**
 - **Sphinx** ([arXiv 2601.04252](https://arxiv.org/abs/2601.04252); Zhang et al., 2026):
   - **Tested:** coverage of a known-issue checklist instead of BLEU, including bug-free PRs for measuring false positives.
@@ -442,6 +443,7 @@ The paper's `references.bib` has 30 entries. It cites Panickssery, Wataoka, Kim 
   - Gong et al. give 54.3% in the text and 55.0% in a table.
 - **SWR-Bench:** a search snippet gave a different earlier title, but the arXiv page shows only the current one.
 - **Kumar et al.** ([arXiv 2606.15689](https://arxiv.org/abs/2606.15689)): the fetch summary gives a submission date that doesn't fit its June 2026 arXiv number. Check this on the page before citing.
+- **Entries with no read status** (added 17 Nov 2026): Khullar et al. (Self-Attribution Bias), Goel et al. (Great Models Think Alike), Kim, Garg et al. (Correlated Errors) and "When AI Agrees Too Much" don't say whether the abstract or the full text was read, against the rule at the top of this file. The paper session of 16 Nov 2026 noticed this while drafting its /deep-research commands. Until they're re-read, treat them as abstract only.
 
 ## Loosely related
 
@@ -454,3 +456,105 @@ The paper's `references.bib` has 30 entries. It cites Panickssery, Wataoka, Kim 
 - **How it connects:**
   1. **Motivation.** It reports that "agent-authored PRs show slightly higher discussion and longer median time-to-merge". That is mild support for the project's motivation, though it gives no split figures, only the direction.
   2. **A possible source of real agent-written bugs** for the same-family question: AIDev includes Claude Code PRs. See the "To check" section in [seed-sources-research.md](seed-sources-research.md).
+
+## 7. Additions from a 2026 search (17 Nov 2026)
+
+**How it was done:** an overnight Claude Code session sent one research subagent to search for 2026 work on five topics: multi-agent LLM code review; appeal or re-check steps for LLM judges; precision measures for AI code review; scripted workflows against agent-led orchestration; and project instruction files helping or biasing agents. It opened each item's own page through a fetch tool, so, as in the first search, what was seen was a summary of the page with short quotes. The session then reopened six items itself and found their titles, authors, dates and headline figures matched: CRBugBench's Table 3 (above), CRJudgeBench, Jagged Judges, Evaluating AGENTS.md, Deterministic vs. LLM-Controlled Orchestration and Stale Instruction Files. Everything else is the subagent's read only. Each entry says what was read. None is refereed unless a venue is given, and figures need a second look before the paper cites them.
+
+**What changes for the project:**
+- **Judges err both ways.** The case for an appeal rests on judges dismissing real findings (Evident). CRJudgeBench finds LLM judges of review comments mostly *over-keep*. So the scoring should report the judge's errors in both directions: false findings kept and real findings dismissed.
+- **The appeal's failure mode has prior work.** Challenging a judge flips its verdict often, and the flips mostly make it less accurate (Jagged Judges, Who Flips). Reinstated findings should be scored on their own against the key.
+- **Multi-agent gains at high cost.** CRBugBench's ensembles and sub-agents gain little at 3–5 times the cost, which supports the equal-cost single-reviewer arm.
+- **Instruction files.** There's now direct 2026 evidence on both sides of the CLAUDE.md help-or-bias question, though all of it is on coding agents, not reviewers.
+
+### Multi-agent code review and precision
+
+- **Is Agentic Code Review Helpful? Mining Developers' Feedback to CodeRabbit Reviews in the Wild** (Hong Yi Lin, Liang, Thongtanunam and Tantithamthavorn; [arXiv 2607.03316](https://arxiv.org/abs/2607.03316), v1 3 Jul 2026, v2 23 Jul 2026; full text read except the last part):
+  - **Tested:** 31,073 review comments and developer responses from 10,191 PRs in 239 repositories. 36.4% were accepted, 7.3% discussed and 56.3% rejected (Table 2).
+  - **Why rejected (Table 3):** 58.0% were invalid (43.3% false positives, 10.0% out of scope, 4.7% redundant), and 42.0% conflicted with the developer's design choices. Section 5 gives 35.8% for false positives, which doesn't match Table 3.
+  - **A learned filter:** a small fine-tuned model predicted rejection at F1 0.76, while zero-shot GPT-5.1 reached only 0.06–0.24 (Table 5).
+  - **How it connects:** its invalid, out-of-scope and redundant labels map onto false flags and extras. The weak zero-shot filter bears on how good an LLM judge's keep-or-dismiss call can be.
+- **Agentic Code Review in the Terminal: A Trajectory-Level Analysis of Behavior, Cost, and Human-Alignment** (Charoenwet, Tantithamthavorn et al.; [arXiv 2607.16740](https://arxiv.org/abs/2607.16740), v1 18 Jul 2026; full text read):
+  - **Tested:** 362 review tasks. Claude Code on Sonnet 4.6 posted 947 comments, 22.39% localised correctly and 14.37% aligned with humans. A static GPT-5.2 reviewer posted 3,180, 7.86% localised and 21.44% aligned (Table 1). Claude Code spent 51% of its cost exploring.
+  - **How it connects:** per-comment precision proxies for single reviewers. No councils.
+- **AgenticSCR: An Autonomous Agentic Secure Code Review for Immature Vulnerabilities Detection** (Charoenwet et al.; [arXiv 2601.19138](https://arxiv.org/abs/2601.19138), v1 27 Jan 2026, v2 3 Aug 2026; ASE 2026 Industry per the arXiv comment; abstract only):
+  - **Tested:** at least 153% relative improvement in correct, relevant comments over a static LLM, a multi-agent reviewer and static analysis tools. In a shadow deployment at Atlassian, security engineers validated 54% of its comments.
+  - **How it connects:** a single agent beat a multi-agent reviewer, though cost wasn't matched.
+- **The Specification as Quality Gate: Three Hypotheses on AI-Assisted Code Review** (Christo Zietsman; [arXiv 2603.25773](https://arxiv.org/abs/2603.25773), v1 26 Mar 2026; full text, section 2.5):
+  - **Tested:** three small sets of five planted bugs each, five runs per function. Claude caught every pattern bug. A cross-family panel caught 57 of 100, one bug was missed by all four seats, and only Gemini caught another.
+  - **Two warnings for planted seeds:** hints leak through context, as when a docstring stated the convention a bug broke, and an unused import worked as a hint (removing it dropped one tool from 5 of 5 to 2 of 5).
+  - **How it connects:** a second, smaller Claude-reviews-Claude planted-bug test besides Song 2026, and weaker. Its leak warnings match the easy tier's leak tags.
+- **From Industry Claims to Empirical Reality: An Empirical Study of Code Review Agents in Pull Requests** (Kowshik Chowdhury et al.; [arXiv 2604.03196](https://arxiv.org/abs/2604.03196), v1 3 Apr 2026; MSR 2026 per the arXiv comment; abstract only):
+  - **Tested:** PRs reviewed only by an agent were merged 45.20% of the time, against 68.37% for human-only review. 12 of 13 agents averaged below 60% "signal".
+  - **How it connects:** a per-PR signal ratio, roughly the inverse of extras per catch.
+- **"Go Home Copilot, You're Drunk": Developer Responses to Agent-Generated Code Review Comments** (Cynthia, Widyasari, Roy, Ting Zhang and David Lo; [arXiv 2607.21997](https://arxiv.org/abs/2607.21997), v1 24 Jul 2026, v2 29 Jul 2026; abstract only):
+  - **Tested:** 54,791 comments from five agents in 342 Python repositories. The top reasons for unresolved comments were incorrect suggestions and intentional design decisions. An inline code suggestion best predicted resolution.
+  - **How it connects:** resolution rate as a precision measure, like Goldman et al. in review-areas-research. The project scores against a key instead.
+- **Two industry write-ups, not peer-reviewed:**
+  - **[Bringing Code Review to Claude Code](https://claude.com/blog/code-review)** (Anthropic, 9 Mar 2026; full post): parallel agents, a verification step that filters false positives, and ranking by severity. It reports "less than 1% of findings are marked incorrect" and $15–25 per review, with no recall figure. Its verify step is one-way, with no appeal. Context for the Ultrareview baseline.
+  - **[Same model, six code reviewers, 38% to 81% of the bugs](https://quickchat.ai/post/same-model-six-code-reviewers-38-to-81-percent-of-the-bugs)** (Quickchat AI, 13 Nov 2026; vendor; full post): six reviewer harnesses on one model, against an LLM-built key no human checked. Recall ran from 38% to 81%, so the harness mattered more than the model. A three-reviewer panel found 6 points more than one reviewer at $0.46 against $0.17 per PR. It reports cost per extra bug found, close to the project's extras-per-catch idea. Each configuration ran once.
+
+### Judges, re-checks and appeals
+
+- **CRJudgeBench: Can AI Detect Plausible but Invalid Code Reviews?** (Yue Pan, Jiawei Li, Ziyuan Zhang, Xiangxin Zhao and He Ye; [arXiv 2609.37216](https://arxiv.org/abs/2609.37216), v1 29 Sep 2026; under review at ICLR 2027 per the arXiv comment; abstract rechecked by the session, full text read by the subagent):
+  - **Tested:** 1,199 review comments, trustworthy or not, with a 359-item test set. The best judge, the authors' own agentic Sentinel, reached 76.60% accuracy (abstract).
+  - **Leniency (Tables 2–3, the subagent's read):** every model judged at least 85.52% of comments trustworthy, against a 63.79% base rate. Claude Opus 5 and GPT-5.5 were the most lenient, at 94.99%, and caught only 2.31–20.77% of untrustworthy comments.
+  - **A count that doesn't add up:** section 2 says 1,031 items were reviewed by hand, but its counts sum to 829.
+  - **How it connects:** the closest benchmark for the project's judge. It shows the opposite error to the one the appeal exists for.
+- **Jagged Judges: Epistemic Stability Under Perturbation, Pressure, and Persistence** (Justin Zhao, Himaghna Bhattacharjee, Hannah Korevaar, Bhaktipriya Radharapu and Khalid El-Arini; [arXiv 2608.12645](https://arxiv.org/abs/2608.12645), v1 12 Aug 2026, v2 21 Aug 2026; abstract rechecked):
+  - **Tested:** 9 frontier models on 14 judging tasks, none of them code. Verdicts flipped 25–71% of the time under plain pushback and 62–91% against an adversarial persuader. Pressure that changed a verdict was "almost always net-corrupting with respect to ground truth".
+  - **How it connects:** an appeal is pushback on a judge. If the main session or a later seat argues with the judge, flips may be wrong more often than right. The appeal here doesn't argue with the judge directly, so this is a risk to test, not a result.
+- **Who Flips? Self- and Cross-Model Counterarguments Reveal Answer Instability in LLMs** (Nikeghbal et al.; [arXiv 2606.16011](https://arxiv.org/abs/2606.16011), v1 14 Jun 2026, v2 30 Aug 2026; Findings of EMNLP 2026 per the arXiv comment; abstract only):
+  - **Tested:** on MMLU, flip rates of 17.5–97.3% across 7 models. Arguments framed as the model's own raised flips by 7.1 points on average.
+  - **How it connects:** a same-family appeal may sway a Claude judge more than an outside-family one. A measurable variable.
+- **Are LLM Evaluators Really Narcissists? Sanity Checking Self-Preference Evaluations** (Roytburg et al.; [arXiv 2601.22548](https://arxiv.org/abs/2601.22548), v1 30 Jan 2026, v4 22 Jun 2026; ICML 2026 per the arXiv comment; abstract only):
+  - **Tested:** with a baseline for the evaluator's quality, only 51% of earlier self-preference examples stay significant.
+  - **How it connects:** a caveat on section 6 above. A same-family analysis should control for whether the judge could find the bug itself.
+- **Quantifying and Mitigating Self-Preference Bias of LLM Judges** (Jinming Yang et al.; [arXiv 2604.22891](https://arxiv.org/abs/2604.22891), v1 24 Apr 2026, v4 2 Jun 2026; abstract only): across 20 LLMs, more capable models weren't less self-preferring. A structured, multi-dimensional evaluation cut self-preference by 31.5% on average. Weak support for the judge's fixed ruling format.
+- **Reviewer Capability Governs Rejection Targeting, Not Repair Skill** (Faizan Tanveer; [arXiv 2609.04270](https://arxiv.org/abs/2609.04270), v1 2 Sep 2026; a 6-page pilot; full text): on 100 maths problems, self-review falsely rejected 18 of 52 correct answers, and a cross-family reviewer 1 of 52 (Table 2). Not code. Small evidence that same-model checkers over-reject.
+- **Prior Audit-Repair Context Shifts LLM Verifier Thresholds Toward Leniency** (Parsa Mazaheri and Kasra Mazaheri; [arXiv 2608.16003](https://arxiv.org/abs/2608.16003), v1 17 Aug 2026; abstract only): an earlier audit-and-repair episode in context lowered false alarms by 2.8–11.5 points in all 15 conditions, by moving the threshold, not the ability to discriminate. An argument for keeping what the judge and appeal see fixed across configurations.
+- **Chain-of-Models: Cross-Model Auditing for Bias-Robust LLM Judges** (Qian Wang et al.; [arXiv 2607.28636](https://arxiv.org/abs/2607.28636), v1; marked work in progress; abstract only): a second model audits the judge's reasoning, and a model's own bias resistance doesn't predict how good an auditor it is. The page gives a submission date of 19 May 2026, which doesn't fit its July arXiv number. Check before citing.
+
+### Scripted workflows against agent-led orchestration
+
+- **Deterministic vs. LLM-Controlled Orchestration for COBOL-to-Python Modernization** (Naing Oo Lwin and Rajesh Kumar; [arXiv 2605.09894](https://arxiv.org/abs/2605.09894), v1 11 May 2026; abstract rechecked, full text read by the subagent):
+  - **Tested:** the same models, prompts and tools, with only who controls the steps varied. The abstract reports "comparable computational accuracy", better worst-case results and less run-to-run variation for the scripted pipeline, and up to 3.5 times fewer tokens. By the subagent's read of Table 1, LLM-controlled runs had slightly higher success rates (+0.016 to +0.034), and section 5.5 says the scripted advantage shrinks when validators are weak.
+  - **How it connects:** the cleanest controlled comparison found for outside review 7's item 11. It predicts a scripted council would be cheaper and more consistent than Lite, perhaps at a small cost. It's translation, not review.
+- **Agent Architecture Cost-Success Trade-offs: A Controlled Evaluation across Enterprise-Style SOPs** (Subhrangshu Nandi et al.; [arXiv 2611.12953](https://arxiv.org/abs/2611.12953), v1 7 Nov 2026; abstract only): no architecture won in aggregate. Coordinated set-ups cost 1.4–4.7 times the tokens of a single agent, and a plausible multi-agent build lost to it. Only a targeted redesign beat it. So how well a council is built may matter more than its shape.
+- **Abstract only, briefly:**
+  - **LLM-as-Code: Agentic Programming for Agent Harness** (Junjia Qi et al.; [arXiv 2606.15874](https://arxiv.org/abs/2606.15874), v3 9 Nov 2026; KDD 2026 AgenticSE workshop): a position paper arguing that code, not the model, should own the loop. No figures.
+  - **In-Context Prompting Obsoletes Agent Orchestration for Procedural Tasks** (Simon Dennis et al.; [arXiv 2604.27891](https://arxiv.org/abs/2604.27891), v2 5 May 2026; LLM-judged): cuts the other way. The whole procedure in one prompt beat a LangGraph orchestration.
+  - **Multi-Agent Teams Hold Experts Back** (Pappu et al.; [arXiv 2602.01011](https://arxiv.org/abs/2602.01011), v4 28 May 2026; ICML 2026 per the arXiv comment): self-organising teams did up to 41.1% worse than their best member, compromising instead of deferring to the expert. Bears on the free-debate arm of outside review 7's item 8, and on judged against consensus combining.
+
+### Project instruction files (CLAUDE.md, AGENTS.md)
+
+None of these tests reviewers. Each is about coding agents.
+
+- **Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?** (Thibaud Gloaguen, Niels Mündler-Sasahara, Mark Niklas Müller, Veselin Raychev and Martin Vechev; [arXiv 2602.11988](https://arxiv.org/abs/2602.11988), v1 12 Feb 2026, v3 29 Sep 2026; abstract rechecked, full text read by the subagent):
+  - **Tested:** context files "do not generally improve task success rates" and raise cost by over 20% (abstract). Agents do follow the instructions in them. By the subagent's read of section 4.2, developer-written files beat LLM-written ones by about 7 points, the one significant comparison.
+  - **How it connects:** the main precedent for the help-or-bias test's "help" side.
+- **Stale Instruction Files Override the Code in Coding Agents: A One-Sentence Fix** (Xiaonan Xu and Wenjing Wu; [arXiv 2610.30571](https://arxiv.org/abs/2610.30571), v1 22 Oct 2026; abstract rechecked, full text read by the subagent):
+  - **Tested:** 40 Python projects with a planted conflict between the instruction file and the code, 320 runs on Claude Code and Codex CLI. 90.1% of choices followed the stale file. Claude Code named the conflict in 79 of 80 runs and still followed the file. One sentence about precedence moved choices following the code from 4.2% to 91.4%.
+  - **How it connects:** the closest design for the test's "bias" side. A reviewer that reads a wrong `CLAUDE.md` may excuse a bug that fits it, or flag correct code. That's an inference: the paper doesn't test reviewers.
+- **Guardrails Beat Guidance: A Large-Scale Study of Rules, Skills, and Persistent Configuration for Coding Agents** (Xing Zhang et al.; [arXiv 2604.11088](https://arxiv.org/abs/2604.11088), v2 28 May 2026; full text): random and curated `CLAUDE.md` rules both scored 63.8% against a 50.0% baseline on 58 tasks, with no significant difference between conditions. The authors put the gain down to priming that doesn't depend on content. So a CLAUDE.md test needs a random-file control, not just with and without.
+- **Do Context Files Help Coding Agents? A Two-Agent Ablation Study** (Prakhar Khatri; [arXiv 2607.27250](https://arxiv.org/abs/2607.27250), v1 28 Jul 2026; full text): no measurable effect on 15–17 tasks, and a power analysis saying 120–200 tasks are needed to detect 10 points. Useful for sizing the test.
+- **Abstract only, briefly:**
+  - **On the Impact of AGENTS.md Files on the Efficiency of AI Coding Agents** (Jai Lal Lulla et al.; [arXiv 2601.20404](https://arxiv.org/abs/2601.20404), v2 30 Mar 2026): lower runtime and output tokens with a file, which partly contrasts with Gloaguen et al.'s higher cost.
+  - **Instruction Adherence in Coding Agent Configuration Files** (Damon McMillan; [arXiv 2605.10039](https://arxiv.org/abs/2605.10039), v1 11 May 2026): 1,650 Claude Code sessions, with no detectable effect of file size, position or contradictions on compliance.
+  - **When Instruction Files Go Stale** (Tural Mehtiyev et al.; [arXiv 2611.09802](https://arxiv.org/abs/2611.09802), v1 6 Nov 2026): a stale test command cost extra tool calls, and no agent repaired the file.
+  - **SWE-PRBench** (Deepak Kumar; [arXiv 2603.26130](https://arxiv.org/abs/2603.26130), v1 27 Mar 2026): the code-review benchmark Adversarial Review used. All 8 models got worse as context grew, and a short diff-plus-summary prompt beat a longer full-context one. A review-specific sign that extra context, instruction files included, can dilute attention.
+
+### Loosely related
+
+- **Do Coding Agents Catch Their Own Bugs? (They Don't.)** (Shaswat Patel et al.; [arXiv 2611.01181](https://arxiv.org/abs/2611.01181), v1 31 Oct 2026; abstract only): 212 pairs where a later PR fixed a defect the first one introduced. It tests authors, not reviewers, but it's a possible source of real escaped bugs for the hard tier.
+- **Automating Low-Risk Code Review at Meta: RADAR** (Adams et al.; [arXiv 2605.30208](https://arxiv.org/abs/2605.30208), v2 12 Jun 2026; abstract only): a production pipeline of a risk score, LLM review and fixed checks, so a scripted workflow, not a council. The abstract's "over 330%" time reduction doesn't make sense as written.
+
+### Searched for, not found
+
+- an appeal or second-opinion step for a verifier's wrongful rejections (Jagged Judges, Who Flips, Tanveer and Mazaheri are the nearest);
+- a 2026 academic study of several LLM reviewers voting on planted bugs, with precision and recall (only vendor benchmarks, not opened);
+- ranking or top-k measures for review comments beyond CRBugBench's recall@k;
+- a measured effect of repository instructions on LLM *reviewers*;
+- a 2026 self-preference study on code specifically.
+
+So, on this search, the appeal that reinstates dismissals, the equal-cost role-set comparison and a CLAUDE.md test on reviewers still look new. The same caveat applies as before: IEEE Xplore, Semantic Scholar and Google Scholar weren't searched.
