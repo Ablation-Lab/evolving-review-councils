@@ -1139,20 +1139,23 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **Fix:** AI-written commands for one-off runs are given in full, with real values, never placeholders.
     - **Sources** *(Claude Code's note)*: the command and the error are from my account. The docs page doesn't quote that error.
     - **Failing was the lucky case** *(Claude Code's note)*: by the docs page, `/code-review ultra` keeps text of more than one word as a note, unless it's a branch name or PR reference, and still launches the review on the default scope. So in the slash command, a placeholder could launch a paid run on the wrong scope instead of failing.
-  - **(d) A silent failure (17 Nov 2026).** The first rerun attempt, with its output redirected to a file, exited with code 1 and showed nothing on screen. I found it only by checking the exit code. The likely causes were signing in with a VPN on, and usage credits being off.
+  - **(d) A silent failure (17 Nov 2026).** The first rerun attempt, with its output redirected to a file, exited with code 1 and showed nothing on screen. I found it only by checking the exit code. ~~The likely causes were signing in with a VPN on, and usage credits being off.~~ (amended 17 Nov 2026: resolved. The seed folder's records show the 01:13 UTC attempt didn't launch because the free runs were used up and usage credits were off, so nothing ran or was billed. The VPN wasn't shown to be a cause.)
     - **Fix:** run one-off paid steps interactively, so prompts and errors are visible.
     - **What the docs page says** *(Claude Code's note)*:
       - **Exit code 1** covers a review that failed to launch, was stopped, errored or timed out, and a folder that isn't trusted.
-      - **Usage credits:** with them off, "Claude Code blocks the launch". That fits one of the likely causes. The page says nothing about VPNs.
-      - **A third candidate:** "When it can't ask you, such as in a CI job or with output sent to a file, it exits with `Error: Workspace not trusted`." With output redirected, an untrusted folder fails this way.
+      - **Usage credits:** with them off, "Claude Code blocks the launch". ~~That fits one of the likely causes. The page says nothing about VPNs.~~ (amended 17 Nov 2026: that was the cause, as below.)
+      - **A third candidate:** "When it can't ask you, such as in a CI job or with output sent to a file, it exits with `Error: Workspace not trusted`." With output redirected, an untrusted folder fails this way. So redirected output can cause a failure as well as hide one.
+        - (amended 17 Nov 2026: it wasn't the cause this time, but the point stands.)
       - **The error may be in the file:** the subcommand writes its progress messages to stderr. Since nothing showed on screen, stderr probably went to the file too, so the file may hold the error and settle the cause.
-      - **Cost:** a paid review "bills only for the portion that ran", and a run counts "once the cloud session starts". So if it failed before launching, it shouldn't have cost anything. The billing page can confirm.
+        - (amended 17 Nov 2026 *(Claude Code's note)*: it did. By the rerun's README, the attempt's saved progress file holds `Ultrareview could not launch: Free ultrareviews used.`, and its JSON file is empty.)
+      - **Cost:** a paid review "bills only for the portion that ran", and a run counts "once the cloud session starts". So if it failed before launching, it shouldn't have cost anything. ~~The billing page can confirm.~~ (amended 17 Nov 2026: the records show nothing was billed.)
     - **The cause, settled** *(from the report, not my prompt)*: the attempt, with the `claude ultrareview` subcommand at 01:13 UTC, stopped before launching because the free runs were used up and usage credits weren't on. Nothing ran, and nothing was billed. Its output is kept in the rerun's records folder. The report doesn't mention a VPN.
 - **The rerun of run 2 (17 Nov 2026), an extra row:** the source is the same report (`reports\ultra-baseline.md`), updated with the rerun. Claude Code checked the figures against it.
   - **The run:** one paid Ultrareview of run 2's folder, against its own base.
     - **Scope:** its findings file records 3 files changed, 44 insertions and 12 deletions, and the review as the change.
     - **Paid:** that's by my account. The report calls it paid, but the cost isn't in the files.
-    - **Still missing** *(Claude Code's note)*: the rule for this row asks for its date, Claude Code version and cost. The report gives only the date.
+      - (amended 17 Nov 2026 *(Claude Code's note)*: the rerun's README, `runs\ultra-2-rerun\README.md`, shows it was billed: the session's transcript has the launch message "This review bills as usage credits." The amount still isn't in the files.)
+    - ~~**Still missing** *(Claude Code's note)*: the rule for this row asks for its date, Claude Code version and cost. The report gives only the date.~~ (amended 17 Nov 2026 *(Claude Code's note)*: by the README, the date is 17 Nov 2026, with the findings arriving at 01:27:24 UTC and saved at 01:28:55 UTC. The version is Claude Code 2.1.326, from the findings file's header and all 39 version entries in the session's transcript. Only the cost is still missing.)
 
   | Measure | Ultrareview rerun (the change) | Ultrareview run 2 (whole files) | Lite Quick (review B), same folder |
   |---|---|---|---|
@@ -1166,8 +1169,8 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Severity** *(from the report, not my prompt)*: the catch was rated `normal`. Of its 4 findings, 3 were `normal` and 1 `nit`.
 - **The plan sequence:**
   - **Before scoring:** the plan treated all 3 runs as scored, with run 2 flagged.
-  - **Before the rerun:** at the chat's suggestion, an amendment said the rerun would replace run 2.
-  - **Before the rerun's findings were seen:** that amendment was withdrawn, also at the chat's suggestion.
+  - **Before the rerun:** at the chat's suggestion, an amendment in the seed folder's plan said the rerun would replace run 2.
+  - ~~**Before the rerun's findings were seen:** that amendment was withdrawn, also at the chat's suggestion.~~ (amended 17 Nov 2026: by the report, it was withdrawn after the rerun had finished and its findings had been saved, and before they were scored. It was also at the chat's suggestion, by my account.)
   - **So:** the headline figures stay the ones under the treatment fixed before scoring, plus the 2-run figures. The rerun is an extra row.
   - **The replacement version, for reference only** *(from the report, not my prompt)*:
     - catches 2 of 3;
@@ -1178,10 +1181,12 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Catches:** 2 of 3 in both three-run versions. The 2-run figures are 1 of 2.
   - **Checked** *(Claude Code's note)*:
     - **Timing:** in these notes, the amendment was committed at 01:06 UTC on 17 Nov (`4d957f4`) and withdrawn at 01:27 UTC (`b53edff`). The failed attempt was at 01:13 UTC, between the two. The report doesn't say when the rerun's findings were first seen, so "before the findings were seen" is from my account.
+      - (amended 17 Nov 2026 *(Claude Code's note)*: the updated report says the seed folder's plan amendment was withdrawn after the findings were saved, and before they were scored. By the README, they arrived in the rerun session at 01:27:24 UTC, 30 seconds before `b53edff`. So the withdrawal came before scoring, not before the findings existed. It was still decided before any score was reported.)
     - **Whose suggestion:** in these notes, the replacement came in my own request. The withdrawal followed Claude Code's note here that replacing run 2 after its result was seen would be a post-hoc change. The chat's part in both is from my account.
     - **The seed folder's plan file:** by the report, `keys/ultra-plan.md`, set before the rerun, still says the rerun replaces run 2, and "the plan isn't changed". So the withdrawal is recorded here, and not yet in that file.
+      - (amended 17 Nov 2026: the updated report says the amendment in that file was withdrawn on 17 Nov 2026.)
     - **"Pre-scoring":** the treatment was fixed before scoring, but the figures came after.
-- **The rerun's record:** its findings file was written by a Claude Code session as Markdown, not saved as raw `--json` output. So, by the report, whether it's word for word can't be checked. The session transcript is being copied in to check it word for word *(from my account)*.
+- **The rerun's record:** its findings file was written by a Claude Code session as Markdown, not saved as raw `--json` output. ~~So, by the report, whether it's word for word can't be checked. The session transcript is being copied in to check it word for word *(from my account)*.~~ (amended 17 Nov 2026: checked. By the rerun's README, the transcript has been copied in. The file matches the 4 findings as they arrived in the session's transcript: the same order, with file, lines, severity, comment and reasoning identical word for word. Its header matches the launch message and version entries.)
 - **(e) A human-in-the-loop note (17 Nov 2026, copied to the human-in-the-loop project):** the chat assistant gave two conflicting instructions about the plan, to amend it and then to withdraw the amendment. The seed folder's session caught the conflict and asked, instead of choosing.
   - **Sources** *(Claude Code's note)*: this is from my account. The report fits it: it keeps the original figures "as asked", shows the replacement for reference only, and says "Which reading is the headline is the researcher's decision".
   - **Connection** *(Claude Code's note)*: unlike (a) and (c), where a substitution was left to the human, here a session handed back a choice that was the human's to make. The relay worked as a check.
