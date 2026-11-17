@@ -1156,6 +1156,8 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **Paid:** that's by my account. The report calls it paid, but the cost isn't in the files.
       - (amended 17 Nov 2026 *(Claude Code's note)*: the rerun's README, `runs\ultra-2-rerun\README.md`, shows it was billed: the session's transcript has the launch message "This review bills as usage credits." The amount still isn't in the files.)
     - ~~**Still missing** *(Claude Code's note)*: the rule for this row asks for its date, Claude Code version and cost. The report gives only the date.~~ (amended 17 Nov 2026 *(Claude Code's note)*: by the README, the date is 17 Nov 2026, with the findings arriving at 01:27:24 UTC and saved at 01:28:55 UTC. The version is Claude Code 2.1.326, from the findings file's header and all 39 version entries in the session's transcript. Only the cost is still missing.)
+    - **Cost (added 17 Nov 2026):** £5.27 in usage credits, as shown on my claude.ai billing page. That's from my account: the amount isn't in the seed folder's files.
+    - **The row is complete:** date 17 Nov 2026, Claude Code 2.1.326, cost £5.27.
 
   | Measure | Ultrareview rerun (the change) | Ultrareview run 2 (whole files) | Lite Quick (review B), same folder |
   |---|---|---|---|
@@ -1170,7 +1172,22 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **The plan sequence:**
   - **Before scoring:** the plan treated all 3 runs as scored, with run 2 flagged.
   - **Before the rerun:** at the chat's suggestion, an amendment in the seed folder's plan said the rerun would replace run 2.
-  - ~~**Before the rerun's findings were seen:** that amendment was withdrawn, also at the chat's suggestion.~~ (amended 17 Nov 2026: by the report, it was withdrawn after the rerun had finished and its findings had been saved, and before they were scored. It was also at the chat's suggestion, by my account.)
+  - ~~**Before the rerun's findings were seen:** that amendment was withdrawn, also at the chat's suggestion.~~ ~~(amended 17 Nov 2026: by the report, it was withdrawn after the rerun had finished and its findings had been saved, and before they were scored. It was also at the chat's suggestion, by my account.)~~
+  - **The withdrawal, in sequence (amended 17 Nov 2026):** this is from the chat's account, except where marked as confirmed.
+    - **About 01:25 UTC:** I asked the chat assistant, and it advised reporting the rerun as an extra row instead of replacing run 2. I sent that to Claude Code.
+      - **Confirmed in part** *(Claude Code's note)*: by this session's transcript, the request arrived at 01:26:49 UTC. The time I asked the chat isn't in any record I can see.
+    - **01:27:24 UTC:** the rerun's findings arrived in the rerun session. That's confirmed by the rerun's README.
+    - **01:27:54 UTC:** Claude Code committed the withdrawal (`b53edff`), 30 seconds later, before anyone had read the findings.
+      - **Confirmed in part** *(Claude Code's note)*: the commit time is confirmed, as both author and committer time. "Before anyone had read the findings" isn't in any record I can see.
+    - **After scoring:** the seed folder's session recorded the withdrawal in its own plan file, having already scored the rerun with both versions shown.
+      - **This conflicts with the report** *(Claude Code's note)*: the report now says the withdrawal came "after the rerun had finished and its findings had been saved, and before they were scored". But the version I read for `0561c08`, at about 01:36 UTC, already showed the rerun scored with both versions. It also said `keys/ultra-plan.md` still has the rerun replacing run 2, and "the plan isn't changed". So my own read supports "after scoring", and the report's wording needs correcting in the seed folder.
+    - **So:**
+      - the decision came before the findings existed;
+      - its first committed record landed just after they arrived, unread;
+      - the seed folder's file was updated after scoring.
+      - **The first record** *(Claude Code's note)*: the request in this session's transcript, at 01:26:49 UTC, is an earlier, uncommitted record of the decision, from before the findings arrived.
+    - **Nothing turns on it for catches:** the headline catches are 2 of 3 in both three-run versions.
+      - **But the precision figures differ** *(Claude Code's note)*: extras per catch are 7.5 against 5.5, and findings per folder median 6 against 4. Those are what the reading's "trades catches for precision" rests on. So the choice of version does matter for precision. Fixing the version before scoring is what keeps it from being a post-hoc choice.
   - **So:** the headline figures stay the ones under the treatment fixed before scoring, plus the 2-run figures. The rerun is an extra row.
   - **The replacement version, for reference only** *(from the report, not my prompt)*:
     - catches 2 of 3;
@@ -1181,10 +1198,11 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Catches:** 2 of 3 in both three-run versions. The 2-run figures are 1 of 2.
   - **Checked** *(Claude Code's note)*:
     - **Timing:** in these notes, the amendment was committed at 01:06 UTC on 17 Nov (`4d957f4`) and withdrawn at 01:27 UTC (`b53edff`). The failed attempt was at 01:13 UTC, between the two. The report doesn't say when the rerun's findings were first seen, so "before the findings were seen" is from my account.
-      - (amended 17 Nov 2026 *(Claude Code's note)*: the updated report says the seed folder's plan amendment was withdrawn after the findings were saved, and before they were scored. By the README, they arrived in the rerun session at 01:27:24 UTC, 30 seconds before `b53edff`. So the withdrawal came before scoring, not before the findings existed. It was still decided before any score was reported.)
+      - ~~(amended 17 Nov 2026 *(Claude Code's note)*: the updated report says the seed folder's plan amendment was withdrawn after the findings were saved, and before they were scored. By the README, they arrived in the rerun session at 01:27:24 UTC, 30 seconds before `b53edff`. So the withdrawal came before scoring, not before the findings existed. It was still decided before any score was reported.)~~ (amended again 17 Nov 2026: replaced by "The withdrawal, in sequence" above.)
     - **Whose suggestion:** in these notes, the replacement came in my own request. The withdrawal followed Claude Code's note here that replacing run 2 after its result was seen would be a post-hoc change. The chat's part in both is from my account.
     - **The seed folder's plan file:** by the report, `keys/ultra-plan.md`, set before the rerun, still says the rerun replaces run 2, and "the plan isn't changed". So the withdrawal is recorded here, and not yet in that file.
       - (amended 17 Nov 2026: the updated report says the amendment in that file was withdrawn on 17 Nov 2026.)
+        - (amended again 17 Nov 2026: after scoring. See "The withdrawal, in sequence" above.)
     - **"Pre-scoring":** the treatment was fixed before scoring, but the figures came after.
 - **The rerun's record:** its findings file was written by a Claude Code session as Markdown, not saved as raw `--json` output. ~~So, by the report, whether it's word for word can't be checked. The session transcript is being copied in to check it word for word *(from my account)*.~~ (amended 17 Nov 2026: checked. By the rerun's README, the transcript has been copied in. The file matches the 4 findings as they arrived in the session's transcript: the same order, with file, lines, severity, comment and reasoning identical word for word. Its header matches the launch message and version entries.)
 - **(e) A human-in-the-loop note (17 Nov 2026, copied to the human-in-the-loop project):** the chat assistant gave two conflicting instructions about the plan, to amend it and then to withdraw the amendment. The seed folder's session caught the conflict and asked, instead of choosing.
