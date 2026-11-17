@@ -1104,6 +1104,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Run 2's scope:**
   - **What happened:** run 2 was launched with the first repository's base hash. That commit shares no history with run 2's repository, so Ultrareview reviewed every file whole (1,312 lines) instead of the change. It still caught its seed.
     - ~~**The cause:** the hash came from the steps file written by the seed folder's session. That's from my account: the report says only which hash the run was launched with.~~ (amended 17 Nov 2026: a slip by me, not the steps file. I used repository 1's base hash for run 2. See the human-in-the-loop notes below.)
+      - (amended again 17 Nov 2026 *(Claude Code's note)*: the report's reconciliation, added since, puts the cause on the steps file's design, which the seed folder's session wrote. Its ready-to-paste command, `cd` line and interactive alternative all named repository 1 and its base, and only a sentence of prose said to swap in each repository's hash. Followed as written, it carries repository 1's hash into every run. So both played a part: the file's command was wrong for runs 2 and 3, and I swapped the hash for run 3 but not for run 2.)
     - **The fallback** *(Claude Code's note)*: the docs page describes it. With no merge base, "ultrareview reviews every tracked file in the repository instead".
     - **Scoring** *(from the report, not my prompt)*: it's scored by the same rules and flagged, as decided before any score was reported.
   - **An accidental data point:** run 2 is a single data point for the no-diff lever (lever (a) under the hard-tier entry), on a different system. Nothing can be inferred from it.
@@ -1111,12 +1112,16 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **A paid rerun (planned, 17 Nov 2026):** run 2 will be rerun against its own base. ~~The rerun will replace run 2 in the main figures, and the whole-file run will be reported separately.~~ (amended 17 Nov 2026: no replacement. The pre-decided treatment stays: all 3 runs scored, run 2 flagged, and the 2-run figures as they are. Once it's scored, the paid rerun is reported as a separate, additional row, with its date, Claude Code version and cost. So no post-hoc replacement happens.)
     - **Its scope:** the confirmation dialog showed 3 files changed, 44 insertions and 12 deletions, which matches the change.
       - **Source** *(Claude Code's note)*: the dialog's figures and the match are from my account. Neither report I read gives run 2's diff size.
+        - (amended 17 Nov 2026 *(Claude Code's note)*: now in the report. The rerun's findings file records that scope. Before the rerun, the seed folder's session checked that the diff from run 2's own base to `change` is byte-identical to the folder's diff.)
     - ~~**A change after scoring** *(Claude Code's note)*: the report says run 2 was to be scored by the same rules and flagged, as decided before any score was reported. Replacing it is decided after its result was seen, so it should be logged as a deviation. It's the same kind of post-hoc change as the hard tier's scan exception.~~ (amended 17 Nov 2026: resolved, since run 2 is no longer replaced.)
     - **Not a like-for-like repeat** *(Claude Code's note)*: the rerun comes later, probably on a newer Claude Code, and is a paid run rather than a free one. ~~Keeping the 2-run figures alongside, as the table does, shows the result without the replaced run.~~ (amended 17 Nov 2026: with nothing replaced, its own row keeps it apart.)
     - **Its record** *(Claude Code's note)*: runs 1 to 3 returned JSON from the `claude ultrareview` subcommand. The docs page says an interactive `/code-review ultra` shows its findings as a notification in the session, and `--json` is a subcommand flag. So if the rerun is launched interactively, its findings need saving in a form that can be scored the same way.
+      - (amended 17 Nov 2026: this happened. See "The rerun of run 2" below.)
 - ~~**Open, pending reconciliation:** I recall the steps file showing the same hash in all three sections, while the report treats runs 1 and 3 as correctly scoped.~~ (amended 17 Nov 2026: reconciled. The saved launch lines show run 3 used the right hash. See (b) below.)
   - **What it turns on** *(Claude Code's note)*: the hash run 2 got was the first repository's, so if all three sections shared it, run 1 was scoped correctly either way, and only run 3 is in question. A base with no shared history falls back to the whole-file review, as run 2's did, so the report's treatment of run 3 implies its base was its own. The run records can settle it, and I didn't read them.
+    - (amended 17 Nov 2026 *(Claude Code's note)*: settled by the report's reconciliation, from each run's saved `progress.txt`. Run 3's launch line names its own base, and its scope matches its own diff exactly.)
 - ~~**A human-in-the-loop note:** an agent wrote wrong run instructions for a one-off, unrepeatable run, and I followed them as written. Nobody checked the hashes before the run. This is copied to the human-in-the-loop project.~~ (amended 17 Nov 2026: the cause was a slip by me, not wrong instructions. Replaced by (a) and (b) below.)
+  - (amended again 17 Nov 2026 *(Claude Code's note)*: by the report's reconciliation, the steps file's ready-to-paste command was wrong for runs 2 and 3. So for run 2, "wrong run instructions, followed as written" was right after all. See the cause under "Run 2's scope" above.)
   - ~~**Suggested fix:** steps files for one-off runs get a pre-run check of every argument against the repository.~~ (amended 17 Nov 2026: revised in (a).)
   - **"Unrepeatable"** *(Claude Code's note)*: the free runs are a one-time allotment, so a repeat would now be a paid run, typically $5 to $25 by the docs page. It can't be repeated for free.
   - **Connection** *(Claude Code's note)*: like the relay slips, it's a check nobody ran at a hand-run step that no hook covers.
@@ -1124,6 +1129,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **(a) A slip by me.** The run steps file (`ultra-run.md`) listed each repository's hash at the top. But its steps were one "repeat for each" block, filled in with repository 1's values. I used repository 1's hash for runs 1 and 2, and the right one for run 3.
     - **Fix:** for one-off runs, write each command out in full with its own values, and check every argument against the repository before running.
     - **Sources** *(Claude Code's note)*: the steps file and the launch lines are from my account, since I didn't read them. The report agrees: run 2 was launched with the first repository's base hash, and runs 1 and 3 reviewed the change.
+      - (amended 17 Nov 2026 *(Claude Code's note)*: the report now covers both, from the steps file and each run's saved launch line. It calls the cause the file's design.)
     - **The layout played a part** *(Claude Code's note)*: a block holding one repository's values, to be repeated for the others, leaves the swap to whoever runs it. The fix removes that step.
   - **(b) Recollection against record.** I recalled using the wrong hash for all three runs. The saved launch lines show run 3 was right. My memory and the record disagreed, and the record was right, like the canary sender misreporting its own message (see the messaging check above).
     - **So:** accounts of what happened, human or agent, are checked against the record.
@@ -1141,6 +1147,44 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
       - **A third candidate:** "When it can't ask you, such as in a CI job or with output sent to a file, it exits with `Error: Workspace not trusted`." With output redirected, an untrusted folder fails this way.
       - **The error may be in the file:** the subcommand writes its progress messages to stderr. Since nothing showed on screen, stderr probably went to the file too, so the file may hold the error and settle the cause.
       - **Cost:** a paid review "bills only for the portion that ran", and a run counts "once the cloud session starts". So if it failed before launching, it shouldn't have cost anything. The billing page can confirm.
+    - **The cause, settled** *(from the report, not my prompt)*: the attempt, with the `claude ultrareview` subcommand at 01:13 UTC, stopped before launching because the free runs were used up and usage credits weren't on. Nothing ran, and nothing was billed. Its output is kept in the rerun's records folder. The report doesn't mention a VPN.
+- **The rerun of run 2 (17 Nov 2026), an extra row:** the source is the same report (`reports\ultra-baseline.md`), updated with the rerun. Claude Code checked the figures against it.
+  - **The run:** one paid Ultrareview of run 2's folder, against its own base.
+    - **Scope:** its findings file records 3 files changed, 44 insertions and 12 deletions, and the review as the change.
+    - **Paid:** that's by my account. The report calls it paid, but the cost isn't in the files.
+    - **Still missing** *(Claude Code's note)*: the rule for this row asks for its date, Claude Code version and cost. The report gives only the date.
+
+  | Measure | Ultrareview rerun (the change) | Ultrareview run 2 (whole files) | Lite Quick (review B), same folder |
+  |---|---|---|---|
+  | Catches | 1 of 1 | 1 of 1 | 1 of 1 |
+  | Catches of a HIGH seed | none possible: the seed is MED | none possible | none possible |
+  | Findings | 4 | 8 | 18 |
+  | Extras | 3 | 7 | 15 |
+
+  - **One folder:** it describes this run only.
+  - **Close calls** *(from the report, not my prompt)*: 2 of the rerun's 3 extras overlap the seed's lines but describe different problems. One of them is a finding that run 2 and Lite also raised.
+  - **Severity** *(from the report, not my prompt)*: the catch was rated `normal`. Of its 4 findings, 3 were `normal` and 1 `nit`.
+- **The plan sequence:**
+  - **Before scoring:** the plan treated all 3 runs as scored, with run 2 flagged.
+  - **Before the rerun:** at the chat's suggestion, an amendment said the rerun would replace run 2.
+  - **Before the rerun's findings were seen:** that amendment was withdrawn, also at the chat's suggestion.
+  - **So:** the headline figures stay the ones under the treatment fixed before scoring, plus the 2-run figures. The rerun is an extra row.
+  - **The replacement version, for reference only** *(from the report, not my prompt)*:
+    - catches 2 of 3;
+    - catches of the HIGH seeds 1 of 2;
+    - findings per folder 3, 4 and 6 (median 4);
+    - extras per folder 2, 3 and 6 (median 3);
+    - extras per catch 5.5 (11 ÷ 2).
+  - **Catches:** 2 of 3 in both three-run versions. The 2-run figures are 1 of 2.
+  - **Checked** *(Claude Code's note)*:
+    - **Timing:** in these notes, the amendment was committed at 01:06 UTC on 17 Nov (`4d957f4`) and withdrawn at 01:27 UTC (`b53edff`). The failed attempt was at 01:13 UTC, between the two. The report doesn't say when the rerun's findings were first seen, so "before the findings were seen" is from my account.
+    - **Whose suggestion:** in these notes, the replacement came in my own request. The withdrawal followed Claude Code's note here that replacing run 2 after its result was seen would be a post-hoc change. The chat's part in both is from my account.
+    - **The seed folder's plan file:** by the report, `keys/ultra-plan.md`, set before the rerun, still says the rerun replaces run 2, and "the plan isn't changed". So the withdrawal is recorded here, and not yet in that file.
+    - **"Pre-scoring":** the treatment was fixed before scoring, but the figures came after.
+- **The rerun's record:** its findings file was written by a Claude Code session as Markdown, not saved as raw `--json` output. So, by the report, whether it's word for word can't be checked. The session transcript is being copied in to check it word for word *(from my account)*.
+- **(e) A human-in-the-loop note (17 Nov 2026, copied to the human-in-the-loop project):** the chat assistant gave two conflicting instructions about the plan, to amend it and then to withdraw the amendment. The seed folder's session caught the conflict and asked, instead of choosing.
+  - **Sources** *(Claude Code's note)*: this is from my account. The report fits it: it keeps the original figures "as asked", shows the replacement for reference only, and says "Which reading is the headline is the researcher's decision".
+  - **Connection** *(Claude Code's note)*: unlike (a) and (c), where a substitution was left to the human, here a session handed back a choice that was the human's to make. The relay worked as a check.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
