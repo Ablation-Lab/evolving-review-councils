@@ -991,13 +991,33 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
       - add precision measures, such as extras per catch and whether the seed is among the top few findings;
       - score the output after the judge, where there is a judge.
       - **Where councils may help:** Quick has no judge. Filtering noise may be where councils add value.
+  - **Rank as a main measure (added 17 Nov 2026, still pending):** after the rank rescore below, choose one of these:
+    - keep the current material, with "seed ranked first" as a main measure;
+    - change the material;
+    - or both.
 - **A cautious observation, not a claim (16 Nov 2026):** these changes had passed human review. Even so, AI reviewers flagged the escaped bug in 29 of 30 single-reviewer attempts. The caveats:
   - the seeds were selected for lines inside the introducing change;
   - the reviewers were primed to find problems;
-  - they flagged far more than a human reviewer would.
+  - ~~they flagged far more than a human reviewer would.~~ (amended 17 Nov 2026: now measured. The median original pull request got 2 human review submissions from 1 reviewer, with 2 inline comments, and each of our reviewers gave a median of 7.5 findings. See "Rank rescore and human reviews" below.)
   - **Wording** *(Claude Code's note)*:
     - "Passed human review" here means each change was merged after review by someone other than its author. The screen didn't check for a formal approval.
-    - "Far more than a human reviewer would" is an expectation, not a measure: the human reviewers' comments weren't counted.
+      - (amended 17 Nov 2026: 9 of the 10 had a formal approval. The other had a single "changes requested" review and was merged anyway. See "Rank rescore and human reviews" below.)
+    - ~~"Far more than a human reviewer would" is an expectation, not a measure: the human reviewers' comments weren't counted.~~ (amended 17 Nov 2026: counted since, as above.)
+- **Rank rescore and human reviews (field note, 17 Nov 2026):** the source is the seed folder's rank-and-reviews report (`reports\hard-rank-and-reviews.md`, dated 16 Nov 2026). The rescore is exploratory and not in the plan: it's scored from the existing matches, with no new runs. Claude Code checked the figures against the report.
+  - **Rank:** all 30 reviewer lists are ordered by severity, with every HIGH before every MED and every MED before every LOW.
+    - **Of the 29 catches,** the seed finding was 1st in 17 (59%), in the top 3 in 25 (86%) and below the top 3 in 4 (14%).
+    - **Position** *(from the report, not my prompt)*: median 1st, range 1st to 10th.
+    - **Extras per catch:** 8.2, from all 238 extras ÷ 29 catches.
+      - **Not per list** *(Claude Code's note)*: 8.2 pools every list. Within each catching list, the median is 6 extras (range 3 to 16).
+    - **Rank follows severity** *(Claude Code's note)*: because the lists are sorted by severity, a seed's rank depends on the severity its reviewer gave it (17 HIGH, 11 MED and 1 LOW, by the report). So rank-first partly measures severity calls.
+  - **Reading (the researcher's interpretation):** on the current material, "seed ranked first" sits inside the 20 to 80% band, while the catch rate and the top 3 are saturated.
+    - **The band** *(Claude Code's note)*: the bands were fixed in advance for catches out of 10 folders. Applying them to rank, over 29 lists, is a new use chosen after seeing the figures. The top 3's 86% is just above the band.
+  - **Human review of the 10 original pull requests:** the report counted them from GitHub on 16 Nov 2026, people other than the author only, with bots left out.
+    - **Theirs:** a median of 2 review submissions from 1 reviewer, with 2 inline comments. 9 of the 10 had a formal approval.
+      - **The other one** *(from the report, not my prompt)*: it had a single "changes requested" review, and was merged anyway.
+    - **Ours:** a median of 7.5 findings per reviewer, and 24.5 per run with three reviewers pooled.
+    - **This replaces the "expectation" caveat** in the cautious observation above with measured figures. The caveats about seed selection and priming stay.
+    - **Unlike units** *(Claude Code's note)*: a review submission usually carries several inline comments, and the inline count includes replies in a thread. So the figures show the gap's size roughly, not like for like.
 - **A post-hoc exception (deviation):**
   - **What happened:** the transcript scan first came back BREACH, on 2 calls. The run session had written a three-line test file in its own temporary scratch folder and read it back, to see how its file tool saved escaped characters.
   - **What wasn't touched:** nothing on the deny list. There were no web, connector or outside-path calls, and the one shell call (Lite's link check) was refused.
@@ -1042,6 +1062,56 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **A proposed run rule: proposed, pending the researcher's decision before the plan is locked.**
   - **A call:** any `SendMessage` or `ListAgents` call in a run is logged as a deviation. With the deny in place, the call will be refused.
   - **Content:** a message that carries content into or out of a run session or seat voids the run.
+
+**Run versions (field note, 17 Nov 2026):** the sources are the seed folder's rank-and-reviews report (`reports\hard-rank-and-reviews.md`, dated 16 Nov 2026) and its run list (`runs\README.md`). Claude Code checked the counts against them.
+- **All on 2.1.325:** the dry run, review A and review B all ran on Claude Code 2.1.325, by the version field in every transcript entry, the main session's and every agent's. It didn't change partway through any of them.
+- **A wrong chat claim:** a claim in the chat that the version had moved during those runs was wrong.
+  - **Sources** *(Claude Code's note)*: the chat claim is from my account. The claim the report itself corrects is a different one: that 2.1.325 was the version installed that night.
+- **Since then** *(from the report, not my prompt)*: 2.1.326 was installed on this machine at 22:23 UTC on 16 Nov 2026, after all three runs. The Ultrareview runs below ran on it.
+
+**The Ultrareview baseline (field note, 17 Nov 2026, exploratory, n=3, no inference):** no seed, folder or problem is named here. The source is the seed folder's cloud-review baseline report (`reports\ultra-baseline.md`). Claude Code checked the figures against it, and the product details against Ultrareview's [docs page](https://code.claude.com/docs/en/ultrareview).
+- **What ran:**
+  - three runs of Ultrareview, Anthropic's multi-agent cloud review (`claude ultrareview`, the same review as `/code-review ultra`);
+  - they used the account's three free runs, so there are no repeats;
+  - one run on each of 3 hard-tier folders picked at random, each built as a small git repository, with the run reviewing its `change` branch;
+  - all 3 completed, and each returned its findings as JSON.
+  - **What it didn't get:** the one-line description the councils had.
+  - **Not controlled:**
+    - it may run code to verify findings;
+    - its sandbox's web access isn't documented;
+    - it ran on Claude Code 2.1.326, and the Lite runs on 2.1.325.
+- **Results against Lite Quick (review B) on the same 3 folders:** the findings were matched by the difficulty checks' scoring rules. Claude did the matching, and my spot-check is still to do.
+
+  | Measure | Ultrareview, all 3 runs | Lite Quick, same 3 folders | Ultrareview, the 2 runs that reviewed the change | Lite Quick, same 2 folders |
+  |---|---|---|---|---|
+  | Catches | 2 of 3 | 3 of 3 | 1 of 2 | 2 of 2 |
+  | Catches of the seeds rated HIGH | 1 of 2 | 2 of 2 | 1 of 2 | 2 of 2 |
+  | Findings per folder | median 6 | median 18 | 3 and 6 | 17 and 28 |
+  | Extras per catch | 7.5 | 17.3 | 8 | 18.5 |
+
+  - **"HIGH"** *(Claude Code's note)*: it's the seed's rating in the keys, since Ultrareview doesn't use HIGH.
+  - **No known, not planted bugs** matched any of Ultrareview's 17 findings *(from the report, not my prompt)*.
+  - **The miss** *(from the report, not my prompt)*: in that folder, none of its 6 findings describes the seed's problem, though 3 of them sit on or near the seed's lines.
+- **Severity scales differ:** Ultrareview rates findings `normal` or `nit`, not HIGH, MED and LOW. Both its catches were `normal`. Of its 17 findings, 7 were `normal` and 10 `nit` *(from the report, not my prompt)*.
+- **Reading (the researcher's interpretation):** Ultrareview trades catches for precision. Its verifier refutes findings, and nothing re-checks the refutations, so a real bug can be dropped without trace. The records can't show whether the missed seed was refuted. This is the gap the appeal step addresses. It compares whole systems: one verified list per run, against three reviewers' pooled lists.
+  - **Checked** *(Claude Code's note)*:
+    - **The records:** the progress messages count candidate findings and how many were verified or refuted, but the JSON holds only the findings returned. So how many were dropped is recorded, and what was dropped isn't.
+    - **Re-checking:** the docs page says "every reported finding is independently reproduced and verified". Neither it nor the report says whether a refutation is re-checked. So "nothing re-checks the refutations" is untested here, not documented.
+    - **The appeal:** Lite Quick has no judge and no appeal. So these runs don't put the appeal step against Ultrareview's verifier.
+    - **The trade:** with 3 runs and one miss, it describes these runs only.
+- **Run 2's scope:**
+  - **What happened:** run 2 was launched with the first repository's base hash. That commit shares no history with run 2's repository, so Ultrareview reviewed every file whole (1,312 lines) instead of the change. It still caught its seed.
+    - **The cause:** the hash came from the steps file written by the seed folder's session. That's from my account: the report says only which hash the run was launched with.
+    - **The fallback** *(Claude Code's note)*: the docs page describes it. With no merge base, "ultrareview reviews every tracked file in the repository instead".
+    - **Scoring** *(from the report, not my prompt)*: it's scored by the same rules and flagged, as decided before any score was reported.
+  - **An accidental data point:** run 2 is a single data point for the no-diff lever (lever (a) under the hard-tier entry), on a different system. Nothing can be inferred from it.
+    - **Half the lever** *(Claude Code's note)*: run 2 had no diff, but it had only the material's files, not the modules around them. So it's closer to the material-size report's option of giving the changed files without saying which lines changed.
+- **Open, pending reconciliation:** I recall the steps file showing the same hash in all three sections, while the report treats runs 1 and 3 as correctly scoped.
+  - **What it turns on** *(Claude Code's note)*: the hash run 2 got was the first repository's, so if all three sections shared it, run 1 was scoped correctly either way, and only run 3 is in question. A base with no shared history falls back to the whole-file review, as run 2's did, so the report's treatment of run 3 implies its base was its own. The run records can settle it, and I didn't read them.
+- **A human-in-the-loop note:** an agent wrote wrong run instructions for a one-off, unrepeatable run, and I followed them as written. Nobody checked the hashes before the run. This is copied to the human-in-the-loop project.
+  - **Suggested fix:** steps files for one-off runs get a pre-run check of every argument against the repository.
+  - **"Unrepeatable"** *(Claude Code's note)*: the free runs are a one-time allotment, so a repeat would now be a paid run, typically $5 to $25 by the docs page. It can't be repeated for free.
+  - **Connection** *(Claude Code's note)*: like the relay slips, it's a check nobody ran at a hand-run step that no hook covers.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
