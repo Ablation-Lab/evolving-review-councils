@@ -995,6 +995,8 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - keep the current material, with "seed ranked first" as a main measure;
     - change the material;
     - or both.
+    - **When it's fixed (17 Nov 2026):** if adopted, rank-first must be fixed in the locked plan before the formal runs on fresh seeds, so it's never applied after seeing the results it judges.
+    - **Rank follows severity** *(Claude Code's note)*: as the rescore below notes, the lists are sorted by severity, so rank-first partly measures the reviewers' severity calls.
 - **A cautious observation, not a claim (16 Nov 2026):** these changes had passed human review. Even so, AI reviewers flagged the escaped bug in 29 of 30 single-reviewer attempts. The caveats:
   - the seeds were selected for lines inside the introducing change;
   - the reviewers were primed to find problems;
@@ -1106,9 +1108,12 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **Scoring** *(from the report, not my prompt)*: it's scored by the same rules and flagged, as decided before any score was reported.
   - **An accidental data point:** run 2 is a single data point for the no-diff lever (lever (a) under the hard-tier entry), on a different system. Nothing can be inferred from it.
     - **Half the lever** *(Claude Code's note)*: run 2 had no diff, but it had only the material's files, not the modules around them. So it's closer to the material-size report's option of giving the changed files without saying which lines changed.
-  - **A paid rerun (planned, 17 Nov 2026):** run 2 will be rerun against its own base. The rerun will replace run 2 in the main figures, and the whole-file run will be reported separately.
-    - **A change after scoring** *(Claude Code's note)*: the report says run 2 was to be scored by the same rules and flagged, as decided before any score was reported. Replacing it is decided after its result was seen, so it should be logged as a deviation. It's the same kind of post-hoc change as the hard tier's scan exception.
-    - **Not a like-for-like repeat** *(Claude Code's note)*: the rerun comes later, probably on a newer Claude Code, and is a paid run rather than a free one. Keeping the 2-run figures alongside, as the table does, shows the result without the replaced run.
+  - **A paid rerun (planned, 17 Nov 2026):** run 2 will be rerun against its own base. ~~The rerun will replace run 2 in the main figures, and the whole-file run will be reported separately.~~ (amended 17 Nov 2026: no replacement. The pre-decided treatment stays: all 3 runs scored, run 2 flagged, and the 2-run figures as they are. Once it's scored, the paid rerun is reported as a separate, additional row, with its date, Claude Code version and cost. So no post-hoc replacement happens.)
+    - **Its scope:** the confirmation dialog showed 3 files changed, 44 insertions and 12 deletions, which matches the change.
+      - **Source** *(Claude Code's note)*: the dialog's figures and the match are from my account. Neither report I read gives run 2's diff size.
+    - ~~**A change after scoring** *(Claude Code's note)*: the report says run 2 was to be scored by the same rules and flagged, as decided before any score was reported. Replacing it is decided after its result was seen, so it should be logged as a deviation. It's the same kind of post-hoc change as the hard tier's scan exception.~~ (amended 17 Nov 2026: resolved, since run 2 is no longer replaced.)
+    - **Not a like-for-like repeat** *(Claude Code's note)*: the rerun comes later, probably on a newer Claude Code, and is a paid run rather than a free one. ~~Keeping the 2-run figures alongside, as the table does, shows the result without the replaced run.~~ (amended 17 Nov 2026: with nothing replaced, its own row keeps it apart.)
+    - **Its record** *(Claude Code's note)*: runs 1 to 3 returned JSON from the `claude ultrareview` subcommand. The docs page says an interactive `/code-review ultra` shows its findings as a notification in the session, and `--json` is a subcommand flag. So if the rerun is launched interactively, its findings need saving in a form that can be scored the same way.
 - ~~**Open, pending reconciliation:** I recall the steps file showing the same hash in all three sections, while the report treats runs 1 and 3 as correctly scoped.~~ (amended 17 Nov 2026: reconciled. The saved launch lines show run 3 used the right hash. See (b) below.)
   - **What it turns on** *(Claude Code's note)*: the hash run 2 got was the first repository's, so if all three sections shared it, run 1 was scoped correctly either way, and only run 3 is in question. A base with no shared history falls back to the whole-file review, as run 2's did, so the report's treatment of run 3 implies its base was its own. The run records can settle it, and I didn't read them.
 - ~~**A human-in-the-loop note:** an agent wrote wrong run instructions for a one-off, unrepeatable run, and I followed them as written. Nobody checked the hashes before the run. This is copied to the human-in-the-loop project.~~ (amended 17 Nov 2026: the cause was a slip by me, not wrong instructions. Replaced by (a) and (b) below.)
@@ -1123,6 +1128,19 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **(b) Recollection against record.** I recalled using the wrong hash for all three runs. The saved launch lines show run 3 was right. My memory and the record disagreed, and the record was right, like the canary sender misreporting its own message (see the messaging check above).
     - **So:** accounts of what happened, human or agent, are checked against the record.
     - **"The transcripts"** *(Claude Code's note)*: Ultrareview runs have no transcript. Their record is `results.json` and `progress.txt` in each run folder, by the run list (`runs\README.md`), plus the launch lines I saved. So "the record" covers these runs and "the transcripts" doesn't.
+  - **(c) A placeholder slip (17 Nov 2026).** The chat assistant wrote the rerun command with a placeholder in angle brackets, `<ultra-2 base hash>`. I typed the brackets in, and the command failed ("not a branch or commit in this repo").
+    - **The family:** it's the same kind of slip as (a). AI-written instructions left a substitution to the person running them.
+    - **Fix:** AI-written commands for one-off runs are given in full, with real values, never placeholders.
+    - **Sources** *(Claude Code's note)*: the command and the error are from my account. The docs page doesn't quote that error.
+    - **Failing was the lucky case** *(Claude Code's note)*: by the docs page, `/code-review ultra` keeps text of more than one word as a note, unless it's a branch name or PR reference, and still launches the review on the default scope. So in the slash command, a placeholder could launch a paid run on the wrong scope instead of failing.
+  - **(d) A silent failure (17 Nov 2026).** The first rerun attempt, with its output redirected to a file, exited with code 1 and showed nothing on screen. I found it only by checking the exit code. The likely causes were signing in with a VPN on, and usage credits being off.
+    - **Fix:** run one-off paid steps interactively, so prompts and errors are visible.
+    - **What the docs page says** *(Claude Code's note)*:
+      - **Exit code 1** covers a review that failed to launch, was stopped, errored or timed out, and a folder that isn't trusted.
+      - **Usage credits:** with them off, "Claude Code blocks the launch". That fits one of the likely causes. The page says nothing about VPNs.
+      - **A third candidate:** "When it can't ask you, such as in a CI job or with output sent to a file, it exits with `Error: Workspace not trusted`." With output redirected, an untrusted folder fails this way.
+      - **The error may be in the file:** the subcommand writes its progress messages to stderr. Since nothing showed on screen, stderr probably went to the file too, so the file may hold the error and settle the cause.
+      - **Cost:** a paid review "bills only for the portion that ran", and a run counts "once the cloud session starts". So if it failed before launching, it shouldn't have cost anything. The billing page can confirm.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
