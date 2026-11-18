@@ -1614,6 +1614,16 @@ A small app that estimates a council setup before any real usage is spent.
     - **Experiment idea:** run this loop deliberately on a fixed task with the roles swapped (Opus plans and checks, Fable builds), and compare what each check catches.
     - **Experiment idea:** test a plan-check stage: give the same build plan to a checker with and without an explicit instruction to verify versions and facts against official sources, and compare what each catches before any code is written.
     - **Experiment idea:** test whether effort level changes how often a planner checks a fact it believes it already knows.
+    - **Later: a council review, and a review of its fixes (field note, 18 Nov 2026):** the app, since renamed Promorg, had a full council review at version 0.5.3, followed by fixes and a second round. This is from the two review reports, which are kept outside this repo like the others.
+      - **The council:** four independent reviewer subagents, each given one area and the code. The main session was the judge: it re-ran the repros for every finding of Medium or higher. It then wrote the fixes itself.
+      - **The judge's fix departed from the reviewers' rule.** For SEC-1, a finding about forged anti-forgery headers, the reviewers' suggested rule would have stopped genuine iCloud mail verifying, because iCloud writes its three results in separate headers from different servers. So the judge used a rule of its own to keep iCloud verifying. That rule introduced a regression: some genuine iCloud mail, which 0.5.3 marked as verified, is now marked as a possible forgery.
+      - **A fresh second round caught it.** Two fresh, independent reviewers, given only the fix diff, both found the regression, and the judge reproduced it. Ten of the twelve fixes closed their findings, and SEC-1 is only partly closed.
+      - **Why it matters:**
+        - it's real-world evidence for re-reviewing fixes with fresh context, as a step of its own (compare "Self-recheck" under "Baselines", and [Re-reviewing updates to approved plugins](#re-reviewing-updates-to-approved-plugins-idea-not-planned));
+        - it's a case of a judge's own change being wrong, and caught by reviewers who hadn't made it.
+        - In this project's councils the judge only rules on findings and doesn't write fixes, so this is a related role, not the same one.
+      - **Limits:** one case, and every reviewer and the judge were Claude. In practice the regression needs a promo platform whose domain has no DMARC record. The earlier review found the app's platform list no longer has any, though the rule is still wrong.
+      - **Sources:** the review set-up, the regression, the two independent finds, the reproduction and the ten of twelve are from the fix review's report, which matches my account. The departure from the reviewers' rule is the judge's own explanation in that report.
 - **A weaker reviewer's unique catches (idea, to test):** whether adding a weaker reviewer to a council brings in bugs that no other reviewer catches.
 
 ## Order of work
