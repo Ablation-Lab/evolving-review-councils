@@ -545,3 +545,143 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 **Decisions:** ~~all pending.~~ Items 1 to 10 are pending. Item 11 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 11 added) Item 12 was adopted by me on 16 Nov 2026. (amended 16 Nov 2026: item 12 added) (amended again 16 Nov 2026: item 12's record rule is adopted, and its revised comparison is pending. Item 5's interrupted-run rule is proposed, pending.) (amended again 16 Nov 2026: item 8, the debate council as an agent team, is adopted by me on 16 Nov 2026, with its design written out under the item. Items 1 to 7, 9 and 10 are pending.)
 
+
+---
+
+## Outside review 8: experiment ideas from the 17 Nov literature sweep
+
+- **Date:** 17 Nov 2026, logged here on 18 Nov 2026.
+- **Reviewer:** the overnight literature sweep session, Claude (a Claude Code session with seven research subagents). It is **not independent**: it is the same model family as the councils, it was briefed from this repo's docs, and it read the experiment plan before suggesting changes to it.
+- **Material:** the sweep's follow-ups of every source in [prior-work-research.md](prior-work-research.md) and its new searches on eleven topics. The work each idea comes from is named in brackets after it.
+- **Source:** the section "Experiment ideas the literature suggests (suggestions only)" in [research/sweep-2026-11-17.md](../research/sweep-2026-11-17.md#experiment-ideas-the-literature-suggests-suggestions-only). The sweep says: "These are suggestions from the literature, not decisions. None has been added to the plan."
+- **Record:** all 35 ideas, in the sweep's order and grouping, each waiting for my decision. Nothing from them is in the research doc. The papers they cite are entered in [prior-work-research.md](prior-work-research.md), in full or as one-line notes in its section 8.
+- **Who acts on them** *(Claude Code's note)*: many of these change the council set-up, the briefs or the seeds. Only the sessions allowed to make each kind of change may act on them: see "Seed-aware and seed-free sessions" in the research doc.
+
+### Suggestions (decision pending)
+
+**The appeal and the judge**
+
+1. **A "burden of proof" judge arm as a rival to the appeal.** The judge may dismiss a finding only with a concrete refutation, not because it's unsure. Compare it with the current judge plus appeal on recall, precision and tokens. (Kodus, where this change "roughly doubled delivered recall"; Unblocked; VulnSAGE.)
+   - **Decision:** pending.
+2. **Claim-by-claim verification.** The judge checks each finding in a separate call and is shown which claims were refuted. Compare it with one call over all findings. (Trusting the Tool, +12 points under false assurances.)
+   - **Decision:** pending.
+3. **Blind the appeal to the judge's reasons.** One arm gives the appeal the judge's dismissal reasons, as now. The other gives it only the dismissed findings and the code. (Grounded but Not Immune, where one authority note overturned up to 40% of correct verdicts; Silent Dissent.)
+   - **Decision:** pending.
+4. **A cheap appeal baseline: rerun the same judge.** Run the same judge again, independently, on the dismissed set, or "keep if the judge's runs disagree". Compare it with the appeal agent. (Figalová et al., where two identical runs differed on 29 eligible records; Klieber et al.'s consistency check.)
+   - **Decision:** pending.
+5. **Report "recoverable headroom" directly:**
+   - seeds that at least one seat raised but the judge dropped;
+   - the share the appeal wins back;
+   - separately, how often a reinstated finding's severity is then right.
+
+   (When Debate Helps, on proposal supply and read-out; Detection Without Correction, on detecting an error against fixing it.)
+   - **Decision:** pending.
+6. **Re-file instead of dismiss.** Let the judge move a finding to the seat whose scope it fits, rather than rule it a false alarm. (*The More the Better?*, where many of the team's false alarms were true defects under another seat's requirement.)
+   - **Decision:** pending.
+7. **A matching rule for near misses, fixed in advance.** Decide whether a finding in the right file with the wrong mechanism is a hit, a partial hit or a miss, and let the appeal contest such rulings. (SecPRBench's 68%.)
+   - **Decision:** pending.
+8. **A judge-swap check on the keep rule.** Re-score a sample of parent-against-child comparisons with a second judge model, to see whether keep decisions survive. (Swapping the Judge Changes the Ranking, where rankings didn't survive a change of judge.)
+   - **Decision:** pending.
+9. **Report what the judge drops by bug class.** (Sifting the Noise, where losses ranged from 0.41% to 84.50% depending on the CWE.)
+   - **Decision:** pending.
+
+**Seats, diversity and debate**
+
+10. **An effective number of independent seats.** Estimate pairwise error correlation between seats and judges (double faults on seeds), and report n_eff alongside council size. (Agreement Overstates Evidence; the capability-controlled diversity audit, arXiv 2607.20768.)
+    - **Decision:** pending.
+11. **A "sample the generalist three times, flag on any draw" arm** at equal tokens, alongside the existing baseline that reruns one reviewer. (*The More the Better?*, where it beat the split team.)
+    - **Decision:** pending.
+    - *(Claude Code's note)*: a recheck of that paper on 18 Nov 2026 found this result is exploratory, on balanced accuracy, and shown for its two Claude models only.
+12. **For the debate arm:**
+    - give the judge and the appeal the findings from before the debate as well as after it;
+    - add a matched "re-think alone" control, so that changes after debate aren't all credited to debate.
+
+    (Unanimity Without Persuasion; Not All Flips Are Conformity.)
+    - **Decision:** pending.
+13. **Effort and agreement.** Measure whether raising seat effort makes seats agree more than accuracy explains, since that would cancel some of a mixed council's diversity. (Does Reasoning Make Language Models Agree?)
+    - **Decision:** pending.
+14. **Check what "mixed family" means.** Before treating a non-Claude model as independent, check whether it is known or reported to be distilled from Claude. (Exposing Vulnerability Monoculture, on lower systemic robustness in pools distilled from Claude Opus 4.6.)
+    - **Decision:** pending.
+15. **Report the strongest single reviewer alone,** not only the gain over the author or over same-model pairs, since cross-model "review" gains can be capability transfer from the stronger model. (Review Rarely Beats the Stronger Model; the Song 2026 qualification.)
+    - **Decision:** pending.
+16. **A judge-quality null for the self-preference analysis.** Compare a judge's rulings on its own family's findings with its rulings on others', not with a fixed standard. (Are LLM Evaluators Really Narcissists?, where only 51% of earlier significant cases survived this control.)
+    - **Decision:** pending.
+17. **Randomise or fix seat order in the sequential arm,** and log it. (When Order Matters, where a stronger model placed after weaker ones lost much of its advantage.)
+    - **Decision:** pending.
+18. **Check how the judge counts restated findings.** Test whether a bug that several seats restate gets more weight than one independent reading would justify. (Copies or Sources?, where a forwarded copy counted for 0.06 to 0.42 of a new reading.)
+    - **Decision:** pending.
+19. **Run the official `code-review` plugin and OpenCodeReview's Claude Code plugin as named outside arms** next to `/code-review ultra`, since both run on Claude and can be inspected. (The plugin's README; OpenCodeReview's README.)
+    - **Decision:** pending.
+
+**Seeds and contamination**
+
+20. **FeatAdd-style Claude seeds.** Claude adds a feature to a test app, and regressions the tests catch become seeds, so the planter isn't choosing where bugs go. Tag them separately from seeds planted on purpose. (BugPilot.)
+    - **Decision:** pending.
+21. **A seed validity check:**
+    - a seed must pass the app's existing tests but fail a stronger oracle;
+    - drop seeds that an equivalent-mutant check says change nothing.
+
+    (Test-aware mutant generation, arXiv 2609.35841; Meta ACH.)
+    - **Decision:** pending.
+22. **Seeds at random sites against seeds at sites Claude chooses,** to measure whether a Claude planter's placement makes seeds easier or harder for Claude reviewers. (BugFarm, which steers bugs to where a detector looks least.)
+    - **Decision:** pending.
+23. **Escaped bugs:**
+    - trace them with an agentic SZZ, and record agreement with a classic SZZ or a non-Claude tracer, so that seed choice doesn't depend only on Claude;
+    - add escaped bugs from `Fixes:` tags and reverts, where the projects use those conventions;
+    - record the labelling strategy for each seed.
+
+    (Kondo et al.; Risse and Böhme; AgentSZZ; ReDef; One Strategy Does Not Fit All.)
+    - **Decision:** pending.
+24. **Cheap contamination probes on candidate seeds:**
+    - can Claude name the buggy file from the PR title alone?
+    - do independent sessions give suspiciously uniform answers?
+    - in each case, compare against matched controls from the same repository.
+
+    (SWE-Bench-Verified memory study, arXiv 2512.10218; Cross-Context Verification, arXiv 2603.21454; the measurement-first audit, arXiv 2610.05830.)
+    - **Decision:** pending.
+25. **Neutral PR descriptions for seeds, plus an arm with the metadata removed.** Descriptions can leak the bug (SWE-Bench+) or hide it (When AI Agrees Too Much, where removing PR metadata restored detection in all affected cases).
+    - **Decision:** pending.
+
+**The evolution loop**
+
+26. **Canary seeds and key isolation.** Plant a seed whose key entry can't be inferred from the code, so that "finding" it signals leakage. Keep the key off any path a reviewer or mutation proposer can read. (PROCTOR; the Meta-Agent Challenge's "ground-truth exfiltration".)
+    - **Decision:** pending.
+27. **A final held-out set that no keep decision ever reads,** plus a winner's-curse correction, or a re-score on fresh seeds, for kept children when several compete on the same seeds. (SIREN; Anthropic's hillclimb recipe, which consults its test set in every keep decision.)
+    - **Decision:** pending.
+28. **Track brief length across generations, and check for "phantom" rules** added for failures that never happened. (TextReg; Phantom Guardrails.)
+    - **Decision:** pending.
+29. **Replicate whole evolution runs,** not just evaluations, since the design process itself varies a lot between runs. (Meta-Agent Challenge; *Auditing the Product, Not the Recursion*, arXiv 2610.27610, where only 22% of self-improvement studies audited two or more reruns of the full loop.)
+    - **Decision:** pending.
+30. **An error budget across generations** for the keep rule, so that the chance of keeping at least one spurious change over the whole run is bounded, not just per comparison. (SGM.)
+    - **Decision:** pending.
+31. **A majority-vote and random-search baseline in every generation,** plus a check that evolved councils haven't degenerated into "the same generalist three times". (The Illusion of Multi-Agent Advantage, on AFlow's "Degeneration to Trivial Ensembles"; Simple Baselines are Competitive with Code Evolution.)
+    - **Decision:** pending.
+32. **Three outcomes for each generation:** advance, reject or "inconclusive, run more seeds", with a sequential stopping test. (AgentAssay. The evidence is weak: it's single-author and unreviewed.)
+    - **Decision:** pending.
+
+**`CLAUDE.md`, orchestration and human cost**
+
+33. **`CLAUDE.md` conditions:**
+    - none;
+    - real;
+    - a placebo of the same length (irrelevant or shuffled);
+    - stale or wrong.
+
+    In each, measure false alarms and misses separately, and check with a canary string that the "none" condition really excludes the file. (Guardrails Beat Guidance; Stale Instruction Files; the Claude Code subagents page on `omitClaudeMd` and nested files.)
+    - **Decision:** pending.
+    - *(Claude Code's note)*: outside review 7's item 12 already covers the with-and-without comparison and where the `CLAUDE.md` has to sit. This idea adds the placebo and stale conditions, and the canary.
+34. **Scripted against agent-led, done as the COBOL study did it:**
+    - hold models, briefs and tools fixed, and vary only who controls execution;
+    - report the mean score, run-to-run variance, worst case and tokens;
+    - log over-spawning and duplicated work in the agent-led arm;
+    - account for workflow prompt-cache sharing when comparing costs.
+
+    (Deterministic vs. LLM-Controlled Orchestration; Anthropic's multi-agent research post; the workflows docs.)
+    - **Decision:** pending.
+    - *(Claude Code's note)*: this bears on outside review 7's item 11, the workflow edition comparison.
+35. **A human-cost proxy in the final report:** the findings shown to a person per run, and an estimated triage time per finding, so that volume counts against a council. (Beko, where PR closure time rose from 5h52m to 8h20m; Meta's randomised trial, where reviewers were over 5% slower; Habituation at the Gate.)
+    - **Decision:** pending.
+
+---
+
+**Decisions:** all 35 pending.

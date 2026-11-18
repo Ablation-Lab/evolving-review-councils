@@ -30,6 +30,7 @@
   - **Deprecated bugs:** bugs that stop reproducing on newer Java versions move from `active-bugs.csv` to `deprecated-bugs.csv`.
 - **Licence:** MIT.
 - **Contamination:** high. It contains no recent bugs, has no held-out split and isn't refreshed with new bugs. Ramos et al. found it "consistently exhibits the highest rate of potential memorization" of the bug benchmarks they tested (see section (f)).
+  - (amended 18 Nov 2026, from the 17 Nov literature sweep, [research/sweep-2026-11-17.md](../research/sweep-2026-11-17.md), which calls this a caution rather than a correction: "high" rests on *potential* memorisation. Euraste et al., "Learned or Memorized? Quantifying Memorization Advantage in Code LLMs" ([arXiv 2604.13997](https://arxiv.org/abs/2604.13997); ICSE 2026 per the arXiv comment), measure a low memorisation *advantage* on Defects4J and CVEfixes for open models. A Claude Code subagent confirmed the abstract and comment on arXiv on 18 Nov 2026. It's a different measure from Ramos et al.'s, and it covers open models only, so the rating stays, with this caveat.)
 - **For code review:** the bugs are small and isolated, so they suit reading. But Java isn't one of our languages.
 
 ### BugsInPy
@@ -98,7 +99,7 @@
 
 - **Links:** [swe-rebench.com](https://swe-rebench.com/) and the abstract of [arXiv 2505.20411](https://arxiv.org/abs/2505.20411), read through a fetch tool, with the Hugging Face licence and dates read directly.
 - **Authors and date:** Ibragim Badertdinov, Boris Yangel and 7 others. v1 is from 26 May 2025 and v2 from 4 Nov 2025. It was submitted to NeurIPS 2025. The leaderboard dataset was last modified on 28 Jul 2026, and the site's latest news is from 1 Jul 2026.
-- **Languages:** Python. The site has a language filter, so other languages may have been added; "SWE-rebench v2" is promoted, but I didn't read it.
+- **Languages:** Python. ~~The site has a language filter, so other languages may have been added; "SWE-rebench v2" is promoted, but I didn't read it.~~ (amended 18 Nov 2026, from the 17 Nov literature sweep: SWE-rebench v2 is [arXiv 2602.23866](https://arxiv.org/abs/2602.23866), a collection of 32,079 tasks in 20 languages, at ICML 2026 per the arXiv comment. A Claude Code subagent confirmed the abstract and comment on arXiv on 18 Nov 2026. Which of our languages it covers wasn't checked.)
 - **Size:** over 21,000 Python tasks for training. The leaderboard uses a moving window: "111 problems from 65 repositories" for 15 May to 1 Jul 2026.
 - **Licence:** CC BY 4.0, on both datasets.
 - **Contamination:** designed against it. The window moves, and the leaderboard marks some results "Potential contamination" or "Beyond eval range". The page doesn't explain how either mark is set.
@@ -207,6 +208,7 @@
 - **Online set:** samples fresh GitHub PRs where review bots commented, and checks whether developers acted on the comments.
 - **Licence:** MIT.
 - **Contamination:** the offline set is fixed and public. The online set refreshes, but it measures bots' comments, not seeded bugs.
+  - (amended 18 Nov 2026, from the 17 Nov literature sweep: the offline set has the same five projects and the same PR count, 50, as Greptile's July 2025 vendor benchmark, which Augment and Luxor later re-scored. It's probably the same set of PRs, though that isn't confirmed. If it is, it has been public and heavily used for over a year.)
 - **For code review:** built for it, with Python and TypeScript, and the only set besides ReviewBench with test-gap and performance labels. It's small.
 
 ### Qodo Code Review Benchmark 1.0

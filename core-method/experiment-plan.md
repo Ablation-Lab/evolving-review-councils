@@ -1627,6 +1627,8 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
 
 Earlier work shows that adding more agents doesn't automatically help, and that the best number depends on the task. This experiment adds evolving councils for code review, a council-size scale for each complexity tier, and a calculator that outputs a ready-to-use prompt.
 
+- **Literature sweep (18 Nov 2026):** an overnight sweep on 17 Nov 2026 followed up every prior-work source and searched eleven new topics. It is in [research/sweep-2026-11-17.md](../research/sweep-2026-11-17.md), and its findings are merged into [prior-work-research.md](prior-work-research.md). Its 35 experiment ideas are logged, all pending, as [outside review entry 8](outside-reviews.md#outside-review-8-experiment-ideas-from-the-17-nov-literature-sweep), not here.
+
 - [Towards a science of scaling agent systems](https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/) (Kim et al., Google Research, [arXiv 2512.08296](https://arxiv.org/abs/2512.08296)): tested 260 agent setups (180 in the first version). Piling on more agents often hits a ceiling and can make results worse.
 - [Scaling Behavior of Single LLM-Driven Multi-Agent Systems](https://arxiv.org/abs/2606.00655): the type of task has a big effect on the best number of agents.
 - [Understanding Agent Scaling via Diversity](https://arxiv.org/html/2602.03794v1): adding identical agents gives strongly diminishing returns, but mixing different models, prompts or tools keeps paying off.
