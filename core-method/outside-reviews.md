@@ -686,3 +686,91 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ---
 
 **Decisions:** all 35 pending.
+
+---
+
+## Outside review 9: the paper draft against the research-paper goal
+
+- **Date:** 19 Nov 2026
+- **Reviewer:** the paper session, Claude (Claude Code), the session that built the draft. It is **not independent**.
+  - *(Claude Code's note)*: my request described the reviewer as the paper session "with two subagent reviewers". The review itself names only the session, and its transcript shows no subagent calls on 19 Nov. So it's logged as one reviewer.
+- **Material:**
+  - the paper's `main.tex` at `8fe695f`;
+  - `next-draft-fixes.md`, and outside review 1's paper gaps;
+  - the outline doc of 18 Nov, "Review councils paper: outline", a private claude.ai doc;
+  - this repo's research doc and prior-work file at `dc1d64a`.
+  - **Not read:** the seed folder, the scratch folder and the raw sweep file. It read the sweep through its merged form in `prior-work-research.md` instead.
+- **Goal checked against:** the 19 Nov amendment to the paper-parking decision. The paper is a research paper that leads with its experiments, with the literature synthesis supporting them.
+- **Source:** the paper repo's `paper-review-2026-11-19.md`. That file is in the paper repo's working tree, staged by the paper session and not yet committed there.
+- **Record:** its suggestions, grouped as in the review, each waiting for my decision. Nothing from them is in the research doc. Its own verdicts are kept: the draft "reads mostly as research, but a weak kind", and the outline "is the bigger risk", because it's shaped as a synthesis.
+
+### Suggestions (decision pending)
+
+**The draft's framing**
+
+1. **Change the abstract's last move.** "These runs do not yet answer either question, and the paper also sets out the planned experiment" may lead a moderator to read the paper as a position paper with anecdotes.
+   - **Decision:** pending.
+2. **Bring in the results since 12 Nov,** which the review calls "the strongest measured results the project has":
+   - the easy and hard tiers;
+   - the rank rescore;
+   - the human-review comparison;
+   - the extras sample;
+   - the close-call counts;
+   - the Ultrareview baseline;
+   - the messaging check;
+   - the 19 Nov decisions.
+   - **Decision:** pending.
+3. **Drop the opening sentence** "a single agent usually does the reviewing". The 17 Nov sweep found council plus judge is a shipped product shape, so the contribution is the measurement, not the architecture.
+   - **Decision:** pending.
+4. **Support or remove Background's claim** that the project "adds … a council-size scale for each complexity tier and a calculator". No scale was measured and no calculator was built.
+   - **Decision:** pending.
+5. **Update Figure 1's role names,** which predate the role-set work.
+   - **Decision:** pending.
+
+**Related work and novelty (from the 17 Nov sweep)**
+
+6. **Cite *The More the Better?*** as the prior test of the equal-cost question, treat its result as the null hypothesis, and frame the project's result as the code-review test of it.
+   - **Decision:** pending.
+7. **Narrow the appeal claim to the sweep's wording,** and cite the reinstating checks outside code review: TinyV, Reviewing the Reviewer and Klieber et al. Fix the outline's "7. The appeal (new)" and its "no code-review pipeline found tries to win them back" to match.
+   - **Decision:** pending.
+8. **Cite SGM as prior art for Appendix A's paired-CI keep rule,** and drop any implication that the rule is new. Its arXiv title spells "Godel".
+   - **Decision:** pending.
+   - *(Claude Code's note)*: adopting SGM's error budget is already outside review 8's idea 30, pending.
+9. **Say exactly what differs from MemCo, the Red Queen Gödel Machine and MetaVul:** review of code changes, a judge and appeal, planted keys, equal-cost arms and a paired-CI keep rule.
+   - **Decision:** pending.
+10. **Same-family blind spots:** don't claim the question as new, since Song 2026 nearly did this design. Add CyberDual, Agreement Overstates Evidence and Khullar et al. to the judges paragraph.
+    - **Decision:** pending.
+11. **Cite multi-agent code-review papers,** since the draft cites none. Check each reference against its own page before citing, as `next-draft-fixes.md` says.
+    - **Decision:** pending.
+
+**Results and structure**
+
+12. **The minimum before submission:** run the appeal experiment (judged with against without the appeal) on material that isn't saturated. The review calls this its own judgement: without it, the paper is "still research, but thin".
+    - **Decision:** pending.
+13. **Adopt the proposed section structure** (the review's section 6), for about 9 to 10 pages:
+    1. Introduction;
+    2. Related work, about a page;
+    3. Method;
+    4. How hard is the material?;
+    5. A council-against-council baseline;
+    6. The appeal, the main result;
+    7. Role sets at equal cost;
+    8. Threats to validity;
+    9. Limitations;
+    10. Conclusion and future work;
+    - appendices: the search method, the evolution design, versions and run IDs, Lite run details, command gating, settings and the human in the loop.
+    - **Decision:** pending.
+14. **Move content as the review sets out:**
+    - the outline's literature sections shrink into one section, with the search method in an appendix;
+    - the WinScope pilot becomes one sentence of motivation;
+    - the first Council Dial runs become the appeal's origin;
+    - the human-in-the-loop section leaves the main text, which outside review 1's B7 supports.
+    - **Decision:** pending.
+15. **Carry over `next-draft-fixes.md` items 1 to 4,** with item 2 still to apply to the Figure 1 caption and Table 1, and item 3 to the abstract. Place outside review 1's items in the method section or Appendix B.
+    - **Decision:** pending.
+16. **Update `next-draft-fixes.md` line 3,** which still says "Paper edits are parked".
+    - **Decision:** pending.
+
+---
+
+**Decisions:** all 16 pending.
