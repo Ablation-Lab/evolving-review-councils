@@ -858,7 +858,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Possible leaks:** 7 comments or names that point at a bug, in 5 folders. They were noted, but the code wasn't edited.
 - **Privacy check:** third-party code tripped 27 lines against the generic privacy patterns (dummy test passwords and similar). They were allow-listed by hash, with the patterns unchanged.
 - **A small relay slip:** from my account, while talking to the chat assistant by voice, I mentioned that one particular seed was marked "none" (not a bug). That seed was dropped, so no harm was done, but it's another case of seed detail crossing the relay (see "The leak" above).
-  - **To confirm** *(Claude Code's note)*: the hand-check sheet's label for not a bug is "Informational", not "none". So it's still to confirm that the seed mentioned was one of the dropped ones.
+  - **To confirm** *(Claude Code's note)*: the hand-check sheet's label for not a bug is "Informational", not "none". So it's still to confirm that the seed mentioned was one of the dropped ones. (amended 19 Nov 2026: unresolved, and immaterial, since those seeds are pilot-only. By the seed folder's follow-up report, the records can't settle it either way. There, "none" is a checklist-item tag, not the not-a-bug label, and only naming the seed in a seed-aware session would settle it.)
 
 **The run-isolation dry run (field note, 13 Nov 2026):** a test of the seed folder's run-isolation rules, on made-up material only, so no seed was involved. The source is the dry run's results report in the seed folder. Claude Code checked the set-up against the dry run's own instructions.
 - **Set-up:** a fresh, seed-free Claude Code session in a scratch folder.
@@ -1092,7 +1092,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - it may run code to verify findings;
     - its sandbox's web access isn't documented;
     - it ran on Claude Code 2.1.326, and the Lite runs on 2.1.325.
-- **Results against Lite Quick (review B) on the same 3 folders:** the findings were matched by the difficulty checks' scoring rules. Claude did the matching, and my spot-check is still to do. (amended 19 Nov 2026: by decision (g) below, it's to be done before decision (a)'s difficulty check. No pack is built for it yet.)
+- **Results against Lite Quick (review B) on the same 3 folders:** the findings were matched by the difficulty checks' scoring rules. Claude did the matching, and my spot-check is still to do. (amended 19 Nov 2026: by decision (g) below, it's to be done before decision (a)'s difficulty check. No pack is built for it yet.) (amended 19 Nov 2026: it is now, with all 21 findings. See "The seed folder's follow-ups" below.)
 
   | Measure | Ultrareview, all 3 runs | Lite Quick, same 3 folders | Ultrareview, the 2 runs that reviewed the change | Lite Quick, same 2 folders |
   |---|---|---|---|---|
@@ -1190,7 +1190,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - **01:27:54 UTC:** Claude Code committed the withdrawal (`b53edff`), 30 seconds later, before anyone had read the findings.
       - **Confirmed in part** *(Claude Code's note)*: the commit time is confirmed, as both author and committer time. "Before anyone had read the findings" isn't in any record I can see.
     - **After scoring:** the seed folder's session recorded the withdrawal in its own plan file, having already scored the rerun with both versions shown.
-      - **This conflicts with the report** *(Claude Code's note)*: the report now says the withdrawal came "after the rerun had finished and its findings had been saved, and before they were scored". But the version I read for `0561c08`, at about 01:36 UTC, already showed the rerun scored with both versions. It also said `keys/ultra-plan.md` still has the rerun replacing run 2, and "the plan isn't changed". So my own read supports "after scoring", and the report's wording needs correcting in the seed folder.
+      - **This conflicts with the report** *(Claude Code's note)*: the report now says the withdrawal came "after the rerun had finished and its findings had been saved, and before they were scored". But the version I read for `0561c08`, at about 01:36 UTC, already showed the rerun scored with both versions. It also said `keys/ultra-plan.md` still has the rerun replacing run 2, and "the plan isn't changed". So my own read supports "after scoring", and the report's wording needs correcting in the seed folder. (amended 19 Nov 2026: corrected there, with the old wording struck through. By the seed folder's follow-up report, all 17 Nov UTC: the decision at 01:27:54 (`b53edff`), the request to score the rerun as a separate row at about 01:29, scoring at 01:30:44 (`33c06e3`) and the withdrawal committed at 01:37:49 (`5a8dd4b`).)
     - **So:**
       - the decision came before the findings existed;
       - its first committed record landed just after they arrived, unread;
@@ -1224,6 +1224,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - it's the same family as (a) and (c), and as the silent failure: a hand-run step where the folder or the shell was assumed and not checked;
     - the steps text quoted in that session at 23:51 UTC still gave `echo $LASTEXITCODE` for a cmd window, so the wrong syntax came from AI-written instructions;
     - the fix is the one under (a): one-off commands written out in full for the exact shell and folder they run in.
+  - **Another case of AI-written instructions going wrong** (added 19 Nov 2026): the PowerShell-in-cmd syntax came from the AI-written steps, not from me. It's the third such case in these notes, after the steps file's "repeat for each" block under (a) and the placeholder under (c). In each, an AI wrote a one-off command that was wrong for where it would run, and I ran it as written.
 
 **Decisions from the 17 Nov briefs (19 Nov 2026):** these are my decisions on the seven briefs in [decisions-pending-2026-11-17.md](decisions-pending-2026-11-17.md), written overnight on 17 Nov. Each follows the brief's suggestion. Outside review 7's items are recorded in [outside-reviews.md](outside-reviews.md#outside-review-7-claude-code-agent-features-eight-pages-read-16-nov-2026).
 - **(a) Harder material and the main measures** ([brief (a)](decisions-pending-2026-11-17.md#a-how-to-make-the-material-harder)). **Decision:** adopted by the researcher, 19 Nov 2026.
@@ -1263,8 +1264,30 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - item 9 is parked in the [human-in-the-loop plan](https://github.com/Ablation-Lab/human-in-the-loop/blob/main/plan.md), section 6.
   - Item 8 was already adopted on 16 Nov 2026. The details are under each item in outside review 7.
 - **(g) The hand checks** ([brief (g)](decisions-pending-2026-11-17.md#g-the-two-unmarked-hand-check-packs)). **Decision:** adopted by the researcher, 19 Nov 2026.
-  - **Still to do, by me:** the hard tier's two packs (the 15-item match pack and the 20-item extras pack) and the Ultrareview matching spot-check.
+  - **Still to do, by me:** the hard tier's two packs (the 15-item match pack and the 20-item extras pack) and the Ultrareview matching spot-check. (amended 19 Nov 2026: the spot-check now has its own pack, of all 21 Ultrareview findings, so my spot-checks are three packs: 15, 20 and 21 items. See "The seed folder's follow-ups" below.)
   - **When:** all three come before (a)'s difficulty check.
+
+**The seed folder's follow-ups (field note, 19 Nov 2026, counts only):** no seed, folder, file or problem is named here. The sources are the seed folder's follow-up report (`reportsollow-ups-2026-11-19.md`) and its updated summary (`reports\seed-free-summary-2026-11-17.md`). Claude Code checked the counts against them.
+- **One close-call definition:** a close call is a flag within 3 lines of a planted range that describes a different problem. Every added close call describes a different problem, so no catch changes in any tier.
+  - **Easy tier:** 29 close calls. The first report gave 8, which were the flags noted as overlapping during matching, not counts under one rule. The 21 added were all read by hand.
+  - **Ultrareview:** 8, where it was 7.
+  - **Hard tier:** still 43. Only the report's wording changed, from "overlapping" to "within 3 lines", which is how the 43 were always counted.
+  - **A misread, amended:** the seed folder's own overnight check of 17 Nov had misread the easy tier's 8 as a narrower definition and given the within-3 count as 26. Both points are amended in that check's report.
+- **A third hand-check pack:** all 21 Ultrareview findings (3, 8 and 6 from the runs, and 4 from the rerun), shuffled: 3 catches, 10 close calls and 8 other extras. So my spot-checks are three packs, of 15, 20 and 21 items, all to do before decision (a)'s difficulty check.
+- **Checklist-item tags:** every pilot seed now has one.
+  - **Counts:** 47 seeds, 42 tagged with a checklist item and 5 "none". 26 carry an A′ item. The item labels come from the role-set pool, read only.
+  - **For my check, in the seed folder:** 3 hard seeds carry an item from a seat other than their area's, which decides whether they count as A′ seeds. 5 tags are borderline.
+- **The relay-slip "To confirm" note:** unresolved, and immaterial, since those seeds are pilot-only (see the amendment under "A small relay slip").
+- **The easy pilot's unflagged seeds won't be checked** unless they're reused, since the easy pilot is pilot-only. This is recorded in the seed folder's keys README.
+- **The withdrawal's timing** is corrected in the seed folder's report (see the amendment under "The withdrawal, in sequence").
+
+**Rule slips self-reported once an instruction file was in view (field note, 18–19 Nov 2026, copied to the human-in-the-loop project):** this repo gained a project `CLAUDE.md` on 18 Nov. When it came into this notes session's view, during the Promorg note on 18 Nov, the session checked its own recent work against it and reported three slips of its own, unprompted.
+- **The seed wall:** to find a note, it had searched for a word across my whole projects folder, which included the seed folder. Only one matching file name entered its context, a seed-free report's, and no contents. But the search read every file there, keys and candidates included. Nothing from it was used.
+- **Pushing others' commits:** its push of `12a6d84` on 18 Nov also sent two other sessions' commits, `b0911d9` and `0b6a0bb`, without asking me first. They were reviewed afterwards and held nothing private.
+- **The run folders' scratch area:** its 17 Nov overnight check had read run-folder settings files there, which the file forbids.
+- **What prompted it:** the instruction file. Some of these rules were already in my prompts, but the session hadn't checked its work against them until they were in front of it as a file. So writing the rules down in the project is itself a check.
+- **Sources:** the session's report of 18 Nov, kept outside this repo. The slips are its own account.
+- **Connection** *(Claude Code's note)*: like the session that misreported its own message, a session's account of its own work is checked against the record. Here the account was a confession, prompted by the rules, not by a reviewer.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
@@ -1754,6 +1777,7 @@ Background (from general knowledge, check before citing): Koenecke et al. (PNAS,
       - **What the press says:** coverage such as [The Next Web](https://thenextweb.com/news/arxiv-ai-slop-ban-researchers-preprint) reports a one-year ban for unchecked AI-generated content, such as hallucinated references, announced in May 2026 by the chair of arXiv's computer science section, first on X. That's secondary and unconfirmed here.
       - **So:** treat it as reported, not confirmed. The references are to be checked before submitting anyway.)
   - **The paper route (amended 19 Nov 2026):** a personal endorsement from an established arXiv author in the chosen category's endorsement domain, since I have no prior arXiv paper in cs. Submit as a research paper with its experiments, not as a position paper. At most two submissions in a calendar month and three active at once. Every reference checked, and no leftover instructions or placeholders, whatever the ban's status. Next: choose the primary category, then find an endorser in it.
+    - **What the paper leads with (added 19 Nov 2026):** since arXiv cs now takes review and position papers only after peer review, the planned paper must lead with its experiments, the appeal and the pilot results. The literature synthesis supports them, and isn't the paper's main content.
 
 ## Related research
 
