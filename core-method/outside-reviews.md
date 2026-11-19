@@ -821,8 +821,8 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 - **C1** (high): "judge" names two roles with opposite rules, the scoring judge and the council's judge. **Decision:** fixed, 19 Nov 2026: a "Two judges" definition near the top of the method.
 - **C2** (high): the seed design in Measures (120 seeds per app, a four-level mix, one app first) isn't the one decided on 12–13 Nov (real bugs, equal numbers per area, three levels). **Decision:** pending.
-- **C3** (high): the seed pilot is "pilot-only", but the paper is to lead with "the pilot results". **Decision:** pending.
-- **C4** (high): held-out seeds are described three ways, including picking the winner by its held-out score. **Decision:** pending.
+- **C3** (high): the seed pilot is "pilot-only", but the paper is to lead with "the pilot results". **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: pilot results go in the paper only as clearly labelled exploratory findings, never as tests of a hypothesis, and pilot seeds stay out of the formal comparison. Recorded in [research-plan.md](research-plan.md).
+- **C4** (high): held-out seeds are described three ways, including picking the winner by its held-out score. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: the winner is picked on the search seeds only, then scored on the held-out seeds at the end, alongside the baselines; the held-out set is never used for selection. Recorded in [research-plan.md](research-plan.md).
 - **C5** (medium): two definitions of the optimum size. **Decision:** pending.
 - **C6** (medium): "no direct agent-to-agent messages", against practice and the adopted team arm. **Decision:** fixed, 19 Nov 2026: an amendment under "Claude Code's own channels" pointing to decision (b) and the team arm.
 - **C7** (medium): "each follows the brief's suggestion" isn't true of (g). The brief said to mark the packs before deciding (a), and the Ultrareview baseline is already quoted. **Decision:** pending.
@@ -847,9 +847,9 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 **Gaps**
 
-- **G1** (high): the advance rule's "score" is never defined. **Decision:** pending.
-- **G2** (high): what counts as a catch isn't stated. **Decision:** pending.
-- **G3** (high): who marks what in the formal runs: the scoring judge's family and model, how it's reached, how many hand labels and what agreement is enough. **Decision:** pending.
+- **G1** (high): the advance rule's "score" is never defined. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: the keep rule's primary score is catch rate on planted seeds, with a guard that extras per catch mustn't worsen by more than 20% against the parent; rank-first is reported, not used for the decision. Recorded in [research-plan.md](research-plan.md).
+- **G2** (high): what counts as a catch isn't stated. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: a catch is a finding within 3 lines of the planted range whose description matches the planted problem; the wrong mechanism in the right place is a miss, logged as a close call; fixed before any formal run. Recorded in [research-plan.md](research-plan.md).
+- **G3** (high): who marks what in the formal runs: the scoring judge's family and model, how it's reached, how many hand labels and what agreement is enough. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: the 2 Nov choice kept: GPT-6.1 Sol with DeepSeek re-judging, checked against at least 50 of my hand labels, with 90% to pass and 95% the target; the route to those models is an open task. Recorded in [research-plan.md](research-plan.md).
 - **G4** (high): numbers the plan relies on but doesn't give: repeats, caps, variants, sizes and tiers, "equal cost" and detectable effects. **Decision:** pending.
 - **G5** (high): the role-set comparison has no design section. **Decision:** pending.
 - **G6** (medium): how the comparison and the evolution experiment relate, and whether one locked plan covers both. **Decision:** pending.
@@ -897,4 +897,4 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions:** 22 fixed on 19 Nov 2026 (clerical, at my request). 32 pending: S1 to S10, C2 to C5, C7, C8, C11, C14 to C16 and G1 to G12. The proposed order is pending too. (amended 19 Nov 2026: S1 to S10 and the proposed order are adopted, addressed by [research-plan.md](research-plan.md). C15 and C16 are fixed. So 24 are fixed, 10 findings and the proposed order are adopted, and 20 stay pending: C2 to C5, C7, C8, C11, C14 and G1 to G12. Most of the pending ones have a "Decision pending" slot in the research plan. C7, G8, G11 and G12 are listed there without one.)
+**Decisions:** 22 fixed on 19 Nov 2026 (clerical, at my request). 32 pending: S1 to S10, C2 to C5, C7, C8, C11, C14 to C16 and G1 to G12. The proposed order is pending too. (amended 19 Nov 2026: S1 to S10 and the proposed order are adopted, addressed by [research-plan.md](research-plan.md). C15 and C16 are fixed. So 24 are fixed, 10 findings and the proposed order are adopted, and 20 stay pending: C2 to C5, C7, C8, C11, C14 and G1 to G12. Most of the pending ones have a "Decision pending" slot in the research plan. C7, G8, G11 and G12 are listed there without one.) (amended again 19 Nov 2026: C3, C4, G1, G2 and G3 are adopted by me. So 15 stay pending: C2, C5, C7, C8, C11, C14 and G4 to G12.)
