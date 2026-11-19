@@ -5,7 +5,7 @@ The research plan for evolving review councils, as its own document. The noteboo
 - **How it was built (19 Nov 2026):** only from what the notebook, [outside-reviews.md](outside-reviews.md), [prior-work-research.md](prior-work-research.md) and the decision files already say. Nothing new is decided here.
 - **Its source:** this follows the structure outside review 10 proposed ([reviews L818](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L818)).
 - **Links:** each point links to its source lines at commit `87eb410`, so the links don't move when the notebook changes. "plan" is the notebook, "reviews" is outside-reviews.md, "prior" is prior-work-research.md, "briefs" is [decisions-pending-2026-11-17.md](decisions-pending-2026-11-17.md), "sheet" is [the 2 Nov decisions sheet](../research/decisions-seeded-bugs-and-judge.md) and "decision 6" is [decision-6-seeds-and-stopping.md](../research/decision-6-seeds-and-stopping.md).
-- **What isn't decided:** each such point is a marked **Decision pending** slot. It says what has to be decided, and points to its finding in outside review 10 or elsewhere. Where sources disagree, the slot lists both and picks neither.
+- **What isn't decided:** each such point is a marked **Decision pending** slot. It says what has to be decided, and points to its finding in outside review 10 or elsewhere. Where sources disagree, the slot lists both and picks neither. (amended 19 Nov 2026: every slot is now filled by my decisions of 19 Nov, and the earlier sources are kept under each.)
 - **Not locked:** this document isn't the locked plan. The notebook says the plan is to be "locked, dated and published" before the formal experiment ([reviews L10](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L10)). Locking it is still to do.
 
 ## Contents
@@ -41,6 +41,7 @@ As of 19 Nov 2026.
   - the formal evolution experiment.
 - **What's decided:**
   - five more on 19 Nov: C3, C4, G1, G2 and G3, recorded in their slots below;
+  - fourteen more on 19 Nov, filling every remaining slot: C8, S3, G5, G6, C2, the version pin, G4, the cost measure, C14, G7, C5, G10, the arXiv category and C11, plus G2's counting rules;
   - the seven 19 Nov decisions, (a) to (g) ([plan L1237](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1237));
   - the 2 Nov decisions on seeds and the judge ([sheet L3](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L3));
   - the 12–13 Nov decisions on seed sources, seat roles and who sees the seeds ([reviews L110](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L110), [plan L835](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L835)).
@@ -73,14 +74,21 @@ As of 19 Nov 2026.
 7. **How much freedom should the orchestration have?** That's the workflow edition against Lite ([reviews L473](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L473)).
 8. **Does a project's `CLAUDE.md` help or bias reviewers?** A secondary experiment ([plan L1262](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1262)).
 
-> **Decision pending (outside review 10, C8: [reviews L829](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L829)):** which list of "what's new" the plan states. The sources disagree:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C8: [reviews L829](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L829)):** which list of "what's new" the plan states. Before it, the sources disagreed:
+> - **The decision:** one list of what's new.
+>   1. the appeal, the main contribution, worded for code review only;
+>   2. role sets at equal cost against planted bugs;
+>   3. evolving whole review councils with a pre-registered keep rule, crediting SGM as prior art;
+>   4. checking the judge's severity calls against hand labels.
+> - The `CLAUDE.md` test is secondary. The framing is that the contribution is the measurement, not the design.
+> - **Aligned the same day:** the notebook's Goals and its "This experiment adds" line, and prior's novelty summaries, all as dated amendments.
 > - the plan's Related research names "evolving councils for code review, a council-size scale for each complexity tier, and a calculator" ([plan L1815](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1815)), but the calculator isn't built ([plan L1701](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1701));
 > - outside review 3's focus, adopted 12 Nov, names the appeal, role sets at equal cost, the judge's severity calls checked against a key, and evolving or racing councils ([reviews L185](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L185));
 > - prior's novelty summary names the appeal within code review, severity calibration, the equal-cost role-set comparison on code and racing councils, and says the contribution is "the measurement, not the architecture" ([prior L700](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L700), [prior L703](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L703)).
 
 ## 3. Hypotheses
 
-The sources state these as hypotheses or ideas to test. None is marked confirmatory or exploratory.
+The sources state these as hypotheses or ideas to test. ~~None is marked confirmatory or exploratory.~~ (amended 19 Nov 2026: by decision S3, H8 and H9 are confirmatory, and H1 to H7 are exploratory.)
 
 | # | Hypothesis | Source | As the source labels it |
 |---|---|---|---|
@@ -91,8 +99,12 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 | H5 | Fable may make a stronger judge or analyser | [plan L1338](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1338) | hypothesis, to test |
 | H6 | Families may share blind spots inherited from common roots, so a different family buys less independence than assumed | [plan L1335](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1335) | idea, to test |
 | H7 | A misleading `CLAUDE.md` lowers catches (the bias side, tested first) | [plan L1263](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1263) | design of decision (e) |
+| H8 | The appeal recovers real bugs the judge dismissed, without adding many false ones | decision S3, 19 Nov 2026 (research question 3) | **confirmatory** |
+| H9 | Role sets differ in catch rate at equal cost | decision S3, 19 Nov 2026 (research question 2) | **confirmatory** |
 
-> **Decision pending (outside review 10, S3: [reviews L810](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L810)):** which hypotheses are confirmatory and which exploratory, and the null hypothesis for each confirmatory one. Prior's reading of *The More the Better?* as "the project's null hypothesis" for the role-set question bears on this ([prior L211](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L211)).
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, S3: [reviews L810](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L810)):** which hypotheses are confirmatory and which exploratory, and the null hypothesis for each confirmatory one. Prior's reading of *The More the Better?* as "the project's null hypothesis" for the role-set question bears on this ([prior L211](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L211)).
+> - **The decision:** two confirmatory hypotheses, H8 and H9 in the table above. H8 is that the appeal recovers real bugs the judge dismissed without adding many false ones. H9 is that role sets differ in catch rate at equal cost. All the others, H1 to H7, are exploratory.
+> - **Still to fix in the locked plan** *(Claude Code's note)*: the null hypothesis for each, and what "many false ones" means in numbers.
 
 ## 4. Design
 
@@ -126,9 +138,11 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
   - effort levels ([plan L1532](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1532)).
 - **The `CLAUDE.md` test:** a secondary experiment after the plan is locked ([plan L1262](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1262)).
 
-> **Decision pending (outside review 10, G5: [reviews L854](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L854)):** the role-set comparison's design, which has no section of its own. That means its seed count, repeats, cost matching, scoring and analysis. Its parts are spread over the outside reviews and a private plan ([reviews L135](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L135)), and "the number of repeats per role set" is still open ([reviews L156](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L156)).
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G5: [reviews L854](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L854)):** the role-set comparison's design, which has no section of its own. That means its seed count, repeats, cost matching, scoring and analysis. Its parts are spread over the outside reviews and a private plan ([reviews L135](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L135)), and "the number of repeats per role set" is still open ([reviews L156](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L156)).
+> - **The decision:** the core comparison is role sets A, A′, B, C and the generalist, at equal cost. The debate arms and the workflow edition are secondary experiments, run afterwards.
 
-> **Decision pending (outside review 10, G6: [reviews L855](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L855)):** how the role-set comparison and the evolution experiment relate. Do they run in sequence, and does one locked plan cover both? Seat roles are to be "settled, researched and tested before the plan is locked" ([reviews L104](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L104)).
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G6: [reviews L855](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L855)):** how the role-set comparison and the evolution experiment relate. Do they run in sequence, and does one locked plan cover both? Seat roles are to be "settled, researched and tested before the plan is locked" ([reviews L104](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L104)).
+> - **The decision:** one locked plan covers both experiments. The role-set comparison runs first, and its winning set becomes the starting council for evolution.
 
 ### 4.2 Material and seed tiers
 
@@ -143,7 +157,9 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 - **Seed sources,** decided 13 Nov: MCR-Bench first, ReviewBench, SWE-bench-Live as a contamination check, CVEfixes later, and written seeds only for safety and policy ([reviews L328](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L328)).
 - **Checklist-item tags:** every pilot seed has one (47 seeds, 42 tagged, 5 "none"; 26 carry an A′ item) ([plan L1286](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1286)).
 
-> **Decision pending (outside review 10, C2: [reviews L823](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L823)):** the seed design for the formal runs. The sources disagree:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C2: [reviews L823](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L823)):** the seed design for the formal runs. Before it, the sources disagreed:
+> - **The decision:** the main seeds are real bugs from public pull-request datasets, at three severity levels, in equal numbers per review area. The material is shaped by decision (a): no diff, plus the surrounding modules. Model-written seeds are an extra only, written by Mistral, not Claude.
+> - **What it retires:** the "120 per app, four-level mix, WinScope first" line in the notebook, struck through there the same day. The seed count per area isn't set by this decision.
 > - **2 Nov:** 120 seeds per app (80 search, 40 held out), a 10/20/40/30% critical/high/medium/low mix and one clean variant per app, starting with WinScope ([plan L20](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L20), [sheet L74](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L74)). Mistral writes the model-written seeds, and the pilot's real bugs are replayed ([sheet L60](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L60), [sheet L48](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L48)).
 > - **12–13 Nov:** real bugs are the main seeds ([reviews L112](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L112)), in equal numbers per area to start ([reviews L127](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L127)). They come from other projects' pull requests, rated HIGH, MED or LOW ([plan L855](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L855)).
 > - **What reviewers see:** the 2 Nov decision is "whole codebase by default, with diff as a comparison arm" ([sheet L37](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L37)). The pilot material holds the diff, and the next check drops it (above).
@@ -198,12 +214,15 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
   - Outside review 10's G7 notes these rules are spread out ([reviews L856](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L856)).
 - **Interrupted runs,** decision (d): a run counts as one only after a technical interruption, with at most one relaunch. A stop by me after seeing output, a second relaunch or any change to the script or its arguments voids it ([plan L1257](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1257)).
 
-> **Decision pending (outside review 1, C4: [reviews L50](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L50); outside review 10, G9: [reviews L858](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L858)):** the Claude Code version to pin for the formal runs. The sources give:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 1, C4: [reviews L50](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L50); outside review 10, G9: [reviews L858](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L858)):** the Claude Code version to pin for the formal runs. Before it, the sources gave:
+> - **The decision:** every formal run uses one exact Claude Code version, the one on npm's `stable` channel on the day the plan is locked, with auto-updates off for run sessions only. Each run records its version.
 > - pinning matters, because team behaviour changes between versions ([reviews L460](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L460));
 > - npm's `stable` channel (2.1.311) is an option ([reviews L461](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L461));
 > - the runs so far used 2.1.325, and the Ultrareview runs 2.1.326 ([plan L1087](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1087)).
 
-> **Decision pending (outside review 10, G4: [reviews L853](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L853)):** the numbers the plan relies on but doesn't give. The sources give:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G4: [reviews L853](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L853)):** the numbers the plan relies on but doesn't give. Before it, the sources gave:
+> - **The decision:** decision 6's numbers are adopted: 3 variants per generation, 3 repeats per council in the final comparison, and the detectable difference stated as about 20 points within an app and 10 pooled. The caps, tokens and turns per run, are set after one measured dry run. That also stands in for "the pilot's caps".
+> - **Still open** *(Claude Code's note)*: the repeats per role set in the core comparison, and the complexity tiers.
 > - **Caps:** listed with no values ([plan L209](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L209)). Outside review 1 says "the caps are mentioned but not given numbers" ([reviews L51](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L51)). "The pilot's caps" are named but never defined ([plan L1541](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1541)).
 > - **Repeats:** "several times" ([plan L27](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L27)), against decision 6's 3 runs each for the final comparison ([decision 6 L253](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decision-6-seeds-and-stopping.md?plain=1#L253)). Repeats per role set are still open (G5 above).
 > - **Variants per generation:** "a few" ([plan L39](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L39)), against decision 6's 3 ([decision 6 L248](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decision-6-seeds-and-stopping.md?plain=1#L248)).
@@ -232,7 +251,8 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 > **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G2: [reviews L851](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L851)):** what counts as a catch. Before it, the sources gave these pieces:
 > - **The decision:** a catch is a finding within 3 lines of the planted range whose description matches the planted problem. A finding in the right place with the wrong mechanism is a miss, logged as a close call. It's fixed before any formal run.
 > - **What it settles:** the line tolerance and the mechanism question. It matches the close-call definition above, and answers outside review 8's idea 7 (a near-miss rule fixed in advance) for the formal runs.
-> - **Still not stated** *(Claude Code's note)*: one finding covering two seeds, merged findings, and per reviewer against pooled.
+> - ~~**Still not stated** *(Claude Code's note)*: one finding covering two seeds, merged findings, and per reviewer against pooled.~~
+> - **Counting rules, adopted by the researcher, 19 Nov 2026:** a finding can catch only one seed, and if it fits two it counts for the one it describes best. Merged findings are scored as the judge merged them. The main catch rate counts the whole council's final output, with single-reviewer catches reported alongside.
 > - flags in a planted range that overlap a known bug count for the seed ([plan L864](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L864));
 > - a flag within 3 lines that describes a different problem is a close call, not a catch (above);
 > - "score on bugs covered, not findings" ([plan L339](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L339));
@@ -248,14 +268,17 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 > - **In practice so far:** Claude did the matching ([plan L1103](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1103)). Council Dial runs only Claude subagents ([plan L1336](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1336)), and the cross-family relay is "plan only, nothing built" ([plan L1541](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1541)).
 > - **Not stated:** how the scoring judge is reached, and what happens if agreement falls below the bar.
 
-> **Decision pending (outside review 1, B1: [reviews L36](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L36)):** the cost measure that defines "equal cost". Outside review 7's item 6 was adopted to settle B1 with it ([reviews L409](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L409)), but no measure is recorded. Outside review 1's D5 suggests validating reported tokens against summed request tokens and dollar cost ([reviews L59](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L59)).
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 1, B1: [reviews L36](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L36)):** the cost measure that defines "equal cost". Outside review 7's item 6 was adopted to settle B1 with it ([reviews L409](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L409)), but no measure is recorded. Outside review 1's D5 suggests validating reported tokens against summed request tokens and dollar cost ([reviews L59](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L59)).
+> - **The decision:** input, cache-read, cache-write and output tokens are recorded separately. The headline cost is dollars at API rates, the same for every arm.
 
-> **Decision pending (outside review 10, C14: [reviews L838](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L838)):** how critical seeds are counted. The sources disagree:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C14: [reviews L838](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L838)):** how critical seeds are counted. Before it, the sources disagreed:
+> - **The decision:** drop "critical". HIGH seeds are reported as a separate line, with whatever count the material gives.
 > - "about 12 critical seeds per app ... ("caught 9 of 12")" ([plan L24](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L24));
 > - decision 6's example is "caught 3 of 4 critical" ([decision 6 L247](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decision-6-seeds-and-stopping.md?plain=1#L247));
 > - outside review 1 counts "about 4 critical seeds per app in the held-out set" ([reviews L43](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L43)).
 
-> **Decision pending (outside review 10, G7: [reviews L856](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L856)):** what happens after the next difficulty check: how many more material designs to try, and what to do if it's too easy again or lands near zero.
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G7: [reviews L856](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L856)):** what happens after the next difficulty check: how many more material designs to try, and what to do if it's too easy again or lands near zero.
+> - **The decision:** if the no-diff check lands at 20–80% catches, use the material. If it's too easy, add more of the surrounding project and try once more. If it's near zero, step back towards the diff, once. After that, use the best material and record the limitation.
 
 ## 7. Analysis
 
@@ -283,7 +306,8 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 > - prior describes the keep rule as using held-out seeds ([prior L507](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L507)), while the plan says "computed on the same seeds";
 > - outside review 1's B3 and outside review 8's idea 27, both pending, bear on it ([reviews L650](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L650)).
 
-> **Decision pending (outside review 10, C5: [reviews L826](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L826)):** the definition of the optimum council size. The sources disagree:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C5: [reviews L826](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L826)):** the definition of the optimum council size. Before it, the sources disagreed:
+> - **The decision:** the optimum council size is the point where adding a reviewer no longer significantly raises the catch rate, with cost per catch reported beside it.
 > - "the point where adding more reviewers stops improving results" ([plan L11](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L11));
 > - "the point where one more reviewer costs more tokens than the quality it adds" ([plan L44](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L44)), which needs an exchange rate between tokens and quality that isn't given.
 
@@ -347,6 +371,21 @@ The sources state these as hypotheses or ideas to test. None is marked confirmat
 | 19 Nov | G1: catch rate as the keep rule's primary score, with an extras-per-catch guard of 20%; rank-first reported alongside | section 7 | decision 6's optional precision guard |
 | 19 Nov | G2: a catch is within 3 lines and the right problem; the wrong mechanism is a miss, logged as a close call | section 6 | — |
 | 19 Nov | G3: the 2 Nov scoring judge kept (GPT-6.1 Sol, DeepSeek re-judging); at least 50 hand labels, 90% to pass, 95% the target; the route to build | section 6 | "about 50" labels |
+| 19 Nov | G2 counting rules: one seed per finding, merged findings as the judge merged them, the council's final output as the main rate | section 6 | — |
+| 19 Nov | C2: real bugs from public pull-request datasets as the main seeds, three levels, equal per area, decision (a)'s material, Mistral seeds as an extra only | section 4.2 | "120 per app, four-level mix, WinScope first" (2 Nov) |
+| 19 Nov | G5: the core comparison is role sets A, A′, B, C and the generalist; debate and the workflow edition are secondary, afterwards | section 4.1 | — |
+| 19 Nov | G6: one locked plan; the role-set comparison first, its winner the starting council for evolution | section 4.1 | — |
+| 19 Nov | G4: decision 6's numbers (3 variants, 3 final repeats, about 20 and 10 points detectable); caps after one measured dry run | section 5 | "a few" variants, "several" repeats |
+| 19 Nov | C14: "critical" dropped; HIGH seeds reported as a separate line | section 6 | "about 12 critical seeds per app" |
+| 19 Nov | C11: decision 6's cost estimate; the order of work rewritten | section 13 | "about half a session" per small run, and the old order |
+| 19 Nov | G7: what happens after the no-diff check | section 6 | — |
+| 19 Nov | C5: the optimum size is where another reviewer no longer significantly raises the catch rate, with cost per catch beside it | section 7 | the two earlier definitions |
+| 19 Nov | C8: one list of what's new, with the appeal first; the measurement, not the design | section 2 | the five earlier lists |
+| 19 Nov | S3: H8 and H9 confirmatory, the rest exploratory | section 3 | — |
+| 19 Nov | G10: misleading `CLAUDE.md` files written against review areas; a seed-aware count of seeds touched | section 12 | — |
+| 19 Nov | The version pin: npm `stable` on the day the plan is locked, auto-updates off in run sessions | section 5 | — |
+| 19 Nov | The cost measure: four token types recorded, dollars at API rates as the headline | section 6 | — |
+| 19 Nov | arXiv: cs.MA primary, cs.SE cross-list | section 13 | — |
 
 **Deviations and post-hoc exceptions:**
 - **The hard-tier scan exception:** BREACH on 2 calls, accepted as an exception before scoring. "The CLEAN verdict comes from a rule written after the calls it judges" ([plan L1040](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1040)).
@@ -416,7 +455,8 @@ The full survey is in [prior-work-research.md](prior-work-research.md). Its "How
 | The `CLAUDE.md` test's misleading file, and who can write it without seeing the seeds | [reviews L859](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L859) | pending |
 | The evidence behind "real bugs are the main seeds" | [reviews L860](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L860) | pending |
 
-> **Decision pending (outside review 10, G10: [reviews L859](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L859)):** how the `CLAUDE.md` test's misleading file is written. The brief's design targets "a seeded bug's pattern" ([briefs L209](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/decisions-pending-2026-11-17.md?plain=1#L209)), but "seed-free sessions design the files" ([plan L1267](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1267)), and those sessions never see the seeds.
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, G10: [reviews L859](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L859)):** how the `CLAUDE.md` test's misleading file is written. The brief's design targets "a seeded bug's pattern" ([briefs L209](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/decisions-pending-2026-11-17.md?plain=1#L209)), but "seed-free sessions design the files" ([plan L1267](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1267)), and those sessions never see the seeds.
+> - **The decision:** the misleading `CLAUDE.md` files are written against whole review areas, not specific seeds. A seed-aware session then reports, in counts only, how many seeds each file touches.
 
 ## 13. Publishing and deliverables
 
@@ -428,9 +468,18 @@ The full survey is in [prior-work-research.md](prior-work-research.md). Its "How
   - outside review 9's 16 suggestions are pending (section 12).
 - **The route:** a personal endorsement, a research paper rather than a position paper, arXiv's submission limits, and every reference checked ([plan L1810](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1810)).
 
-> **Decision pending (the notebook's paper route: [plan L1802](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1802)):** the arXiv primary category, and so the endorsement domain. The paper session recommended cs.MA with cs.SE as a cross-list.
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (the notebook's paper route: [plan L1802](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1802)):** the arXiv primary category, and so the endorsement domain. The paper session recommended cs.MA with cs.SE as a cross-list.
+> - **The decision:** cs.MA as the primary category, with cs.SE as a cross-list. So the endorser has to be in cs.MA's endorsement domain.
 
-> **Decision pending (outside review 10, C11: [reviews L835](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L835)):** the cost estimate and the order of work. The sources disagree:
+> **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C11: [reviews L835](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L835)):** the cost estimate and the order of work. Before it, the sources disagreed:
+> - **The decision:** decision 6's estimate replaces the old one: about 150M tokens and $800–1,300 per app per evolving run.
+> - **The order of work, rewritten:**
+>   1. the three hand-check packs;
+>   2. the next difficulty check;
+>   3. lock the plan;
+>   4. the role-set comparison;
+>   5. then evolution.
+> - The notebook's old "Order of work" stays there as the record.
 > - "Each small run costs about half a session" and "The total is roughly 3–4 sessions" ([plan L1574](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1574)), with an order of work that starts with "Run small app #1" ([plan L1764](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1764));
 > - decision 6: "about 150M tokens per app per evolving run, about $800 to $1,300 at API rates", and "about 360 checked seeds across three apps" ([decision 6 L267](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decision-6-seeds-and-stopping.md?plain=1#L267)).
 > - **Missing from the order of work:** the seeds, the calibration run, the plan lock and the role-set comparison. It ends with a review by "Fable 5.1", which is still to choose ([plan L1767](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1767)).
