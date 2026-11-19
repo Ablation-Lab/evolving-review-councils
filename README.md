@@ -14,6 +14,7 @@ The explainer video's Remotion source, script and narration are in [ablation-lab
 
 ## Core method
 
+- [Research plan](core-method/research-plan.md): the plan itself, in order: status, aims, hypotheses, design, run rules, measures, analysis, results so far, decisions, threats, related work, open questions and publishing. Undecided points are marked "Decision pending".
 - [Outside reviews](core-method/outside-reviews.md): every outside review of the work, with each suggestion's decision.
 - [Prior work](core-method/prior-work-research.md): the literature on how much of this has been done before, and how new each part is.
 - [Decision briefs, 17 Nov 2026](core-method/decisions-pending-2026-11-17.md): seven briefs, all decided on 19 Nov 2026.

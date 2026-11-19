@@ -553,7 +553,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 - **Date:** 17 Nov 2026, logged here on 18 Nov 2026.
 - **Reviewer:** the overnight literature sweep session, Claude (a Claude Code session with seven research subagents). It is **not independent**: it is the same model family as the councils, it was briefed from this repo's docs, and it read the experiment plan before suggesting changes to it.
-- **Material:** the sweep's follow-ups of every source in [prior-work-research.md](prior-work-research.md) and its new searches on eleven topics. The work each idea comes from is named in brackets after it.
+- **Material:** the sweep's follow-ups of every source in [prior-work-research.md](prior-work-research.md) and its new searches on eleven topics (amended 19 Nov 2026: eleven from the request, with industry tools and docs made a topic of their own, so twelve groups). The work each idea comes from is named in brackets after it.
 - **Source:** the section "Experiment ideas the literature suggests (suggestions only)" in [research/sweep-2026-11-17.md](../research/sweep-2026-11-17.md#experiment-ideas-the-literature-suggests-suggestions-only). The sweep says: "These are suggestions from the literature, not decisions. None has been added to the plan."
 - **Record:** all 35 ideas, in the sweep's order and grouping, each waiting for my decision. Nothing from them is in the research doc. The papers they cite are entered in [prior-work-research.md](prior-work-research.md), in full or as one-line notes in its section 8.
 - **Who acts on them** *(Claude Code's note)*: many of these change the council set-up, the briefs or the seeds. Only the sessions allowed to make each kind of change may act on them: see "Seed-aware and seed-free sessions" in the research doc.
@@ -805,17 +805,17 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 **Structure**
 
-- **S1** (high): two-thirds of the plan sits under "Command gating", an unrelated heading. **Decision:** pending.
-- **S2** (high): the current experiment's method, results and decisions have no headings. They're bold paragraphs inside "What checked the research doc". **Decision:** pending.
-- **S3** (high): seven of the nine expected parts (aims, questions, hypotheses, method, measures, results, decisions, related work, open questions) aren't easy to find. **Decision:** pending.
-- **S4** (medium): three documents are interleaved: the evolution plan, a dated notebook and Council Dial development notes. **Decision:** pending.
-- **S5** (medium): field notes sit inside method and plan sections. **Decision:** pending.
-- **S6** (medium): there's no decisions log and no open-items list. **Decision:** pending.
-- **S7** (medium): related work is hard to use. The plan's list names no code-review paper, and the closest-work summary is deep in the prior-work file. **Decision:** pending.
-- **S8** (low): roles are described three times, with different casts. **Decision:** pending.
-- **S9** (low): there's no outside review 6. **Decision:** pending.
-- **S10** (low): duplicates and order: the answer-key rule twice, the 9 Nov headline above the bullets it revises, and two papers each described twice. **Decision:** pending.
-- **Its proposed order:** a 13-part structure for the locked plan, with the notebook kept as the record, and separate files for the development notes and side material. **Decision:** pending.
+- **S1** (high): two-thirds of the plan sits under "Command gating", an unrelated heading. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S2** (high): the current experiment's method, results and decisions have no headings. They're bold paragraphs inside "What checked the research doc". **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S3** (high): seven of the nine expected parts (aims, questions, hypotheses, method, measures, results, decisions, related work, open questions) aren't easy to find. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S4** (medium): three documents are interleaved: the evolution plan, a dated notebook and Council Dial development notes. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S5** (medium): field notes sit inside method and plan sections. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S6** (medium): there's no decisions log and no open-items list. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S7** (medium): related work is hard to use. The plan's list names no code-review paper, and the closest-work summary is deep in the prior-work file. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S8** (low): roles are described three times, with different casts. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S9** (low): there's no outside review 6. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **S10** (low): duplicates and order: the answer-key rule twice, the 9 Nov headline above the bullets it revises, and two papers each described twice. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
+- **Its proposed order:** a 13-part structure for the locked plan, with the notebook kept as the record, and separate files for the development notes and side material. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
 
 **Contradictions**
 
@@ -836,8 +836,8 @@ From the above, these are the decisions the locked plan needs that the paper doe
 - **C12** (medium): who rates severity. The 8 Nov "I won't rate items myself" against my later hand ratings. **Decision:** fixed, 19 Nov 2026: limited to the stress test's key.
 - **C13** (medium): seed-aware or seed-free. The rule still lists this notes session as seed-aware. **Decision:** fixed, 19 Nov 2026: the rule is amended to record that this session has been treated as seed-free since 16 Nov.
 - **C14** (low): critical seeds are counted three ways. **Decision:** pending.
-- **C15** (low): the messaging check's headline leaves out the "continue your review" instruction. **Decision:** pending.
-- **C16** (low): smaller inconsistencies. **Decision:** pending.
+- **C15** (low): the messaging check's headline leaves out the "continue your review" instruction. **Decision:** fixed, 19 Nov 2026: the messaging-check note now records the instruction that reached a reviewer, in a development session, with no run affected.
+- **C16** (low): smaller inconsistencies. **Decision:** fixed, 19 Nov 2026: each item amended where it stands, after checking the Panickssery abstract on arXiv, the sweep's own count of topics, the paper's references at `8fe695f` and Lite's git history for the agent prompt.
   - two accounts of Panickssery et al.;
   - eleven sweep topics against twelve note groups;
   - 24 or 30 references;
@@ -897,4 +897,4 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions:** 22 fixed on 19 Nov 2026 (clerical, at my request). 32 pending: S1 to S10, C2 to C5, C7, C8, C11, C14 to C16 and G1 to G12. The proposed order is pending too.
+**Decisions:** 22 fixed on 19 Nov 2026 (clerical, at my request). 32 pending: S1 to S10, C2 to C5, C7, C8, C11, C14 to C16 and G1 to G12. The proposed order is pending too. (amended 19 Nov 2026: S1 to S10 and the proposed order are adopted, addressed by [research-plan.md](research-plan.md). C15 and C16 are fixed. So 24 are fixed, 10 findings and the proposed order are adopted, and 20 stay pending: C2 to C5, C7, C8, C11, C14 and G1 to G12. Most of the pending ones have a "Decision pending" slot in the research plan. C7, G8, G11 and G12 are listed there without one.)
