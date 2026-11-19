@@ -77,7 +77,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions** (to be filled in by the researcher): adopted, rejected or parked, with a reason for each.
+**Decisions** ~~(to be filled in by the researcher)~~ (pending: the researcher to decide; amended 19 Nov 2026): adopted, rejected or parked, with a reason for each.
 
 ---
 
