@@ -45,6 +45,7 @@ The councils don't decide when to stop. The stopping rules are fixed before the 
 The sandbox and fresh chats do different jobs: the sandbox stops agents touching anything real, and fresh chats stop earlier context biasing the results.
 
 - **Fresh start per run:** run each test in its own new chat or session, with no memory of earlier runs and no hint of the result we're hoping for.
+  - (amended 19 Nov 2026: decision (c) under "Decisions from the 17 Nov briefs (19 Nov 2026)" confirms one fresh session per review in the formal runs. Both difficulty checks departed from this rule. By decision brief (c), review A ran 8 reviews in one session and review B 10. They're recorded there as departures.)
 - **Blind judging:** the judge scores outputs without knowing which council setup, size or model produced them.
   - **Blindness leaks through small channels:** in Council Dial Lite's first headless trial (`lite-20261108-a7c2`, 8 Nov 2026), the summary's first line was the run id plus the run label, which names the model: "Run lite-20261108-a7c2, lite: specialised-3/judged+appeal @sonnet." The check agent reads that file, so it was told the model. Lite 1.0.0 (commit `d6c4f91`) changed the first line to the run id alone. From my account, this was the second leak of model identity, after an earlier one through a folder name (I have no written record of that one). Labels, folder names and file names reach agents as easily as prompts do, so each of them needs checking for model or setup names, not only the prompts.
 - **Same inputs:** every setup gets the same app, the same starting code and the same tests, so only the council changes.
@@ -975,7 +976,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - 238 ÷ 10 is 23.8.
     - That the AI reviewers read every line wasn't measured.
   - **A tension** *(Claude Code's note)*: the human reviewers were pointed at the change by the same diff. So the pointer is common to both and can't on its own explain the difference. What's left is how closely each read and how widely each flagged.
-- **Open decision, pending:** before the real comparison, choose one of these, or a mix:
+- **Open decision, ~~pending~~ decided 19 Nov 2026** (see decision (a) under "Decisions from the 17 Nov briefs (19 Nov 2026)" below)**:** before the real comparison, choose one of these, or a mix:
   - put the haystack back, with the real project or a larger real pull request;
   - drop the description;
   - change the main measure, to precision, cost to a full catch or severity accuracy.
@@ -985,14 +986,14 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - rely on other measures (the extras, false alarms, severity agreement and cost).
 
     "The real project" is my addition. The report suggests leaving out the diff, where I suggest leaving out the description.
-  - **Two levers that work together (added 16 Nov 2026, still pending):**
+  - **Two levers that work together (added 16 Nov 2026, ~~still pending~~ both adopted 19 Nov 2026 by decision (a) below: lever (a) is the next difficulty check, and lever (b)'s measures are main measures):**
     - **(a) Remove the pointer:** give the code after the change plus the modules around it, with no diff.
       - **Note** *(Claude Code's note)*: the human reviewers had the diff. So without it, the task is harder than the one they failed at, and a catch no longer compares directly with their miss.
     - **(b) Make noise count:**
       - add precision measures, such as extras per catch and whether the seed is among the top few findings;
       - score the output after the judge, where there is a judge.
       - **Where councils may help:** Quick has no judge. Filtering noise may be where councils add value.
-  - **Rank as a main measure (added 17 Nov 2026, still pending):** after the rank rescore below, choose one of these:
+  - **Rank as a main measure (added 17 Nov 2026, ~~still pending~~ adopted 19 Nov 2026 by decision (a) below: rank-first and extras per catch are main measures from now):** after the rank rescore below, choose one of these:
     - keep the current material, with "seed ranked first" as a main measure;
     - change the material;
     - or both.
@@ -1034,7 +1035,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - every check found the summary's findings matching the reports, with no count mismatches;
   - 1 review miscounted its overview by one finding, and its check flagged it;
   - 6 reviews logged procedural deviations, none affecting a match.
-- **Hand checks still to mark:** the 15-row match pack and the 20-row extras pack are built.
+- **Hand checks still to mark:** the 15-row match pack and the 20-row extras pack are built. (amended 19 Nov 2026: by decision (g) below, I'm to mark both, and the Ultrareview matching spot-check, before decision (a)'s difficulty check.)
   - **Where the counts come from** *(Claude Code's note)*: the seed folder's messaging-check report gives both counts. The match sample is stratified: 5 catches, 2 known-bug matches, 5 close calls and 3 judgement calls.
 - **Another relay slip (16 Nov 2026):** while relaying the seed pilot's output, I pasted rows of the hard-tier matches file, which gives seed IDs per folder, into the chat. The chat assistant is already seed-aware, and the 10 hard-tier seeds are already pilot-only (see "Another relay slip (15 Nov 2026)" above). So no result is affected.
   - **Connection** *(Claude Code's note)*: it's the fifth relay slip recorded in these notes, after "The leak" and the three slips above it. It's a human-in-the-loop finding.
@@ -1063,7 +1064,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Method note:** "Message from @" is only the on-screen preview line. A received message is stored as a user turn marked as coming from a peer. A subagent's hand-back arrives the same way. So the scan checks the stored form, and lists hand-backs separately (79, in 14 sessions, none in the runs).
 - **A human-in-the-loop field note (16 Nov 2026):** during the canary, the sender session received the refusal notice. But it first told me the message was "in that session's inbox", and corrected itself only in its next reply. That's from my account.
   - **Connection:** this bears on the hand-relay versus messaging experiment idea under "Voice-tag controlled test". A session's account of its own messaging can be wrong even when the refusal notice is in its context.
-- **A proposed run rule: proposed, pending the researcher's decision before the plan is locked.**
+- **A proposed run rule: ~~proposed, pending the researcher's decision before the plan is locked.~~** (amended 19 Nov 2026: replaced by the stricter rule in decision (b) below. Any delivered message voids a run, so the "carries content" test below no longer applies.)
   - **A call:** any `SendMessage` or `ListAgents` call in a run is logged as a deviation. With the deny in place, the call will be refused.
   - **Content:** a message that carries content into or out of a run session or seat voids the run.
 
@@ -1084,7 +1085,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
     - it may run code to verify findings;
     - its sandbox's web access isn't documented;
     - it ran on Claude Code 2.1.326, and the Lite runs on 2.1.325.
-- **Results against Lite Quick (review B) on the same 3 folders:** the findings were matched by the difficulty checks' scoring rules. Claude did the matching, and my spot-check is still to do.
+- **Results against Lite Quick (review B) on the same 3 folders:** the findings were matched by the difficulty checks' scoring rules. Claude did the matching, and my spot-check is still to do. (amended 19 Nov 2026: by decision (g) below, it's to be done before decision (a)'s difficulty check. No pack is built for it yet.)
 
   | Measure | Ultrareview, all 3 runs | Lite Quick, same 3 folders | Ultrareview, the 2 runs that reviewed the change | Lite Quick, same 2 folders |
   |---|---|---|---|---|
@@ -1210,6 +1211,53 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **(e) A human-in-the-loop note (17 Nov 2026, copied to the human-in-the-loop project):** the chat assistant gave two conflicting instructions about the plan, to amend it and then to withdraw the amendment. The seed folder's session caught the conflict and asked, instead of choosing.
   - **Sources** *(Claude Code's note)*: this is from my account. The report fits it: it keeps the original figures "as asked", shows the replacement for reference only, and says "Which reading is the headline is the researcher's decision".
   - **Connection** *(Claude Code's note)*: unlike (a) and (c), where a substitution was left to the human, here a session handed back a choice that was the human's to make. The relay worked as a check.
+- **(f) A human-in-the-loop note: an unrecorded failed launch (16 Nov 2026, recorded 19 Nov 2026, copied to the human-in-the-loop project):** at about 23:48 UTC on 16 Nov, before the three runs above, I started an Ultrareview launch from `C:\` in an administrator cmd window. It failed with "c:\ is not inside a git repository". Its exit check used PowerShell syntax (`$LASTEXITCODE`) in cmd, so it showed nothing useful. Nothing ran, and it wasn't recorded at the time.
+  - **Sources:** the overnight audit of 17 Nov found it in the paper session's transcript. Claude Code confirmed it there on 19 Nov 2026: the pasted output, stamped 23:48:15, and the session's reply at 23:49 UTC explaining that `$LASTEXITCODE` is PowerShell syntax and the window was cmd. The reply refers to the administrator window, and the rest is from my account.
+  - **Connection** *(Claude Code's note)*:
+    - it's the same family as (a) and (c), and as the silent failure: a hand-run step where the folder or the shell was assumed and not checked;
+    - the steps text quoted in that session at 23:51 UTC still gave `echo $LASTEXITCODE` for a cmd window, so the wrong syntax came from AI-written instructions;
+    - the fix is the one under (a): one-off commands written out in full for the exact shell and folder they run in.
+
+**Decisions from the 17 Nov briefs (19 Nov 2026):** these are my decisions on the seven briefs in [decisions-pending-2026-11-17.md](decisions-pending-2026-11-17.md), written overnight on 17 Nov. Each follows the brief's suggestion. Outside review 7's items are recorded in [outside-reviews.md](outside-reviews.md#outside-review-7-claude-code-agent-features-eight-pages-read-16-nov-2026).
+- **(a) Harder material and the main measures** ([brief (a)](decisions-pending-2026-11-17.md#a-how-to-make-the-material-harder)). **Decision:** adopted by the researcher, 19 Nov 2026.
+  - **Main measures:** rank-first (top 1 and top 3) and extras per catch are main measures from now, alongside catches.
+    - As the brief suggests, they're scored after the judge where there is one.
+    - Extras are reported in three groups, as real, false or unchecked, from a hand-checked sample.
+    - They're to be fixed in the locked plan before any formal run.
+  - **The next difficulty check:** "no diff, plus surrounding modules" alone. That's the 10 hard folders as the code after the change plus the modules around it, with no diff and the description unchanged, in a fresh session.
+    - The bands are fixed before it runs.
+    - One change per check: putting the project back stays out until one folder's cost is measured, and dropping the description stays out.
+- **(b) The messaging rule** ([brief (b)](decisions-pending-2026-11-17.md#b-the-messaging-rule)). **Decision:** adopted by the researcher, 19 Nov 2026: the stricter rule, which replaces the proposed run rule under "The messaging check".
+  - **Deviation:** any `SendMessage` or `ListAgents` call by a run session or seat, whether it ran or was refused.
+  - **Void:** any message delivered into or out of a run session or seat. The exceptions are a subagent's hand-back to its own main session and, in the team arm only, messages between that team's members.
+  - **Logged, not void:** a delivery that `crossSessionInbound` refused.
+  - **Before the first real run:** a short dry run confirms that Lite completes with the `SendMessage` deny, as the brief suggests.
+- **(c) One fresh session per review** ([brief (c)](decisions-pending-2026-11-17.md#c-one-fresh-session-per-review-in-the-formal-runs)). **Decision:** adopted by the researcher, 19 Nov 2026: one fresh session per review in the formal runs, as "Fresh start per run" already says.
+  - **Departures recorded:** both difficulty checks ran their reviews in one session, review A's 8 and review B's 10. That departs from "Fresh start per run". They were checks, not results, so no verdict changes.
+  - **From the brief:**
+    - the canary and environment checks run once per batch, in a throwaway session from the same launch line;
+    - each review gets a launch file with every command written out in full with its own values;
+    - each session's ID is recorded against its review.
+- **(d) Interrupted workflow runs** ([brief (d)](decisions-pending-2026-11-17.md#d-the-interrupted-workflow-run-rule)). **Decision:** adopted by the researcher, 19 Nov 2026, together with outside review 7's item 5.
+  - **When it counts as one run:** only after a technical interruption, with at most one relaunch.
+  - **When it's void:** a stop by me after seeing output voids the run. By the brief, so do a second relaunch and any change to the script or its arguments, and the run is redone fresh.
+  - **The record:** every run ID, the agents that re-ran and why.
+  - **When:** this is fixed in the plan before the first workflow run.
+- **(e) The `CLAUDE.md` test** ([brief (e)](decisions-pending-2026-11-17.md#e-whether-to-run-the-claudemd-help-or-bias-test-and-how)). **Decision:** adopted by the researcher, 19 Nov 2026: a secondary experiment, pre-registered after the main plan is locked.
+  - **The bias side first:** an accurate file against a subtly misleading one, with a random-content file as the priming control.
+  - **From the brief:**
+    - a pilot on pilot-only folders to size it;
+    - the `run.json` field, the folder layout and an `AGENTS.md` check fixed before any run;
+    - seed-free sessions design the files, as outside review 7's item 12 says.
+- **(f) Outside review 7, items 1 to 10** ([brief (f)](decisions-pending-2026-11-17.md#f-formally-adopting-outside-review-7-items-1-to-10)). **Decision:** adopted by the researcher, 19 Nov 2026:
+  - items 1 to 4, 6 and 10 are adopted, with the brief's conditions;
+  - item 5 is adopted together with (d);
+  - item 7 is adopted, narrowed to research copies and the full edition;
+  - item 9 is parked in the [human-in-the-loop plan](https://github.com/Ablation-Lab/human-in-the-loop/blob/main/plan.md), section 6.
+  - Item 8 was already adopted on 16 Nov 2026. The details are under each item in outside review 7.
+- **(g) The hand checks** ([brief (g)](decisions-pending-2026-11-17.md#g-the-two-unmarked-hand-check-packs)). **Decision:** adopted by the researcher, 19 Nov 2026.
+  - **Still to do, by me:** the hard tier's two packs (the 15-item match pack and the 20-item extras pack) and the Ultrareview matching spot-check.
+  - **When:** all three come before (a)'s difficulty check.
 
 ### Cross-family judges and appealers: measuring self-preference (next test round, planned)
 
@@ -1346,7 +1394,7 @@ Each council is compared with simpler set-ups on the same apps, scored on the sa
 - **Builder self-review, same cost:** the builder reviews its own code (including when the builder is the smarter model), with the same budget a council gets. This tests the self-review ("marking its own homework") hypothesis below, and it's the round the WinScope pilot lacked.
   - **A field case (10 Nov 2026, ~~results pending~~ build and builder's own review in on 13 Nov, separate check still pending; amended 18 Nov 2026 to match the field observation's status):** a build where Opus 5.5 is asked to run its own three-subagent review before handing over, and a separate Fable 5.2 session then checks the build. See the field observation under "Mixed model strengths across roles", in [Per-seat models, template tuning and dynamic councils](#per-seat-models-template-tuning-and-dynamic-councils-planned-not-run).
 - **Generalists, specialists or a mix:** all-generalist councils (every reviewer gets the same broad brief), all-specialist councils (one focused role each) and mixed councils, at equal cost. Evolution can move a council between them, so the results show whether specialisation earns its place. Research on personas suggests a bare label ("you're a security expert") can hurt, so briefs are real task instructions, and they are tested against no briefs.
-- **Diverse strong models (core hypothesis):** copies of one strong model probably share the same blind spots, so they mostly repeat each other. The hypothesis is that a council of different strong models, with different training, covers each other's blind spots and beats both one model and copies of it. Research on debate cuts the other way: a 2026 study found mixed-model debate teams lost to a simple vote among the same models, with accuracy tracking member capability rather than diversity, and Smit et al. (ICML 2024) found multi-agent debate doesn't reliably beat self-consistency or ensembling. Debate isn't independent review, which is why this is tested, not assumed. Arms, all at equal cost:
+- **Diverse strong models (core hypothesis):** copies of one strong model probably share the same blind spots, so they mostly repeat each other. The hypothesis is that a council of different strong models, with different training, covers each other's blind spots and beats both one model and copies of it. Research on debate cuts the other way: a 2026 study found mixed-model debate teams lost to a simple vote among the same models, with accuracy tracking member capability rather than diversity (amended 19 Nov 2026: the study is Ferreira, Liu and Zheng, [Beyond Symmetric Agents](https://arxiv.org/abs/2609.35875), arXiv preprint, Sep 2026, under review at ICLR 2027. It's already under Related research below. The abstract says "mixed-model teams lose to majority votes over their own rosters, with accuracy tracking member capability rather than heterogeneity", as the 17 Nov literature sweep reads it. It tested small open models on maths, quiz and biography tasks, not review), and Smit et al. (ICML 2024) found multi-agent debate doesn't reliably beat self-consistency or ensembling. Debate isn't independent review, which is why this is tested, not assumed. Arms, all at equal cost:
   - three copies of one strong model
   - different models from one family (for example Opus 5.5, an older Opus, Fable 5.1)
   - a cross-family mix
