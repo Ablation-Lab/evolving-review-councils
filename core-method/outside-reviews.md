@@ -105,7 +105,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions** (to be filled in by the researcher): adopted, rejected or parked, with a reason for each.
+**Decisions** ~~(to be filled in by the researcher)~~: adopted, rejected or parked, with a reason for each. (amended 19 Nov 2026: this label was left over from the template. The decisions are recorded just below, under "Seeds (12 Nov 2026)" and "Seat roles (12 Nov 2026)", all adopted by me, on 12 Nov 2026, in `18d0869` (seeds) and `65d0648` (seat roles), after the entry itself was added in `9b556d8`.)
 
 **Seeds (12 Nov 2026), all adopted by me after reading [seed-sources-research.md](seed-sources-research.md).** Each point says where it came from: Claude's suggestions in that file, or me.
 
