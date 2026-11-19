@@ -34,6 +34,7 @@ Items marked *(verify)* rest on the reviewer's general knowledge and haven't bee
 ### B. Covered but thin
 
 1. **What "same cost" means.** Matched-cost baselines are the paper's central comparison, but cost isn't defined yet. Given A3, the plan needs one cost measure (summed input and output tokens including cache reads, or money at list price) and a way to measure it that doesn't rely on the per-agent figure Claude Code reports.
+   - **Decision:** adopted by the researcher, 19 Nov 2026, settled by the cost measure in [research-plan.md](research-plan.md): input, cache-read, cache-write and output tokens recorded separately, with dollars at API rates as the headline cost, the same for every arm. *(Claude Code's note: the item also asks for a way to measure it that doesn't rely on Claude Code's per-agent figure. Where the token counts come from isn't stated yet.)*
 2. **Run-to-run variation versus the advance rule.** Section 4.5 shows the same council on the same material giving 1 to 3 HIGH findings. Appendix A's 90% interval is computed "on the same seeds", which captures variation across seeds but not across runs. The plan should say how many repeats each variant gets and whether the interval includes run-to-run variance.
 3. **Choosing the best of several variants.** Each generation tries "a few variants" and keeps the best if it passes. Picking the best of several and then testing it on the same seeds favours lucky variants (selection bias, or the winner's curse). Options include re-testing the chosen variant on a fresh draw of runs, or correcting for the number of variants tried.
 4. **Who proposes the variants?** "Changing its size, roles, briefs or models" doesn't say who writes the changed briefs. If a Claude session proposes them after seeing which seeds were missed, the 80 search seeds leak into the briefs. The held-out 40 catch that only at the end. Say what the proposer may see.
@@ -48,6 +49,7 @@ Items marked *(verify)* rest on the reviewer's general knowledge and haven't bee
 2. **Related work on LLM code review:** benchmarks or studies of LLMs reviewing code or finding bugs *(verify names: have a session search)*. At the moment the related work covers multi-agent counts, debate, judges and oversight, but not code review by LLMs.
 3. **How bugs are seeded,** with literature. Mutation testing is the standard way to plant bugs, and its tools generate them without any LLM *(verify which tools fit Python and C#)*. That would weaken the "Claude wrote every seed" limitation.
 4. **Environment pinning.** Section 5 says to record the environment. The plan should also **fix** it: connectors off, no instruction files, messaging off, a pinned Claude Code version (it moved from 2.1.319 to 2.1.322 during these tests) and pinned model versions, with any update logged as a deviation.
+   - **Decision:** adopted by the researcher, 19 Nov 2026, settled by the version pin in [research-plan.md](research-plan.md): one exact Claude Code version from npm's `stable` channel on the day the plan is locked, auto-updates off for run sessions, and each run's version recorded. *(Claude Code's note: the item also asks for connectors off, no instruction files, messaging off and pinned model versions. The first three are covered by the run-isolation set-up and decision (b). Pinned model versions are covered only for the scoring judge, by G3.)*
 5. **Budget and time.** No estimate of the formal experiment's total cost, and no cap figures. The caps are mentioned but not given numbers.
 
 ### D. Experiment ideas
@@ -77,7 +79,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 ---
 
-**Decisions** ~~(to be filled in by the researcher)~~ (pending: the researcher to decide; amended 19 Nov 2026): adopted, rejected or parked, with a reason for each.
+**Decisions** ~~(to be filled in by the researcher)~~ (pending: the researcher to decide; amended 19 Nov 2026; amended again 19 Nov 2026: C4 and B1 are adopted by the researcher, 19 Nov 2026, and the rest stay pending): adopted, rejected or parked, with a reason for each.
 
 ---
 
@@ -807,7 +809,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 
 - **S1** (high): two-thirds of the plan sits under "Command gating", an unrelated heading. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
 - **S2** (high): the current experiment's method, results and decisions have no headings. They're bold paragraphs inside "What checked the research doc". **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
-- **S3** (high): seven of the nine expected parts (aims, questions, hypotheses, method, measures, results, decisions, related work, open questions) aren't easy to find. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026). The hypotheses part is adopted by the researcher, 19 Nov 2026: two confirmatory hypotheses, the rest exploratory, in the research plan.
+- **S3** (high): seven of the nine expected parts (aims, questions, hypotheses, method, measures, results, decisions, related work, open questions) aren't easy to find. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026). The hypotheses part is adopted by the researcher, 19 Nov 2026: two confirmatory hypotheses, the rest exploratory, in the research plan. Their null hypotheses, and what "many false ones" means, were adopted by the researcher, 19 Nov 2026 too.
 - **S4** (medium): three documents are interleaved: the evolution plan, a dated notebook and Council Dial development notes. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
 - **S5** (medium): field notes sit inside method and plan sections. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
 - **S6** (medium): there's no decisions log and no open-items list. **Decision:** ~~pending.~~ Adopted: addressed by [research-plan.md](research-plan.md) (19 Nov 2026).
@@ -820,7 +822,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 **Contradictions**
 
 - **C1** (high): "judge" names two roles with opposite rules, the scoring judge and the council's judge. **Decision:** fixed, 19 Nov 2026: a "Two judges" definition near the top of the method.
-- **C2** (high): the seed design in Measures (120 seeds per app, a four-level mix, one app first) isn't the one decided on 12–13 Nov (real bugs, equal numbers per area, three levels). **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026. Recorded in [research-plan.md](research-plan.md).
+- **C2** (high): the seed design in Measures (120 seeds per app, a four-level mix, one app first) isn't the one decided on 12–13 Nov (real bugs, equal numbers per area, three levels). **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026. Recorded in [research-plan.md](research-plan.md). Its wording was widened the same day, to cover seeds traced back to the pull requests that introduced them.
 - **C3** (high): the seed pilot is "pilot-only", but the paper is to lead with "the pilot results". **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: pilot results go in the paper only as clearly labelled exploratory findings, never as tests of a hypothesis, and pilot seeds stay out of the formal comparison. Recorded in [research-plan.md](research-plan.md).
 - **C4** (high): held-out seeds are described three ways, including picking the winner by its held-out score. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026: the winner is picked on the search seeds only, then scored on the held-out seeds at the end, alongside the baselines; the held-out set is never used for selection. Recorded in [research-plan.md](research-plan.md).
 - **C5** (medium): two definitions of the optimum size. **Decision:** ~~pending.~~ adopted by the researcher, 19 Nov 2026. Recorded in [research-plan.md](research-plan.md).

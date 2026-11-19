@@ -99,12 +99,12 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 | H5 | Fable may make a stronger judge or analyser | [plan L1338](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1338) | hypothesis, to test |
 | H6 | Families may share blind spots inherited from common roots, so a different family buys less independence than assumed | [plan L1335](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1335) | idea, to test |
 | H7 | A misleading `CLAUDE.md` lowers catches (the bias side, tested first) | [plan L1263](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1263) | design of decision (e) |
-| H8 | The appeal recovers real bugs the judge dismissed, without adding many false ones | decision S3, 19 Nov 2026 (research question 3) | **confirmatory** |
-| H9 | Role sets differ in catch rate at equal cost | decision S3, 19 Nov 2026 (research question 2) | **confirmatory** |
+| H8 | The appeal recovers real bugs the judge dismissed, without adding many false ones. Null (adopted by the researcher, 19 Nov 2026): the appeal recovers no more real bugs than the judge alone. "Many false ones" means extras per catch rising by more than G1's 20% guard | decision S3, 19 Nov 2026 (research question 3) | **confirmatory** |
+| H9 | Role sets differ in catch rate at equal cost. Null (adopted by the researcher, 19 Nov 2026): every role set has the same catch rate at equal cost | decision S3, 19 Nov 2026 (research question 2) | **confirmatory** |
 
 > **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, S3: [reviews L810](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L810)):** which hypotheses are confirmatory and which exploratory, and the null hypothesis for each confirmatory one. Prior's reading of *The More the Better?* as "the project's null hypothesis" for the role-set question bears on this ([prior L211](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/prior-work-research.md?plain=1#L211)).
 > - **The decision:** two confirmatory hypotheses, H8 and H9 in the table above. H8 is that the appeal recovers real bugs the judge dismissed without adding many false ones. H9 is that role sets differ in catch rate at equal cost. All the others, H1 to H7, are exploratory.
-> - **Still to fix in the locked plan** *(Claude Code's note)*: the null hypothesis for each, and what "many false ones" means in numbers.
+> - ~~**Still to fix in the locked plan** *(Claude Code's note)*: the null hypothesis for each, and what "many false ones" means in numbers.~~ (amended 19 Nov 2026: both adopted by the researcher, 19 Nov 2026, in the table above. H8's null is that the appeal recovers no more real bugs than the judge alone, and "many false ones" means extras per catch rising by more than G1's 20% guard. H9's null is that every role set has the same catch rate at equal cost.)
 
 ## 4. Design
 
@@ -158,7 +158,7 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 - **Checklist-item tags:** every pilot seed has one (47 seeds, 42 tagged, 5 "none"; 26 carry an A′ item) ([plan L1286](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1286)).
 
 > **~~Decision pending~~ Decision: adopted by the researcher, 19 Nov 2026 (outside review 10, C2: [reviews L823](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L823)):** the seed design for the formal runs. Before it, the sources disagreed:
-> - **The decision:** the main seeds are real bugs from public pull-request datasets, at three severity levels, in equal numbers per review area. The material is shaped by decision (a): no diff, plus the surrounding modules. Model-written seeds are an extra only, written by Mistral, not Claude.
+> - **The decision:** the main seeds are real bugs from public pull-request datasets, or traced back to the pull requests that introduced them (wording adopted by the researcher, 19 Nov 2026, so it covers the hard tier's SWE-bench-Live and CVE seeds), at three severity levels, in equal numbers per review area. The material is shaped by decision (a): no diff, plus the surrounding modules. Model-written seeds are an extra only, written by Mistral, not Claude.
 > - **What it retires:** the "120 per app, four-level mix, WinScope first" line in the notebook, struck through there the same day. The seed count per area isn't set by this decision.
 > - **2 Nov:** 120 seeds per app (80 search, 40 held out), a 10/20/40/30% critical/high/medium/low mix and one clean variant per app, starting with WinScope ([plan L20](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L20), [sheet L74](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L74)). Mistral writes the model-written seeds, and the pilot's real bugs are replayed ([sheet L60](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L60), [sheet L48](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/research/decisions-seeded-bugs-and-judge.md?plain=1#L48)).
 > - **12–13 Nov:** real bugs are the main seeds ([reviews L112](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L112)), in equal numbers per area to start ([reviews L127](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/outside-reviews.md?plain=1#L127)). They come from other projects' pull requests, rated HIGH, MED or LOW ([plan L855](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L855)).
@@ -372,7 +372,7 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 | 19 Nov | G2: a catch is within 3 lines and the right problem; the wrong mechanism is a miss, logged as a close call | section 6 | — |
 | 19 Nov | G3: the 2 Nov scoring judge kept (GPT-6.1 Sol, DeepSeek re-judging); at least 50 hand labels, 90% to pass, 95% the target; the route to build | section 6 | "about 50" labels |
 | 19 Nov | G2 counting rules: one seed per finding, merged findings as the judge merged them, the council's final output as the main rate | section 6 | — |
-| 19 Nov | C2: real bugs from public pull-request datasets as the main seeds, three levels, equal per area, decision (a)'s material, Mistral seeds as an extra only | section 4.2 | "120 per app, four-level mix, WinScope first" (2 Nov) |
+| 19 Nov | C2: real bugs from public pull-request datasets, or traced back to the pull requests that introduced them, as the main seeds, three levels, equal per area, decision (a)'s material, Mistral seeds as an extra only | section 4.2 | "120 per app, four-level mix, WinScope first" (2 Nov) |
 | 19 Nov | G5: the core comparison is role sets A, A′, B, C and the generalist; debate and the workflow edition are secondary, afterwards | section 4.1 | — |
 | 19 Nov | G6: one locked plan; the role-set comparison first, its winner the starting council for evolution | section 4.1 | — |
 | 19 Nov | G4: decision 6's numbers (3 variants, 3 final repeats, about 20 and 10 points detectable); caps after one measured dry run | section 5 | "a few" variants, "several" repeats |
@@ -386,6 +386,10 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 | 19 Nov | The version pin: npm `stable` on the day the plan is locked, auto-updates off in run sessions | section 5 | — |
 | 19 Nov | The cost measure: four token types recorded, dollars at API rates as the headline | section 6 | — |
 | 19 Nov | arXiv: cs.MA primary, cs.SE cross-list | section 13 | — |
+| 19 Nov | H8's null: the appeal recovers no more real bugs than the judge alone; "many false ones" is extras per catch up by more than 20% | section 3 | — |
+| 19 Nov | H9's null: every role set has the same catch rate at equal cost | section 3 | — |
+| 19 Nov | C2's wording widened to cover seeds traced back to their introducing pull requests | section 4.2 | "real bugs from public pull-request datasets" |
+| 19 Nov | Outside review 1: C4 adopted, settled by the version pin; B1 adopted, settled by the cost measure | section 5, section 6 | — |
 
 **Deviations and post-hoc exceptions:**
 - **The hard-tier scan exception:** BREACH on 2 calls, accepted as an exception before scoring. "The CLEAN verdict comes from a rule written after the calls it judges" ([plan L1040](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1040)).
