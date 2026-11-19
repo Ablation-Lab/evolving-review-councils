@@ -14,6 +14,9 @@ The explainer video's Remotion source, script and narration are in [ablation-lab
 
 ## Core method
 
+- [Outside reviews](core-method/outside-reviews.md): every outside review of the work, with each suggestion's decision.
+- [Prior work](core-method/prior-work-research.md): the literature on how much of this has been done before, and how new each part is.
+- [Decision briefs, 17 Nov 2026](core-method/decisions-pending-2026-11-17.md): seven briefs, all decided on 19 Nov 2026.
 - [Experiment plan](core-method/experiment-plan.md): the full plan. It covers how "improved" is measured, evolution and stopping rules, keeping tests unbiased, cheating and collusion checks, failure modes, hard limits, the test plan and the final report.
 - [How the agents built and reviewed WinScope](core-method/winscope-pilot.md): the informal pilot. Fresh reviewers found 97 problems the builders' own tests had passed, across 11 rounds; the 10 subagent rounds used about 3.7M tokens.
 - [Council size by task complexity](core-method/council-size-by-task-complexity.md): whether the best number of reviewers grows with how hard the task is.

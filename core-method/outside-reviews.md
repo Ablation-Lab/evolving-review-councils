@@ -366,10 +366,10 @@ From the above, these are the decisions the locked plan needs that the paper doe
   - [worktrees](https://code.claude.com/docs/en/worktrees);
   - [agent teams](https://code.claude.com/docs/en/agent-teams);
   - [cross-session messaging](https://code.claude.com/docs/en/cross-session-messaging).
-- **Record:** the reviewer's ten suggestions, all waiting for my decision. Nothing from them is in the research doc yet. Claude Code checked each one against the pages on 16 Nov 2026 (Claude Code 2.1.325 on this machine), and the corrections and extra notes are marked *(Claude Code's note)*.
+- **Record:** the reviewer's ten suggestions, ~~all waiting for my decision. Nothing from them is in the research doc yet.~~ all decided by 19 Nov 2026 (amended 19 Nov 2026: see the Decisions line at the end of this entry). Claude Code checked each one against the pages on 16 Nov 2026 (Claude Code 2.1.325 on this machine), and the corrections and extra notes are marked *(Claude Code's note)*.
 - **Who acts on them** *(Claude Code's note)*: items 5, 7 and 8 change the council set-up, which only seed-free sessions may do (see "Seed-aware and seed-free sessions" in the research doc). Items 1 to 4 are run isolation and records, which belong to the seed folder's session.
 
-### Suggestions (decision pending)
+### Suggestions (~~decision pending~~ decided by 19 Nov 2026)
 
 1. **Isolation gap: cross-session messaging.** It's on by default from Claude Code 2.1.224, and Claude may send messages without being asked. Runs need `crossSessionInbound` set to `"refuse"` and a `ListAgents` deny in the project settings, confirmed from the settings file, because `/status` shows nothing.
    - **Checked** *(Claude Code's note)*: the docs say Claude "can decide to send a message without being asked". A `refuse` in project or local settings "applies over every other source". And a refusing session "shows no visible change" in `/status`, so the docs say to check the settings files.
@@ -732,6 +732,7 @@ From the above, these are the decisions the locked plan needs that the paper doe
 6. **Cite *The More the Better?*** as the prior test of the equal-cost question, treat its result as the null hypothesis, and frame the project's result as the code-review test of it.
    - **Decision:** pending.
 7. **Narrow the appeal claim to the sweep's wording,** and cite the reinstating checks outside code review: TinyV, Reviewing the Reviewer and Klieber et al. Fix the outline's "7. The appeal (new)" and its "no code-review pipeline found tries to win them back" to match.
+    - *(Claude Code's note, 19 Nov 2026)*: the claim has since been narrowed again, to code review only. Klieber et al. is a static-analysis alert pipeline, so it's a counter-example inside static-analysis filtering, not "outside code review" (outside review 10, C9, fixed).
    - **Decision:** pending.
 8. **Cite SGM as prior art for Appendix A's paired-CI keep rule,** and drop any implication that the rule is new. Its arXiv title spells "Godel".
    - **Decision:** pending.
@@ -774,3 +775,126 @@ From the above, these are the decisions the locked plan needs that the paper doe
 ---
 
 **Decisions:** all 16 pending.
+
+---
+
+## Outside review 10: a review of the four docs (Fable 5.2, 19 Nov 2026)
+
+- **Date:** 19 Nov 2026
+- **Reviewer:** Claude Fable 5.2 in Claude Code, one session, with one read-only subagent for the prior-work file. It is **not independent**: it's the same model family as the councils and the docs' other writers, and this project's instruction file was in its context.
+- **Given:** my prompt, and the four docs at `f16d2a2`: the research doc, this file, the prior-work file and the decision briefs.
+- **Also in its context, not from me or the docs** (the review's own list):
+  - the project instruction file;
+  - a one-line memory index;
+  - a git status snapshot;
+  - my account email, which it didn't repeat;
+  - the Claude Docs connector's instructions;
+  - skill and plugin lists.
+  - It followed the instruction file and the seed wall, and acted on none of the rest.
+- **Not read:** anything in the seed folder or the scratch area, the sweep file, three research files and the paper repo. Its claims about outside papers, figures against run files and links weren't checked.
+- **Temporary files:** three helper files in its own scratch folder.
+- **Its subagent:** briefed for an inventory only, before the reviewer had read the plan, so the brief held none of its conclusions.
+- **Source:** its report, `reports/fable-doc-review-2026-11-19.md`, which is git-ignored and kept outside this repo's history. Line numbers in it are from `f16d2a2`.
+- **A rule it noted:** the project instructions say not to do overall reviews of the research doc. I asked for this one directly, and it was report-only.
+- **Record:** all 54 findings, by the review's IDs: 10 structure (S), 16 contradictions (C), 15 gaps (G) and 13 stale (T).
+  - **Fixed:** on 19 Nov 2026, at my request, the clerical ones were applied as dated amendments with the old wording struck through: T1 to T13, C1, C6, C9, C10, C12, C13, G13, G14 and G15. Each is marked "fixed" below.
+  - **Pending:** the rest, which need my decision.
+  - **Its top ten,** in its order: S1, S2, G5, C1, C2, G1 to G4, C3, C4, C8 with C9, T1 with G8, and C11.
+
+### Findings
+
+**Structure**
+
+- **S1** (high): two-thirds of the plan sits under "Command gating", an unrelated heading. **Decision:** pending.
+- **S2** (high): the current experiment's method, results and decisions have no headings. They're bold paragraphs inside "What checked the research doc". **Decision:** pending.
+- **S3** (high): seven of the nine expected parts (aims, questions, hypotheses, method, measures, results, decisions, related work, open questions) aren't easy to find. **Decision:** pending.
+- **S4** (medium): three documents are interleaved: the evolution plan, a dated notebook and Council Dial development notes. **Decision:** pending.
+- **S5** (medium): field notes sit inside method and plan sections. **Decision:** pending.
+- **S6** (medium): there's no decisions log and no open-items list. **Decision:** pending.
+- **S7** (medium): related work is hard to use. The plan's list names no code-review paper, and the closest-work summary is deep in the prior-work file. **Decision:** pending.
+- **S8** (low): roles are described three times, with different casts. **Decision:** pending.
+- **S9** (low): there's no outside review 6. **Decision:** pending.
+- **S10** (low): duplicates and order: the answer-key rule twice, the 9 Nov headline above the bullets it revises, and two papers each described twice. **Decision:** pending.
+- **Its proposed order:** a 13-part structure for the locked plan, with the notebook kept as the record, and separate files for the development notes and side material. **Decision:** pending.
+
+**Contradictions**
+
+- **C1** (high): "judge" names two roles with opposite rules, the scoring judge and the council's judge. **Decision:** fixed, 19 Nov 2026: a "Two judges" definition near the top of the method.
+- **C2** (high): the seed design in Measures (120 seeds per app, a four-level mix, one app first) isn't the one decided on 12–13 Nov (real bugs, equal numbers per area, three levels). **Decision:** pending.
+- **C3** (high): the seed pilot is "pilot-only", but the paper is to lead with "the pilot results". **Decision:** pending.
+- **C4** (high): held-out seeds are described three ways, including picking the winner by its held-out score. **Decision:** pending.
+- **C5** (medium): two definitions of the optimum size. **Decision:** pending.
+- **C6** (medium): "no direct agent-to-agent messages", against practice and the adopted team arm. **Decision:** fixed, 19 Nov 2026: an amendment under "Claude Code's own channels" pointing to decision (b) and the team arm.
+- **C7** (medium): "each follows the brief's suggestion" isn't true of (g). The brief said to mark the packs before deciding (a), and the Ultrareview baseline is already quoted. **Decision:** pending.
+- **C8** (medium): five lists of what's new don't agree. The plan's still names a size scale and a calculator. **Decision:** pending.
+- **C9** (medium): the appeal claim, and Klieber et al. as a counter-example. **Decision:** fixed, 19 Nov 2026.
+  - **The abstract,** read on arXiv: Klieber et al. adjudicates static-analysis alerts, with a consistency check across repeated runs.
+  - **So** the claim is narrowed everywhere to code review only, not static-analysis filtering, and the counter-example is recorded in the prior-work file's novelty table.
+  - **Elsewhere:** outside review 9's item 7 has a note.
+- **C10** (medium): two sections each claim to be the next test round, and neither is next. **Decision:** fixed, 19 Nov 2026: both marked not next, pointing to decision (a)'s difficulty check.
+- **C11** (medium): cost and order of work predate decision 6. **Decision:** pending.
+- **C12** (medium): who rates severity. The 8 Nov "I won't rate items myself" against my later hand ratings. **Decision:** fixed, 19 Nov 2026: limited to the stress test's key.
+- **C13** (medium): seed-aware or seed-free. The rule still lists this notes session as seed-aware. **Decision:** fixed, 19 Nov 2026: the rule is amended to record that this session has been treated as seed-free since 16 Nov.
+- **C14** (low): critical seeds are counted three ways. **Decision:** pending.
+- **C15** (low): the messaging check's headline leaves out the "continue your review" instruction. **Decision:** pending.
+- **C16** (low): smaller inconsistencies. **Decision:** pending.
+  - two accounts of Panickssery et al.;
+  - eleven sweep topics against twelve note groups;
+  - 24 or 30 references;
+  - CR-Bench-v2's human check given as confirmed in one place and unconfirmed in another;
+  - the Red Queen entry above its recheck;
+  - "two-sentence" against "four sentences".
+
+**Gaps**
+
+- **G1** (high): the advance rule's "score" is never defined. **Decision:** pending.
+- **G2** (high): what counts as a catch isn't stated. **Decision:** pending.
+- **G3** (high): who marks what in the formal runs: the scoring judge's family and model, how it's reached, how many hand labels and what agreement is enough. **Decision:** pending.
+- **G4** (high): numbers the plan relies on but doesn't give: repeats, caps, variants, sizes and tiers, "equal cost" and detectable effects. **Decision:** pending.
+- **G5** (high): the role-set comparison has no design section. **Decision:** pending.
+- **G6** (medium): how the comparison and the evolution experiment relate, and whether one locked plan covers both. **Decision:** pending.
+- **G7** (medium): bands and stopping for the material: what's done if the next check is too easy again, or lands near zero. **Decision:** pending.
+- **G8** (medium): decisions marked pending that are settled or overtaken elsewhere: outside review 1, idea 33, idea 11, the default-checklist leaning and the benchmark licences. **Decision:** pending.
+- **G9** (medium): open conditions with no single list. **Decision:** pending.
+- **G10** (medium): the `CLAUDE.md` test's misleading file, and who can write it without seeing the seeds. **Decision:** pending.
+- **G11** (medium): the evidence behind the main seed decision, Kumar et al. read only through a fetch tool, and citations generally. **Decision:** pending.
+- **G12** (medium): what a reviewer of the paper would ask, with no answer yet. **Decision:** pending.
+- **G13** (low): terms used before they're defined. **Decision:** fixed, 19 Nov 2026: review A and review B, A′, the team arm and the calibration run are now defined at first use. "The pilot's caps" isn't covered.
+- **G14** (low): figures that don't reconcile from the doc alone. **Decision:** fixed, 19 Nov 2026, for the hard tier.
+  - **The reconciliation:** a line from the hard-tier results report gives 272 = 31 seed flags + 3 known-bug flags + 238 extras, with the 29 catches counted as reviewer-and-seed pairs.
+  - **Still open:** the "22 and 13" coincidence and the gap candidates need the seed folder's pilot report, which wasn't read.
+- **G15** (low): loose references. **Decision:** fixed, 19 Nov 2026:
+  - the broken report path is fixed;
+  - the unlinked post is marked as still unlinked;
+  - the prior-work file's "(L1807)" is replaced;
+  - the README now links this file, the prior-work file and the briefs.
+
+**Stale text**
+
+- **T1** (medium): the briefs file had no outcomes. **Decision:** fixed, 19 Nov 2026: it's marked decided, with a pointer to the 19 Nov decisions block, and its stale lines are amended.
+- **T2** (medium): "Council Dial itself enforces nothing". **Decision:** fixed, 19 Nov 2026: the read-only agent enforces the no-running-code rule since brief version 3.
+- **T3** (medium): the severity appeal, written as planned, has existed since brief version 3. **Decision:** fixed, 19 Nov 2026.
+- **T4** (medium): the 8 Nov severity readings sit under the 9 Nov revised headline unmarked. **Decision:** fixed, 19 Nov 2026: marked superseded.
+- **T5** (medium): versions still called "not yet published". **Decision:** fixed, 19 Nov 2026: checked in the local clone after a fetch. The public repo holds 1.3.9, 1.5.0 and 1.9.1.
+- **T6** (medium): the email-app check marked pending, though it ran on 14 Nov. **Decision:** fixed, 19 Nov 2026.
+- **T7** (medium): the seed pilot's old counts stood unstruck. **Decision:** fixed, 19 Nov 2026.
+- **T8** (low): the arXiv line's "still unchecked" items, and the old next step. **Decision:** fixed, 19 Nov 2026.
+- **T9** (low): per-seat effort and models, written as planned, have existed since Council Dial 1.4.0. **Decision:** fixed, 19 Nov 2026.
+- **T10** (low): the connectors caveat. **Decision:** fixed, 19 Nov 2026: `ENABLE_CLAUDEAI_MCP_SERVERS=false` keeps them out per session.
+- **T11** (low): outside review 7's header still said all were pending. **Decision:** fixed, 19 Nov 2026.
+- **T12** (low): stale lines in the prior-work file. **Decision:** fixed, 19 Nov 2026:
+  - the vendor-benchmark line is amended;
+  - its summary line is narrowed with C9;
+  - its design line gains A′;
+  - two entries get the sweep's read labels, and Goel et al. stays abstract only, since the sweep gave it no label.
+- **T13** (low): caveats and open notes with no later word. **Decision:** fixed, 19 Nov 2026:
+  - the section-links caveat now excepts Zheng et al.;
+  - "no later word" is noted on the M3 call and the deferred search report;
+  - the deny check points to decision (b);
+  - the hand-check line is marked done;
+  - the calculator is "not started";
+  - the final review's "Fable 5.1" is noted as still to choose.
+
+---
+
+**Decisions:** 22 fixed on 19 Nov 2026 (clerical, at my request). 32 pending: S1 to S10, C2 to C5, C7, C8, C11, C14 to C16 and G1 to G12. The proposed order is pending too.

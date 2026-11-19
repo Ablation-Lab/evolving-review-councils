@@ -1,6 +1,8 @@
-# Decisions pending, 17 Nov 2026
+# Decisions ~~pending~~ decided, 17 Nov 2026
 
-Seven open decisions, each set out for the researcher to make. Claude Code prepared these briefs overnight on 17 Nov 2026 from the research doc, the outside reviews, the prior-work file, the human-in-the-loop plan, the paper's fix list and the seed folder's seed-free reports. It decided nothing. Each section gives the options, the evidence already on file, the risks, what the decision needs, and a suggestion, marked as one.
+(amended 19 Nov 2026: all seven were decided by the researcher on 19 Nov 2026, each following its suggestion. The decisions and their conditions are in the research doc's block "[Decisions from the 17 Nov briefs (19 Nov 2026)](experiment-plan.md#what-checked-the-research-doc-and-what-it-missed-12-nov-2026)", and outside review 7's items are decided under each item. The briefs below are kept as written, with their stale lines amended.)
+
+~~Seven open decisions, each set out for the researcher to make.~~ Seven decisions, each set out for the researcher to make, and all made on 19 Nov 2026. Claude Code prepared these briefs overnight on 17 Nov 2026 from the research doc, the outside reviews, the prior-work file, the human-in-the-loop plan, the paper's fix list and the seed folder's seed-free reports. It decided nothing. Each section gives the options, the evidence already on file, the risks, what the decision needs, and a suggestion, marked as one.
 
 Sources used, all seed-free:
 - [experiment-plan.md](experiment-plan.md), the research doc, mostly its notes from 13 to 17 Nov under [What checked the research doc, and what it missed](experiment-plan.md#what-checked-the-research-doc-and-what-it-missed-12-nov-2026);
@@ -103,7 +105,7 @@ Then confirm, in a short dry run, that Lite completes with the deny before the f
 3. **One session per batch,** as in the difficulty checks.
 
 **The evidence on file:**
-- **The plan already says so.** "Keeping the tests unbiased" in the research doc: "**Fresh start per run:** run each test in its own new chat or session, with no memory of earlier runs and no hint of the result we're hoping for." The difficulty checks departed from that, and neither the research doc nor the seed-free reports record the choice as a deviation. The seed folder's own plans weren't read for these briefs. They were checks, not results, so nothing was invalidated.
+- **The plan already says so.** "Keeping the tests unbiased" in the research doc: "**Fresh start per run:** run each test in its own new chat or session, with no memory of earlier runs and no hint of the result we're hoping for." The difficulty checks departed from that, and (amended 19 Nov 2026: the research doc now records both as departures, under "Fresh start per run" and decision (c)) neither the research doc nor the seed-free reports record the choice as a deviation. The seed folder's own plans weren't read for these briefs. They were checks, not results, so nothing was invalidated.
 - **What carries over in one session is the main session's context.** Seats are fresh subagents each time, since the docs say "each subagent invocation creates a new instance". But the main session writes the plan, saves the reports, writes the overview and, in Quick, checks each pooled finding itself, all after seeing every earlier review's material and findings. That's the channel the research doc's open question "Should the main session stay blind to the material?" is about.
 - **The briefs are a narrow channel.** They're built word for word from templates and checked, and the description was fixed word for word in `RUN.md`. So carry-over would show mainly in the main session's own words and checks, not in what seats are handed.
 - **Long sessions bring their own risks:**
@@ -213,7 +215,7 @@ Then confirm, in a short dry run, that Lite completes with the deny before the f
 
 ## (f) Formally adopting outside review 7, items 1 to 10
 
-**A correction to the question:** item 8, the debate council as an agent team, was already adopted by the researcher on 16 Nov 2026, with its design written out. So the items still pending are 1 to 7, 9 and 10 (the Decisions line of [outside review 7](outside-reviews.md#outside-review-7-claude-code-agent-features-eight-pages-read-16-nov-2026)).
+**A correction to the question:** item 8, the debate council as an agent team, was already adopted by the researcher on 16 Nov 2026, with its design written out. ~~So the items still pending are 1 to 7, 9 and 10~~ So the items then pending were 1 to 7, 9 and 10, all decided on 19 Nov 2026 (amended 19 Nov 2026) (the Decisions line of [outside review 7](outside-reviews.md#outside-review-7-claude-code-agent-features-eight-pages-read-16-nov-2026)).
 
 **The options:** adopt all the pending items together, adopt each one on its own, or adopt some and park the rest.
 
@@ -226,7 +228,7 @@ Then confirm, in a short dry run, that Lite completes with the deny before the f
 | 3. Transcript scan | A messaging call or a delivered message means the run isn't CLEAN | The scan checks the stored form and lists hand-backs apart. Not yet tried on a transcript holding a delivered message from another session | Adopt, after one test with a delivered message in a throwaway pair of sessions |
 | 4. Records | Copy subagent transcripts and workflow results into each run record | The `runs\` rule covers the three runs. The run folder now sets `cleanupPeriodDays` to 365. The docs say a session that leaves out user settings, with no other source for the key, skips the sweep | Adopt. Also set `cleanupPeriodDays` in every new run folder, and copy team mailbox files before a team session ends |
 | 5. Workflow edition design | One workflow per stage, schema-checked findings, fresh runs only | Not built. The interrupted-run rule is (d) | Adopt the design, and decide (d) |
-| 6. Cost measure | Record input, cache-read, cache-write and output tokens separately, with `/workflows` as a third figure | Not built. Outside review 1's B1, one cost measure, is still undecided | Adopt, and settle B1 with it |
+| 6. Cost measure | Record input, cache-read, cache-write and output tokens separately, with `/workflows` as a third figure | Not built. Outside review 1's B1, one cost measure, ~~is still undecided~~ was then undecided (amended 19 Nov 2026: item 6 is adopted, to settle B1 with it, and B1 itself is still pending in outside review 1) | Adopt, and settle B1 with it |
 | 7. Seat definitions | `omitClaudeMd` and a read-only `tools` list; isolation stays in the folder's settings; run folders out of git | The read-only list is in place, and no run folder is in git. The directory refused `omitClaudeMd` in Lite, so it's possible only in research copies or the full edition | Adopt, narrowed to research copies and the full edition |
 | 9. A human-in-the-loop experiment | Hand relay against cross-session messaging, with leaks as a measure | Already an idea in the research doc, and it belongs to the human-in-the-loop project | Park it in that project's plan, section 6 |
 | 10. Worktree note | `isolation: worktree` starts from the default branch unless `worktree.baseRef` is `"head"` | Supported by the docs. No council uses worktrees | Adopt as a note for any run that uses worktrees |
