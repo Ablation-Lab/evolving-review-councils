@@ -1279,6 +1279,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **(g) The hand checks** ([brief (g)](decisions-pending-2026-11-17.md#g-the-two-unmarked-hand-check-packs)). **Decision:** adopted by the researcher, 19 Nov 2026.
   - **Still to do, by me:** the hard tier's two packs (the 15-item match pack and the 20-item extras pack) and the Ultrareview matching spot-check. (amended 19 Nov 2026: the spot-check now has its own pack, of all 21 Ultrareview findings, so my spot-checks are three packs: 15, 20 and 21 items. See "The seed folder's follow-ups" below.)
   - **When:** all three come before (a)'s difficulty check.
+- **The seed-free dry run of Lite (20 Nov 2026):** Lite completed under the `SendMessage` deny, and no other plugin reached its agents. The field note "A seed-free dry run of Lite" has the connector leak and other findings. Four pre-run checklist lines are adopted by me and recorded in [research-plan.md](research-plan.md).
 - **Which runs count for H8 (20 Nov 2026):** if the fallback runs, its 20 wrongful dismissals are counted in the fallback runs alone and give H8's confirmatory test, with the core runs' reported as exploratory. Otherwise the core runs give it. Adopted by me and recorded in [research-plan.md](research-plan.md).
 - **H8's fallback size (20 Nov 2026):** the core comparison's winner reviews the fallback material until the judge has made 20 wrongful dismissals, counted from the judge's rulings only, with a cap of 150 runs. Adopted by me and recorded in [research-plan.md](research-plan.md).
 - **Cap enforcement, judged role sets and H8's test (20 Nov 2026):** a variant over the cost cap on the search seeds can't be kept, and a winner over it on the held-out seeds makes H11 a deviation. Every multi-seat role set runs judged with the appeal. H8's test is the appeal's recovery rate of wrongful dismissals, with a non-inferiority guard on extras. Adopted by me and recorded in [research-plan.md](research-plan.md).
@@ -1347,6 +1348,25 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **The cause:** the prompt, which left the session to find the report itself.
 - **The fix (decided 20 Nov 2026):** counts-only reports now come through a hand-off folder, and this session never lists, searches or reads the seed folder. See "Who is seed-aware" in [research-plan.md](research-plan.md).
 - **Sources:** the session's own report of 20 Nov, and my account of the prompt.
+
+**A seed-free dry run of Lite (field note, 20 Nov 2026):** two Standard runs on a tiny made-up Python project with one planted bug, so no seed was involved. They settle two pre-run checks, Lite under the `SendMessage` deny and whether other plugins reach Lite's agents. The facts are from my account of the results. This session didn't read the scratch area.
+- **Set-up:** Claude Code v2.1.329 and Opus 5.5 at high effort, with Lite 2.2.5 loaded for the session with `--plugin-dir` from the Lite folder.
+  - **The project-level settings:** they denied `SendMessage` and `ListAgents`, set `crossSessionInbound` to "refuse" and turned agent teams off.
+  - **Workflows** were off at launch.
+- **Lite under the deny:** both runs (01 and 02) finished cleanly, with all 6 agents read-only (`council-reader`: Read, Grep and Glob). Nothing was blocked or broken by the deny.
+  - **Findings:** both found the planted bug as HIGH. The appeal checked severities only, since the judge dismissed nothing.
+  - **Size and time:** about 85k and 80k tokens (context sizes, not cost), in 1.7 and 1.9 minutes.
+- **Other plugins:** none reached Lite's agents. They saw no skill list and no other plugin's skills or agents, which reached only the main session.
+- **A connector leak, caused by the prompt:** the dry run's settings left out `ENABLE_CLAUDEAI_MCP_SERVERS=false`, which the formal set-up has.
+  - **Run 01:** the claude.ai Claude Docs connector's instructions reached all six agents' context, before each agent's second request, though not its tools. Only the appeal mentioned them, saying it ignored them as unrelated. No agent acted on them.
+  - **Run 02:** with the variable set at launch, the block was gone from every agent and the main session, confirmed from the transcripts.
+  - **So:** the read-only agent blocks a connector's tools but not its instructions. Compare "What reaches an agent that the council doesn't control", above.
+- **Injected instructions ignored:** the agents' handling of the connector text in run 01 is a small real example for the prompt-injection side of the research.
+- **An "advisor" tool:** each agent has a deferred advisor tool on `claude-opus-5-5`, which lets the model consult a second model. No agent called it in either run.
+- **The read-only agent vanished once:** in an earlier attempt, it disappeared mid-session after the `/plugin` menu was opened. Lite noticed, and stopped rather than run with full-tool agents. A fresh session restored it.
+- **Plan-before-yes was inconsistent (a Lite issue to look at later):** in one session Lite refused a yes given before it showed its plan. In run 02 it accepted a yes given up front, and logged it as a deviation. Lite isn't changed for now, since nothing is pushed to its main while it's in review.
+- **Run-to-run variation on identical material:** run 01 gave 8 findings, with the one-item-list crash at MED. Run 02 gave 7, with the same crash at HIGH. It's a small example for outside review 1's B2, on run-to-run variance against the advance rule.
+- **What changed:** four lines added to the pre-run checklist in [research-plan.md](research-plan.md), adopted by me on 20 Nov 2026. They cover the connector variable, `council-reader` and the `/plugin` menu, plan before yes, and advisor-tool calls.
 
 ### Cross-family judges and appealers: measuring self-preference (~~next test round,~~ planned; not next, amended 19 Nov 2026)
 

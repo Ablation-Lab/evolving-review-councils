@@ -63,13 +63,17 @@ As of 19 Nov 2026.
   3. a dry run of Lite under the `SendMessage` deny ([plan L1250](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L1250)).
 - **Before the first formal run** (a checklist, adopted by the researcher, 19 Nov 2026, outside review 10's G9):
   - [ ] the three hand-check packs marked (15, 20 and 21 items);
-  - [ ] a short dry run confirming Lite completes under the `SendMessage` deny;
+  - [x] a short dry run confirming Lite completes under the `SendMessage` deny (done 20 Nov 2026: two Standard runs on made-up material finished cleanly, with all 6 agents read-only and nothing blocked; see the notebook's field note "A seed-free dry run of Lite" (20 Nov 2026));
   - [ ] the run folder's local settings file checked, since local settings can turn agent teams back on;
   - [ ] one scan test with a delivered message, in a throwaway pair of sessions;
-  - [ ] whether directory-installed plugins reach Lite's reviewer agents, "still to check" in the notebook;
+  - [x] whether directory-installed plugins reach Lite's reviewer agents, "still to check" in the notebook (done 20 Nov 2026: none did; other plugins reached only the main session. *(Claude Code's note: Lite was loaded with `--plugin-dir`, so this holds for that way of loading it.)*);
   - [ ] the route to the scoring judge (GPT-6.1 Sol, with DeepSeek re-judging) built, and checked against at least 50 hand labels;
   - [ ] the caps set after one measured dry run (G4);
   - [ ] no seat can query a vulnerability feed or advisory source: web tools and both shells denied, claude.ai connectors off, no MCP server defined in the run folder and no advisory database on disk (decision: adopted by the researcher, 20 Nov 2026, section 5);
+  - [ ] `ENABLE_CLAUDEAI_MCP_SERVERS=false` set in every run's launch line, and one run's agent transcripts checked to confirm no connector instructions reached them (decision: adopted by the researcher, 20 Nov 2026);
+  - [ ] `council-reader` confirmed listed (`/agents`) before every run, and the `/plugin` menu not opened in run sessions (decision: adopted by the researcher, 20 Nov 2026);
+  - [ ] every run started the same way: the plan is shown, then the yes, never a yes up front (decision: adopted by the researcher, 20 Nov 2026);
+  - [ ] each run's transcripts scanned for any advisor-tool call, which makes the run a deviation (decision: adopted by the researcher, 20 Nov 2026). *(Claude Code's note: if the advisor tool can be denied in the run folder's settings like `SendMessage`, a deny would prevent calls rather than only detect them. That wasn't checked.)*
   - [ ] the Claude Code version pinned from npm's `stable` channel on the day the plan is locked, with full model IDs.
 - **What's locked:** nothing yet.
   - **Frozen:** the role-set briefs, for the comparison ([plan L836](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L836)).
@@ -583,6 +587,7 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 | 20 Nov | H8's test: the recovery rate of wrongful dismissals, one-sided against 0.5, mixed-effects with seed random; UNSURE upheld; at least 20 wrongful dismissals; the guard 20% relative, or +0.05 extras per catch below 0.25; fallback material prepared in advance | section 7; section 3 | the drafted slot (20 Nov) |
 | 20 Nov | H8's fallback size: the core comparison's winner reviews the fallback material in repeated runs until the judge has made 20 wrongful dismissals, counted from the judge's rulings only; capped at 150 runs, with power reported at the size reached | section 7 | size not stated |
 | 20 Nov | If the fallback runs, its 20 wrongful dismissals are counted in the fallback runs alone, which then give H8's confirmatory test, with the core runs' reported as exploratory; otherwise the core runs give it | section 7 | "20 in total" (ambiguous) |
+| 20 Nov | Four pre-run checklist lines: the connector variable in every launch line, with one run's agent transcripts checked; `council-reader` confirmed and no `/plugin` menu in run sessions; plan before yes in every run; transcripts scanned for advisor-tool calls, any call a deviation | section 1 (G9 checklist) | — |
 
 **Deviations and post-hoc exceptions:**
 - **Decision (g) changed the brief's order** (adopted by the researcher, 19 Nov 2026, outside review 10's C7): brief (g) said to mark the packs before deciding (a). (a) was decided first, and the packs come before (a)'s difficulty check instead. It's logged here as a deviation, and the notebook's line that each decision "follows the brief's suggestion" is amended.
