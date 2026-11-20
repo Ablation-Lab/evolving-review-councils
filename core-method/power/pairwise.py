@@ -1,7 +1,11 @@
 import math, random
 from statistics import NormalDist
 Z = NormalDist().inv_cdf
-za, zb = Z(1 - 0.05/2), Z(0.80)
+import sys
+# optional arguments: alpha (default 0.05) and sides (2 = two-sided, the default; 1 = one-sided)
+ALPHA = float(sys.argv[1]) if len(sys.argv) > 1 else 0.05
+SIDES = int(sys.argv[2]) if len(sys.argv) > 2 else 2
+za, zb = Z(1 - ALPHA/SIDES), Z(0.80)
 AREAS, SETS = 7, 5
 def mde(p0, n_seeds, r):
     # smallest d with p1 = p0 - d (or p0 + d at p0 <= .5) detectable, paired-by-seed normal approx
@@ -38,13 +42,15 @@ def sim_power(p0, d, n_seeds, r, sims=4000, sd=1.0, seed=1):
         m = sum(diffs)/n_seeds
         v = sum((x-m)**2 for x in diffs)/(n_seeds-1) if n_seeds > 1 else 0
         if v == 0: continue
-        if abs(m)/math.sqrt(v/n_seeds) > za: hits += 1
+        t = m/math.sqrt(v/n_seeds)
+        if (abs(t) if SIDES == 2 else t) > za: hits += 1
     return hits/sims
 rows = []
 for s in (10, 15, 20, 30):
     for r in (1, 3, 5):
         N = s*AREAS
         rows.append((s, N, r, mde(0.5, N, r), mde(0.83, N, r), SETS*N*r))
+print(f'alpha {ALPHA:.5f}, {SIDES}-sided, 80% power')
 print('per area | seeds | repeats | MDE p0=0.50 | MDE p0=0.83 | runs (5 sets)')
 for s, N, r, a, b, runs in rows:
     print(f'{s:>3} | {N:>4} | {r} | {a*100:5.1f} | {b*100:5.1f} | {runs}')
