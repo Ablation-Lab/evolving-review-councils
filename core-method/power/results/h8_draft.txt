@@ -1,0 +1,28 @@
+A. Recovery rate, exact one-sided binomial test of R <= 0.5
+alpha | wrongful dismissals D | power at true R = 0.7 / 0.8 / 0.9
+0.0500 |  5 | 0.17 / 0.33 / 0.59   (reject if at least 5 of 5)
+0.0500 | 10 | 0.15 / 0.38 / 0.74   (reject if at least 9 of 10)
+0.0500 | 15 | 0.30 / 0.65 / 0.94   (reject if at least 12 of 15)
+0.0500 | 20 | 0.42 / 0.80 / 0.99   (reject if at least 15 of 20)
+0.0500 | 30 | 0.73 / 0.97 / 1.00   (reject if at least 20 of 30)
+0.0167 |  5 | 0.00 / 0.00 / 0.00   (reject if at least 6 of 5)
+0.0167 | 10 | 0.15 / 0.38 / 0.74   (reject if at least 9 of 10)
+0.0167 | 15 | 0.13 / 0.40 / 0.82   (reject if at least 13 of 15)
+0.0167 | 20 | 0.24 / 0.63 / 0.96   (reject if at least 16 of 20)
+0.0167 | 30 | 0.43 / 0.87 / 1.00   (reject if at least 22 of 30)
+
+B. False-ones guard: power that the upper bound of (extras per catch, appeal / judge) stays under 1.20
+alpha one-sided 0.0167; 105 seeds x 12 judged runs; catch 0.5, raised 0.65, wrongly dismissed 0.02
+judge's extras per run | fair dismissals per run | false reinstatement rate | power
+0.5 | 0.5 | 0.01 | 1.00
+0.5 | 0.5 | 0.05 | 1.00
+0.5 | 0.5 | 0.1 | 1.00
+0.5 | 2.0 | 0.01 | 1.00
+0.5 | 2.0 | 0.05 | 0.20
+0.5 | 2.0 | 0.1 | 0.00
+2.0 | 0.5 | 0.01 | 1.00
+2.0 | 0.5 | 0.05 | 1.00
+2.0 | 0.5 | 0.1 | 1.00
+2.0 | 2.0 | 0.01 | 1.00
+2.0 | 2.0 | 0.05 | 1.00
+2.0 | 2.0 | 0.1 | 1.00

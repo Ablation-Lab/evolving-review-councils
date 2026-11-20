@@ -10,6 +10,7 @@ These are the scripts behind the power figures in [research-plan.md](../research
 | `omnibus.py` | The power of H9's omnibus test at 105 seeds and 3 repeats: a mixed-effects logistic regression with five role sets as a fixed effect and seed as a random effect (SD 1 on the logit scale), fitted by maximum likelihood with 20-point Gauss–Hermite quadrature and tested by likelihood ratio on 4 degrees of freedom. | the omnibus power table under G12 |
 | `h10.py` | The first H10 check: 15 pre-cutoff against 15 post-cutoff seeds, one council, 3 repeats, by the same kind of mixed-effects likelihood-ratio test on 1 degree of freedom. | H10's Power note (section 10) |
 | `h10b.py` | The same test as `h10.py`, with the seeds a side and the repeats as arguments, for the four options in H10's size decision. | H10's size decision (section 10) |
+| `h8.py` | For the draft of H8's test: exact one-sided binomial power for the appeal's recovery rate against 0.5, and simulated power for the false-ones guard as a non-inferiority bound, using a seed-cluster bootstrap. Its rates are assumptions, stated in the script. | H8's pending slot (section 7) |
 
 ## Results as run
 
@@ -20,6 +21,7 @@ These are in `results/`:
   - Each line gives the seeds a side, the repeats, the base catch rate, the difference and the power.
   - A difference of 0 gives the false-positive rate.
 
+- `h8_draft.txt`: `h8.py`.
 - `pairwise_2sided_0.05.txt`, `pairwise_1sided_0.05.txt` and `pairwise_1sided_0.0167.txt`: `pairwise.py` at two-sided 0.05 (the G12 table), one-sided 0.05 and one-sided 0.05/3. The "runs" column counts 5 role sets, so it doesn't apply to H11's two councils.
 
 ## Versions
@@ -38,6 +40,7 @@ python pairwise.py 0.05 1
 python omnibus.py 400
 python h10.py
 python h10b.py 25 3
+python h8.py
 ```
 
 - **Arguments:** `omnibus.py` takes the number of simulations per row. `h10b.py` takes the seeds a side and the repeats.

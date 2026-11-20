@@ -196,7 +196,7 @@ More seeds always did at least as well, and the gap widens as councils' seed-by-
 
 ### 3.5 The final comparison
 
-The final comparison is one winner against one comparator: the starting council, or the non-evolving control. It's chosen in advance with no best-of-k selection, so a standard two-sided 95% test applies. Pooling held-out seeds across the 3 apps gives:
+The final comparison is one winner against one comparator: the starting council~~, or the non-evolving control~~ (amended 20 Nov 2026, adopted by the researcher, 20 Nov 2026: the comparator is the starting council at equal cost per review, with the evolved council capped at its cost plus 10%, and the non-evolving control is retired. See H11 in the research plan.). It's chosen in advance with no best-of-k selection, so a standard two-sided 95% test applies. Pooling held-out seeds across the 3 apps gives:
 
 | Held-out seeds, pooled | Runs per council | +5 | +10 | +20 |
 | --- | --- | --- | --- | --- |
@@ -215,8 +215,8 @@ These use the plan's figures:
 - **Seeds per version:** about 10, from the decisions sheet's 8 to 12 per variant. Each council evaluation also reviews one clean (seed-free) version.
 - **Judge:** about $2 per version review, which is GPT-6.1 Sol's central $4 per 2M-token run.
 - **Council prices:** Sonnet 5.5 at $2/$10 and Opus 5.5 at $4/$20 per million input/output tokens (Anthropic price table, cached Oct 6, 2026). Assuming 85% of tokens are input, the blend is about $3.20 per million on Sonnet and $6.40 on Opus. Prompt caching would lower this. Mixed-family councils will differ.
-- **Run shape:** 3 generations, a fresh parent run plus 3 variants each. The final comparison covers winner, starting council and non-evolving control, with 3 runs each on the held-out seeds.
-- **Scope:** per app, one evolving run. Multiply by 3 apps and by the plan's repeats. Roughly double it if the non-evolving control gets its own matching spend during the search.
+- **Run shape:** 3 generations, a fresh parent run plus 3 variants each. The final comparison covers winner~~, starting council and non-evolving control~~ and starting council (amended 20 Nov 2026: the control is retired), with 3 runs each on the held-out seeds.
+- **Scope:** per app, one evolving run. Multiply by 3 apps and by the plan's repeats. ~~Roughly double it if the non-evolving control gets its own matching spend during the search.~~ (amended 20 Nov 2026: the non-evolving control is retired, so this doesn't apply. The search's spend is reported separately, as evolution's one-off cost.)
 
 ## 4. The options
 
@@ -250,7 +250,7 @@ These use the plan's figures:
    - Optionally, add a guard so precision can't fall by more than a pre-set margin, such as 10 points.
 4. **Stop rule.** Stop after two generations in a row in which no variant clears the bar, or at the generation, token or time caps, whichever comes first. This is irace's "two tests in a row with no change". It replaces "two generations under about 2%".
 5. **Final claims.**
-   - Run the winner, the starting council and the non-evolving control 3 times each on the 40 held-out seeds per app.
+   - Run the winner~~, the starting council and the non-evolving control~~ and the starting council (amended 20 Nov 2026: the control is retired) 3 times each on the 40 held-out seeds per app.
    - Pool across the 3 apps, treating seeds as clustered within apps, for the headline comparisons.
    - Report every app separately too, with Wilson or Bayesian intervals.
    - Report the winner's held-out score, not its search score, because the search score is inflated.
