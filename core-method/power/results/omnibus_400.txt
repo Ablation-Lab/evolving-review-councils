@@ -1,0 +1,10 @@
+0.50 | no difference (size check) | power 0.052 | 19s
+0.50 | one set 5 points better | power 0.247 | 23s
+0.50 | one set 10 points better | power 0.820 | 24s
+0.50 | one set 15 points better | power 0.998 | 24s
+0.50 | even spread, 0 to 10 points | power 0.715 | 24s
+0.83 | no difference (size check) | power 0.037 | 23s
+0.83 | one set 5 points better | power 0.480 | 23s
+0.83 | one set 10 points better | power 0.993 | 23s
+0.83 | one set 15 points better | power 1.000 | 24s
+0.83 | even spread, 0 to 10 points | power 0.975 | 23s
