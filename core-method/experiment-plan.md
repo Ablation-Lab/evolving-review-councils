@@ -1279,6 +1279,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **(g) The hand checks** ([brief (g)](decisions-pending-2026-11-17.md#g-the-two-unmarked-hand-check-packs)). **Decision:** adopted by the researcher, 19 Nov 2026.
   - **Still to do, by me:** the hard tier's two packs (the 15-item match pack and the 20-item extras pack) and the Ultrareview matching spot-check. (amended 19 Nov 2026: the spot-check now has its own pack, of all 21 Ultrareview findings, so my spot-checks are three packs: 15, 20 and 21 items. See "The seed folder's follow-ups" below.)
   - **When:** all three come before (a)'s difficulty check.
+- **The advisor tool (20 Nov 2026):** every pilot seat had the server-side advisor tool, never called. The launch line now disables it, with the connector and workflow variables, and every formal run starts in a fresh session. Adopted by me and recorded in [research-plan.md](research-plan.md). See the field note "The advisor tool, an unrecorded fifth channel".
 - **The seed-free dry run of Lite (20 Nov 2026):** Lite completed under the `SendMessage` deny, and no other plugin reached its agents. The field note "A seed-free dry run of Lite" has the connector leak and other findings. Four pre-run checklist lines are adopted by me and recorded in [research-plan.md](research-plan.md).
 - **Which runs count for H8 (20 Nov 2026):** if the fallback runs, its 20 wrongful dismissals are counted in the fallback runs alone and give H8's confirmatory test, with the core runs' reported as exploratory. Otherwise the core runs give it. Adopted by me and recorded in [research-plan.md](research-plan.md).
 - **H8's fallback size (20 Nov 2026):** the core comparison's winner reviews the fallback material until the judge has made 20 wrongful dismissals, counted from the judge's rulings only, with a cap of 150 runs. Adopted by me and recorded in [research-plan.md](research-plan.md).
@@ -1353,7 +1354,7 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Set-up:** Claude Code v2.1.329 and Opus 5.5 at high effort, with Lite 2.2.5 loaded for the session with `--plugin-dir` from the Lite folder.
   - **The project-level settings:** they denied `SendMessage` and `ListAgents`, set `crossSessionInbound` to "refuse" and turned agent teams off.
   - **Workflows** were off at launch.
-- **Lite under the deny:** both runs (01 and 02) finished cleanly, with all 6 agents read-only (`council-reader`: Read, Grep and Glob). Nothing was blocked or broken by the deny.
+- **Lite under the deny:** both runs (01 and 02) finished cleanly, with all 6 agents read-only (`council-reader`: Read, Grep and Glob). Nothing was blocked or broken by the deny. (amended 20 Nov 2026: and the advisor tool, a fourth tool; see the next field note.)
   - **Findings:** both found the planted bug as HIGH. The appeal checked severities only, since the judge dismissed nothing.
   - **Size and time:** about 85k and 80k tokens (context sizes, not cost), in 1.7 and 1.9 minutes.
 - **Other plugins:** none reached Lite's agents. They saw no skill list and no other plugin's skills or agents, which reached only the main session.
@@ -1367,6 +1368,18 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Plan-before-yes was inconsistent (a Lite issue to look at later):** in one session Lite refused a yes given before it showed its plan. In run 02 it accepted a yes given up front, and logged it as a deviation. Lite isn't changed for now, since nothing is pushed to its main while it's in review.
 - **Run-to-run variation on identical material:** run 01 gave 8 findings, with the one-item-list crash at MED. Run 02 gave 7, with the same crash at HIGH. It's a small example for outside review 1's B2, on run-to-run variance against the advance rule.
 - **What changed:** four lines added to the pre-run checklist in [research-plan.md](research-plan.md), adopted by me on 20 Nov 2026. They cover the connector variable, `council-reader` and the `/plugin` menu, plan before yes, and advisor-tool calls.
+
+**The advisor tool, an unrecorded fifth channel (field note, 20 Nov 2026):** every Lite seat in the pilot had a server-side tool that the runs' notes never recorded.
+- **What it is:** the advisor tool (type `advisor_20260301`, model `claude-opus-5-5`), which lets a model consult a second model. So the read-only allowlist was really Read, Grep and Glob plus the advisor.
+- **Where it was found:** first in the seed-free dry runs' requests (the field note above). Then the seed folder's counts-only check (`advisor-tool-check-2026-11-20.md`, through the hand-off folder) counted it in the run records.
+  - **Available:** in all 80 transcripts. They cover the 13 Nov isolation dry run, review A and review B (19 Lite reviews in all), and the Ultrareview rerun's launcher session.
+  - **In every seat:** all 76 seats' requests listed Glob, Grep, Read and the advisor.
+- **Never used:** 0 calls and no advisor result blocks. All 2,832 usage records are ordinary `claude-opus-5-5` messages, so no pilot result is affected.
+- **Where it comes from isn't established.** The run folders' settings had no advisor entry, and the runs were launched with `--setting-sources project,local`. User-level settings weren't read.
+- **A skipped deny:** a project deny rule written as `advisor` was invalid, because tool names must start with a capital, and was skipped. Added mid-session, it gave no warning, and the warning appeared only at the next launch. A correctly capitalised deny wasn't tested.
+- **The fix:** with `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` set at launch, the advisor tool, its beta header (`advisor-tool-2026-03-01`) and the `advisorModel` field were gone from the main session's and the agents' requests. That's confirmed from the transcripts. Claude Code's docs give this variable as the way to disable the advisor.
+  - **Adopted by me, 20 Nov 2026:** every formal run's launch line sets it, with `ENABLE_CLAUDEAI_MCP_SERVERS=false` and `CLAUDE_CODE_DISABLE_WORKFLOWS=1`, and every formal run starts in a fresh session. The pre-run checklist confirms it on one run, and the call scan stays as a backstop. Recorded in [research-plan.md](research-plan.md).
+- **Sources:** my account of the dry runs, and the seed folder's counts-only report.
 
 ### Cross-family judges and appealers: measuring self-preference (~~next test round,~~ planned; not next, amended 19 Nov 2026)
 
