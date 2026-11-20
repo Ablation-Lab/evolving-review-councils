@@ -6,17 +6,26 @@
 #      clustering of dismissals by seed, so it is optimistic when one seed is dismissed in several runs.
 #   B. the false-ones guard: extras per catch with the appeal, over extras per catch from the judge alone, must have
 #      a one-sided upper confidence bound under 1.20. Simulated over judged runs, with a seed-cluster bootstrap.
-# Run: python h8.py
+# Run: python h8.py [D ...] [--recovery-only]
+#   D: one or more counts of wrongful dismissals for part A (default 5 10 15 20 30), for example the size
+#   reached if H8's fallback hits its 150-run cap. --recovery-only skips part B, the slow simulation.
+import sys
 import numpy as np
 from scipy import stats
+ARGS = [a for a in sys.argv[1:] if a != '--recovery-only']
+DS = [int(a) for a in ARGS] if ARGS else [5, 10, 15, 20, 30]
+RECOVERY_ONLY = '--recovery-only' in sys.argv[1:]
 
 print("A. Recovery rate, exact one-sided binomial test of R <= 0.5")
 print("alpha | wrongful dismissals D | power at true R = 0.7 / 0.8 / 0.9")
 for alpha in (0.05, 0.05 / 3):
-    for D in (5, 10, 15, 20, 30):
+    for D in DS:
         k = next(k for k in range(D + 2) if stats.binom.sf(k - 1, D, 0.5) <= alpha)   # smallest k with P(X >= k | 0.5) <= alpha
         pw = [stats.binom.sf(k - 1, D, r) for r in (0.7, 0.8, 0.9)]
         print(f"{alpha:.4f} | {D:>2} | " + " / ".join(f"{p:.2f}" for p in pw) + f"   (reject if at least {k} of {D})")
+
+if RECOVERY_ONLY:
+    sys.exit(0)
 
 print()
 print("B. False-ones guard: power that the upper bound of (extras per catch, appeal / judge) stays under 1.20")

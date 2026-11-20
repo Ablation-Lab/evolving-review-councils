@@ -10,7 +10,7 @@ These are the scripts behind the power figures in [research-plan.md](../research
 | `omnibus.py` | The power of H9's omnibus test at 105 seeds and 3 repeats: a mixed-effects logistic regression with five role sets as a fixed effect and seed as a random effect (SD 1 on the logit scale), fitted by maximum likelihood with 20-point Gauss–Hermite quadrature and tested by likelihood ratio on 4 degrees of freedom. | the omnibus power table under G12 |
 | `h10.py` | The first H10 check: 15 pre-cutoff against 15 post-cutoff seeds, one council, 3 repeats, by the same kind of mixed-effects likelihood-ratio test on 1 degree of freedom. | H10's Power note (section 10) |
 | `h10b.py` | The same test as `h10.py`, with the seeds a side and the repeats as arguments, for the four options in H10's size decision. | H10's size decision (section 10) |
-| `h8.py` | For the draft of H8's test: exact one-sided binomial power for the appeal's recovery rate against 0.5, and simulated power for the false-ones guard as a non-inferiority bound, using a seed-cluster bootstrap. Its rates are assumptions, stated in the script. | H8's pending slot (section 7) |
+| `h8.py` | For the draft of H8's test: exact one-sided binomial power for the appeal's recovery rate against 0.5, and simulated power for the false-ones guard as a non-inferiority bound, using a seed-cluster bootstrap. Its rates are assumptions, stated in the script. The counts of wrongful dismissals are optional arguments, for example `python h8.py 17 --recovery-only` for the recovery-rate power at 17 alone. | H8's pending slot (section 7) |
 
 ## Results as run
 
@@ -43,7 +43,7 @@ python h10b.py 25 3
 python h8.py
 ```
 
-- **Arguments:** `omnibus.py` takes the number of simulations per row. `h10b.py` takes the seeds a side and the repeats.
+- **Arguments:** `omnibus.py` takes the number of simulations per row. `h10b.py` takes the seeds a side and the repeats. `h8.py` takes any counts of wrongful dismissals (default 5, 10, 15, 20 and 30), and `--recovery-only` skips its guard simulation.
 - **Random seeds:** each script fixes its own, so a re-run gives the same figures on the same versions.
 - **Timing:** each row takes from a few seconds to about a minute.
 - **H10 at a smaller size:** if the post-cutoff supply comes in short, the shortfall rule calls for H10's power at the actual size. Run `h10b.py` with that size, for example `python h10b.py 20 3`.
