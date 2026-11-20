@@ -1330,6 +1330,13 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
 - **Why it matters:** the repo's rule, to stage only your own changes and check HEAD before committing, held under a real race. The cost was a duplicate, flagged for me rather than resolved by either session on its own. Compare "Two writers on one private file" (11 Nov), where a stale copy from my own editor overwrote a shared file, and only the next edit's re-read caught it.
 - **Sources:** the commit times are from git. The staging and the flag are from the paper session's review report (`paper-review-2026-11-19.md` in the paper repo).
 
+**Another seed-wall slip, caused by the prompt (field note, 20 Nov 2026):** my prompt asked this notes session to record decisions from the seed pilot's counts-only supply report, and named the report but not its location. To find it, the session listed the seed folder's `reports\` folder for "supply", then read that one report, `seed-supply-2026-11-20.md`.
+- **What was read:** only the folder's file names matching "supply", and the one counts-only report. Nothing outside `reports\`.
+- **Why it counts as a slip:** this repo's instruction file allows reading in the seed folder only when a prompt names a specific seed-free report there. Listing the folder to find one goes beyond that, like the 18 Nov search above.
+- **The cause:** the prompt, which left the session to find the report itself.
+- **The fix (decided 20 Nov 2026):** counts-only reports now come through a hand-off folder, and this session never lists, searches or reads the seed folder. See "Who is seed-aware" in [research-plan.md](research-plan.md).
+- **Sources:** the session's own report of 20 Nov, and my account of the prompt.
+
 ### Cross-family judges and appealers: measuring self-preference (~~next test round,~~ planned; not next, amended 19 Nov 2026)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.

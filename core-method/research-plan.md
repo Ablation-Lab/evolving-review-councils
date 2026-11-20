@@ -206,6 +206,12 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
   - **The notes session** is listed there as seed-aware, but has been treated as seed-free since 16 Nov (the amendment on the same line).
 - **Seed-free:** the seat-roles session and every session that runs a council. They never see the seeds folder, the keys or the candidate list ([plan L849](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L849)).
 - **Chat replies:** the seed-free rule covers seed-aware sessions' chat replies as well as their reports ([plan L938](https://github.com/Ablation-Lab/evolving-review-councils/blob/87eb410/core-method/experiment-plan.md?plain=1#L938)).
+- **The hand-off folder (decision: adopted by the researcher, 20 Nov 2026):**
+  - from 20 Nov 2026, counts-only reports from the seed-aware side are written to a hand-off folder, `erc-handoff`, beside the seed folder in my projects folder, and the notes session reads them only from there;
+  - it never lists, searches or reads the seed folder;
+  - if a prompt points it at a seed-side report without a hand-off path, it asks me instead of looking for it.
+  - **Why:** two seed-wall slips, on 18 and 20 Nov, came from searching or listing the seed folder to find something (the notebook's rule-slips notes).
+  - *(Claude Code's note: the folder doesn't exist yet, as of 20 Nov.)*
 
 ## 5. Procedure and run rules
 
@@ -476,6 +482,7 @@ The sources state these as hypotheses or ideas to test. ~~None is marked confirm
 | 20 Nov | The held-out set prefers post-cutoff fixes, where they exist | section 7 (G12) | — |
 | 20 Nov | Area entangled with source and difficulty; per-area results reported with their source | section 10 | — |
 | 20 Nov | Performance fallback: SZZ in the cloned projects, then record any shortfall | section 4.2 (C2) | — |
+| 20 Nov | Counts-only reports come through `erc-handoff`; the notes session never lists, searches or reads the seed folder, and asks if no hand-off path is given | section 4.5 | finding seed-side reports by looking in the seed folder |
 
 **Deviations and post-hoc exceptions:**
 - **Decision (g) changed the brief's order** (adopted by the researcher, 19 Nov 2026, outside review 10's C7): brief (g) said to mark the packs before deciding (a). (a) was decided first, and the packs come before (a)'s difficulty check instead. It's logged here as a deviation, and the notebook's line that each decision "follows the brief's suggestion" is amended.
