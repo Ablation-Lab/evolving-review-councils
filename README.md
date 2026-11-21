@@ -15,7 +15,7 @@ It started when I asked Claude to spawn a council of separate reviewer agents in
   - **H8:** the appeal recovers real bugs the judge wrongly dismissed, without adding many false findings.
   - **H9:** role sets, meaning different ways of dividing the review areas among the seats, differ in catch rate at equal cost.
   - **H11:** on the held-out bugs, the evolved council catches more than the council it started from, at about the same cost per review.
-- **One exploratory hypothesis, H10:** whether catch rates differ between security bugs fixed before and after the reviewing model's training cutoff, as a check on memorised fixes.
+- **One exploratory hypothesis, H10:** whether catch rates differ between security bugs fixed before and after the reviewing model's training cutoff, as a check on memory of the fix or the CVE.
 - **The core comparison:** five role sets on 105 real bugs (15 in each of seven review areas), 3 repeats each. A fresh set of 105 is held out for the final comparison. Scoring is by a judge model from outside the Claude family.
 
 ## What's been run so far
