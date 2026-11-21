@@ -1,36 +1,47 @@
 # Evolving Review Councils
 
-An experiment plan: AI reviewer councils that evolve over generations, to find how many reviewers each kind of task is worth.
+Does a council of AI reviewer agents catch more real problems in code than one reviewer at the same cost, and can a council evolve to get better? This repo holds the research plan, the notebook it grew from and the outside reviews of it, published as the work happens.
 
-When an AI agent reviews code, it usually works alone. This project asks whether a council of reviewers catches more problems than one reviewer at the same cost, and whether councils can improve over generations. Here the council evolves. Each generation tries to improve on the best version so far, and a change is kept only if it beats a fixed set of hard tests. Held-out tests the agents never see catch gaming. Repeating the runs at different council sizes and on tasks of different complexity shows where one more reviewer stops paying for itself.
+When an AI agent reviews code, it usually works alone. This project tests councils of reviewers against single reviewers and against each other, at equal cost, on real bugs from public pull requests and security fixes. A council here is several Claude subagents with different roles, a judge that rules on their findings and an appeal that re-checks what the judge dismissed. Then the best council evolves: a change is kept only if it beats the version before it, and the result is scored on held-out bugs the search never saw.
 
-It started when I asked Claude to spawn a council of separate reviewer agents instead of reviewing alone, which isn't something it does by default. Those councils kept catching problems the builder had missed, which raised the question: is a council actually worth it, or would one reviewer do as well for the same cost?
+It started when I asked Claude to spawn a council of separate reviewer agents instead of reviewing alone. Those councils kept catching problems the builder had missed, which raised the question: is a council actually worth it, or would one reviewer do as well for the same cost?
 
-<!-- Teaser video goes here. -->
+> **Teaser video:** coming soon. The explainer video's source is in [council-video](https://github.com/Ablation-Lab/council-video).
 
-> **Teaser video:** coming soon.
+## Where it stands (20 Nov 2026)
 
-The explainer video's Remotion source, script and narration are in [ablation-lab/council-video](https://github.com/ablation-lab/council-video).
+- **The research plan is built,** and its main design decisions are made. A few smaller decisions and checks remain before it's locked.
+- **Three confirmatory hypotheses:**
+  - **H8:** the appeal recovers real bugs the judge wrongly dismissed, without adding many false findings.
+  - **H9:** role sets, meaning different ways of dividing the review areas among the seats, differ in catch rate at equal cost.
+  - **H11:** on the held-out bugs, the evolved council catches more than the council it started from, at about the same cost per review.
+- **One exploratory hypothesis, H10:** whether catch rates differ between security bugs fixed before and after the reviewing model's training cutoff, as a check on memorised fixes.
+- **The core comparison:** five role sets on 105 real bugs (15 in each of seven review areas), 3 repeats each. A fresh set of 105 is held out for the final comparison. Scoring is by a judge model from outside the Claude family.
 
-## Core method
+## What's been run so far
 
-- [Research plan](core-method/research-plan.md): the plan itself, in order: status, aims, hypotheses, design, run rules, measures, analysis, results so far, decisions, threats, related work, open questions and publishing. Undecided points are marked "Decision pending".
+All pilots, reported as exploratory:
+- **An informal pilot on one app:** fresh reviewers found 97 problems the builders' own tests had passed.
+- **Early council runs and an appeal stress test:** in 72 direct appeal trials, the appeal caught 161 of 162 wrongful dismissals.
+- **Two difficulty checks, of 10 bugs each:** councils caught all 10 both times, so the material was too easy. The next check uses harder material.
+- **Smaller checks:** run-isolation and messaging checks, and a small comparison with a cloud review tool (3 runs, one on each of 3 pilot bugs).
+- **Dry runs on made-up material (20 Nov):** these confirmed the run set-up. They also found two routes into the agents that hadn't been recorded, which the set-up now closes.
+
+## What's next
+
+Hand-checking three packs of pilot findings, then a difficulty check on harder material. After a few remaining checks and decisions, the plan is locked, dated and published, and the formal runs start.
+
+## Read more
+
+- [Research plan](core-method/research-plan.md): the plan itself, covering the hypotheses, design, run rules, measures, analysis, decisions and threats.
+- [Notebook](core-method/experiment-plan.md): the working record the plan was built from, with every run and field note.
 - [Outside reviews](core-method/outside-reviews.md): every outside review of the work, with each suggestion's decision.
-- [Prior work](core-method/prior-work-research.md): the literature on how much of this has been done before, and how new each part is.
-- [Decision briefs, 17 Nov 2026](core-method/decisions-pending-2026-11-17.md): seven briefs, all decided on 19 Nov 2026.
-- [Experiment plan](core-method/experiment-plan.md): the full plan. It covers how "improved" is measured, evolution and stopping rules, keeping tests unbiased, cheating and collusion checks, failure modes, hard limits, the test plan and the final report.
-- [How the agents built and reviewed WinScope](core-method/winscope-pilot.md): the informal pilot. Fresh reviewers found 97 problems the builders' own tests had passed, across 11 rounds; the 10 subagent rounds used about 3.7M tokens.
-- [Council size by task complexity](core-method/council-size-by-task-complexity.md): whether the best number of reviewers grows with how hard the task is.
+- [Power simulations](core-method/power/): the scripts behind the plan's power figures, and their results.
+- [Prior work](core-method/prior-work-research.md): how much of this has been done before.
+- Also: [the WinScope pilot](core-method/winscope-pilot.md), [council size by task complexity](core-method/council-size-by-task-complexity.md), [spin-offs](spin-offs/) and [supporting material](supporting-material/).
 
-## Spin-offs
+The runs use [Council Dial Lite](https://github.com/Ablation-Lab/council-dial-lite).
 
-- [Side experiments](spin-offs/side-experiments.md): a knockout tournament against a varied team, and a Split or Steal final between the two finalists.
-- [Accent and dialect understanding](spin-offs/accent-and-dialect-understanding.md): the same method applied to how well AI understands accented speech, such as Welsh English.
+---
 
-## Supporting material
-
-- [Supporting material](supporting-material/): related research and citations. The explainer video source is in [ablation-lab/council-video](https://github.com/ablation-lab/council-video).
-
-## Status
-
-Planning stage. The pilot is done. The formal experiment, the council calculator, the write-up and the raw run logs will be added here as they're produced.
+Research by George, Ablation Lab.
