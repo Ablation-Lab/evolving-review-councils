@@ -1381,6 +1381,11 @@ On 12 Nov 2026 an independent pass building the paper draft checked this doc's n
   - **Adopted by me, 20 Nov 2026:** every formal run's launch line sets it, with `ENABLE_CLAUDEAI_MCP_SERVERS=false` and `CLAUDE_CODE_DISABLE_WORKFLOWS=1`, and every formal run starts in a fresh session. The pre-run checklist confirms it on one run, and the call scan stays as a backstop. Recorded in [research-plan.md](research-plan.md).
 - **Sources:** my account of the dry runs, and the seed folder's counts-only report.
 
+**Two routes to one docs page gave different "verbatim" wording (field note, 21 Nov 2026):** the sentence was the feature-flag line in the Requirements section of Claude Code's advisor page.
+- **What happened:** the chat assistant's fetch tool passes pages through a model. It returned a reworded line that looked verbatim: "Claude Code turns the advisor on through a feature flag it fetches from Anthropic". This session's raw HTTP reads of the page's markdown and HTML versions agreed with each other, giving "the advisor needs a feature flag fetched from Anthropic", and that settled it. This session's own fetch tool, also model-based, had given the page's wording this time.
+- **The lesson:** quotes that reach the research through an AI fetch tool are checked against the raw page before they're cited as verbatim. Adopted by me on 21 Nov 2026, and recorded in the opening notes of [research-plan.md](research-plan.md).
+- **Sources:** this session's raw reads of 21 Nov, and my account of the chat assistant's fetch.
+
 ### Cross-family judges and appealers: measuring self-preference (~~next test round,~~ planned; not next, amended 19 Nov 2026)
 
 - **Origin:** the appeal step was prompted by run `20261107-f675`'s judge dismissing planted bug #7. Command gating came later, prompted by the Reddit `rm -rf` incident.
